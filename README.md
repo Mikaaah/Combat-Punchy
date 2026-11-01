@@ -8,7 +8,7 @@ Combat Punchy brings **Epic Fight**, **Punchy** and **Punchy! Moves** together, 
 
 **Minecraft 1.21.1 · NeoForge · Client-side · Version 1.0**
 
-[Downloads](https://github.com/Mikaaah/Combat-Punchy/releases) · [Report a bug](https://github.com/Mikaaah/Combat-Punchy/issues) · [Changelog](CHANGELOG.md)
+[Wiki](https://github.com/Mikaaah/Combat-Punchy/wiki) · [Releases](https://github.com/Mikaaah/Combat-Punchy/releases) · [Report a bug](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) · [Changelog](CHANGELOG.md)
 
 ## Automatic combat mode
 
@@ -42,4 +42,10 @@ Also includes a master switch, an adjustable combat timeout, a first-person tran
 
 ## Known issue
 
-Punchy! Moves face features can render incorrectly during Epic Fight combat.
+Punchy! Moves face features can render incorrectly during Epic Fight combat. [Track the known issue](https://github.com/Mikaaah/Combat-Punchy/issues/1).
+
+## Guides & support
+
+[Automatic combat](https://github.com/Mikaaah/Combat-Punchy/wiki/Automatic-Combat) · [Weapon support](https://github.com/Mikaaah/Combat-Punchy/wiki/Weapon-Support) · [Configuration](https://github.com/Mikaaah/Combat-Punchy/wiki/Configuration) · [Compatibility](https://github.com/Mikaaah/Combat-Punchy/wiki/Compatibility) · [Known issues](https://github.com/Mikaaah/Combat-Punchy/wiki/Known-Issues)
+
+Use the [bug report](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) or [suggestion](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=feature_request.yml) form for this mod. See [support guidance](SUPPORT.md) for the details that help identify an issue.

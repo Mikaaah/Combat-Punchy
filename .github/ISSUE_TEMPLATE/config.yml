@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Combat Punchy wiki
+    url: https://github.com/Mikaaah/Combat-Punchy/wiki
+    about: Read the feature guides, compatibility notes and configuration reference.
+  - name: Known Moves facial-rendering issue
+    url: https://github.com/Mikaaah/Combat-Punchy/issues/1
+    about: Add matching reports to the existing tracker.

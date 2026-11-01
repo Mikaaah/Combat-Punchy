@@ -1,0 +1,21 @@
+name: Suggestion
+description: Suggest an improvement to Combat Punchy.
+title: "[Suggestion]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Describe the suggested behavior
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Related mods or alternatives
+      description: Include links and explain how the change fits Combat Punchy's combat and animation compatibility.
