@@ -1,3 +1,5 @@
+![Combat Punchy — Epic Fight × Punchy × Punchy! Moves](docs/branding/banner.png)
+
 # Combat Punchy
 
 A client addon for **Minecraft 1.21.1 / NeoForge** that combines attack-triggered Epic Fight mode switching with Punchy first-person and Punchy! Moves third-person animation/camera handoffs.
