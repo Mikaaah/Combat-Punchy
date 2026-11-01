@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "nl.tnk.combatpunchy.mixin",
+  "plugin": "nl.tnk.combatpunchy.mixin.CombatPunchyMixinPlugin",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "ControlEngineMixin", "CombatAttackKeyMixin", "EpicFirstPersonMixin", "EpicVanillaModelMixin",
+    "PunchyLegacyConfigMixin", "moves.MovesAnimationMixin", "moves.MovesCameraMixin",
+    "moves.MovesTargetingMixin", "moves.MovesBodyRotationMixin"
+  ],
+  "injectors": {"defaultRequire": 1}
+}

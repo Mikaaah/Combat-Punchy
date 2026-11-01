@@ -1,0 +1,32 @@
+#Master switch for all Combat Punchy automatic mode changes and compatibility handoffs.
+enabled = true
+#Enter combat when attacking with an eligible Epic Fight melee weapon.
+auto_enter_combat = true
+#Return to vanilla when selecting a tool, non-melee item or empty hand.
+auto_exit_on_item_switch = true
+#Start each world/player session in vanilla, even if the server starts you in combat.
+start_in_vanilla_mode = true
+#Return to vanilla after combat inactivity; uses combat_timeout_seconds.
+auto_exit_on_timeout = true
+#Also enter combat when pressing attack while looking at a block.
+#False keeps normal block mining/chopping in vanilla until you attack an entity or swing into air.
+enter_while_targeting_block = false
+#Let Punchy render normal first-person actions; Epic Fight renders combat poses.
+punchy_first_person_bridge = true
+#Let Moves yield body animation, targeting and camera control to Epic Fight.
+moves_third_person_bridge = true
+#Suspend Moves camera, orbit and targeting while Epic Fight owns the player model.
+#Requires moves_third_person_bridge. Disable to keep Moves camera control during combat.
+moves_camera_bridge = true
+#Preserve Epic Fight's sheathed-katana and Ochs guard poses in first person.
+preserve_native_stances = true
+#Hold Epic Fight's first-person renderer briefly after an action to avoid flicker.
+# Default: 2
+# Range: 0 ~ 5
+first_person_release_ticks = 2
+#Return to vanilla after this many seconds without combat activity. Zero disables the timeout.
+#Attacks, active combat animations/skills, guarding and receiving hits refresh the timer.
+#Uses player ticks; pausing does not consume the timer.
+# Default: 7
+# Range: 0 ~ 300
+combat_timeout_seconds = 7

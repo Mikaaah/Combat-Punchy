@@ -1,0 +1,10 @@
+.gradle/
+build/
+run/
+.idea/
+*.iml
+
+# Local verification outputs and editor state
+*.log
+.vscode/
+.DS_Store

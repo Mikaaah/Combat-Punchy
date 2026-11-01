@@ -1,0 +1,65 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.148'
+}
+
+group = 'nl.tnk'
+version = '1.0'
+base.archivesName = 'combat-punchy'
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+repositories {
+    maven {
+        url = 'https://www.cursemaven.com'
+        content { includeGroup 'curse.maven' }
+    }
+    maven {
+        url = 'https://api.modrinth.com/maven'
+        content { includeGroup 'maven.modrinth' }
+    }
+}
+
+neoForge {
+    version = '21.1.262'
+    runs {
+        client { client() }
+    }
+    mods {
+        combatpunchy { sourceSet sourceSets.main }
+    }
+}
+
+dependencies {
+    implementation 'curse.maven:epic-fight-mod-405076:8175609'
+    compileOnly 'maven.modrinth:mzgtK8pY:NanubWnt'
+    compileOnly 'io.github.llamalad7:mixinextras-neoforge:0.5.5'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs += ['-proc:none']
+}
+
+tasks.register('verifyTransitions', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'nl.tnk.combatpunchy.ModeSessionTest'
+}
+
+tasks.named('check') { dependsOn verifyTransitions }
+
+tasks.register('verifyHandHandoff', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'nl.tnk.combatpunchy.FirstPersonHandoffTest'
+}
+
+tasks.named('check') { dependsOn verifyHandHandoff }
+
+tasks.register('verifyCombatTimeout', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'nl.tnk.combatpunchy.CombatIdleTimeoutTest'
+}
+
+tasks.named('check') { dependsOn verifyCombatTimeout }

@@ -1,0 +1,73 @@
+modLoader="javafml"
+loaderVersion="[4,)"
+license="MIT"
+
+[[mods]]
+modId="combatpunchy"
+version="1.0"
+displayName="Combat Punchy"
+authors="Mika van Eijken / TNK"
+description='''Attack-triggered Epic Fight combat with standalone Punchy first-person and Punchy Moves body/camera handoffs. No Epic Tweaks or Epic Punchy required.'''
+displayTest="IGNORE_ALL_VERSION"
+
+[[dependencies.combatpunchy]]
+modId="tnkcombatmode"
+type="incompatible"
+reason="Combat Punchy replaces TNK Combat Mode. Remove the earlier TNK Combat Mode JAR when upgrading."
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.combatpunchy]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1]"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.combatpunchy]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.262,21.2)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.combatpunchy]]
+modId="epicfight"
+type="required"
+versionRange="[21.17.3.1]"
+ordering="AFTER"
+side="CLIENT"
+
+[[mixins]]
+config="combatpunchy.mixins.json"
+
+[[dependencies.combatpunchy]]
+modId="punchy"
+type="optional"
+versionRange="[2.8g,3.2)"
+ordering="AFTER"
+side="CLIENT"
+
+[[dependencies.combatpunchy]]
+modId="punchy_moves"
+type="optional"
+versionRange="[1.0.3]"
+ordering="AFTER"
+side="CLIENT"
+
+[[dependencies.combatpunchy]]
+modId="epictweaks"
+type="incompatible"
+reason="Combat Punchy replaces Epic Tweaks for this setup. Remove Epic Tweaks."
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"
+
+[[dependencies.combatpunchy]]
+modId="efpunchycompat"
+type="incompatible"
+reason="Combat Punchy includes its own Punchy bridge. Remove Epic Punchy."
+versionRange="[0,)"
+ordering="NONE"
+side="CLIENT"

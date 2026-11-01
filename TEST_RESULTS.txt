@@ -1,0 +1,97 @@
+Combat Punchy 1.0 — Feature Configuration Verification
+Date: 2026-11-01
+
+UNIT / SESSION CHECKS
+PASS: 30 mode transition checks
+PASS: 14 first-person handoff checks
+PASS: 20 combat timeout checks
+
+ISOLATED RUNNING CLIENT
+Minecraft 1.21.1; Java 21; NeoForge 21.1.262
+Epic Fight 21.17.3.1; WOM 2.0.178; Punchy 3.1; Punchy Moves 1.0.3
+Earlier TNK Combat Mode, Epic Tweaks and Epic Punchy absent
+Default timeout verified: 7 seconds; configured interval during deadline regression: 2 seconds
+
+PASS: loader display name is Combat Punchy
+PASS: loader version is 1.0
+PASS: sword classified
+PASS: utility excluded: minecraft:diamond_pickaxe
+PASS: utility excluded: minecraft:diamond_shovel
+PASS: utility excluded: minecraft:diamond_hoe
+PASS: utility excluded: minecraft:fishing_rod
+PASS: utility excluded: minecraft:bow
+PASS: utility excluded: minecraft:shield
+PASS: utility excluded: minecraft:stone
+PASS: WOM weapon classified: agony
+PASS: WOM weapon classified: antitheus
+PASS: WOM weapon classified: satsujin
+PASS: WOM weapon classified: moonless
+PASS: WOM weapon classified: iron_staff
+PASS: WOM weapon classified: jabberwocky
+PASS: equipping stays vanilla
+PASS: Moves camera active outside combat
+PASS: Moves orbit works outside combat
+PASS: first physical attack click enters combat
+PASS: Moves yields through native handoff
+PASS: Moves camera yields in combat
+PASS: orbit yields in combat
+PASS: saved Moves camera preference preserved
+PASS: Moves hotkeys cannot steal the combat perspective
+PASS: Moves camera handoff can be disabled
+PASS: disabling Moves camera keeps its body handoff
+PASS: Moves camera remains usable with its bridge disabled
+PASS: re-enabled Moves camera handoff yields again
+PASS: Moves body bridge can be disabled
+PASS: Moves master bridge also disables its camera handoff
+PASS: Punchy bridge can be disabled independently
+PASS: disabling Punchy keeps Moves body handoff
+PASS: native combat pose received first-person ownership
+PASS: Punchy API suppressed its hands during the native pose
+PASS: idle combat releases native first-person hands
+PASS: Punchy resumes between attacks while still in combat
+PASS: blocking reacquires native first-person hands
+PASS: Punchy yields during blocking
+PASS: fishing rod exits combat
+PASS: hands release immediately for utilities
+PASS: Punchy enabled again without Epic Tweaks
+PASS: Moves body restored
+PASS: Moves camera restored
+PASS: orbit cannot resume with a stale look
+PASS: WOM re-equip stays vanilla
+PASS: WOM first attack enters combat
+PASS: pickaxe exits WOM combat
+PASS: second sword equip stays vanilla
+PASS: weapon-tool-weapon loop re-enters correctly
+PASS: empty hand exits combat
+PASS: default combat timeout is seven seconds
+PASS: timeout does not exit early
+PASS: another attack refreshes the timeout
+PASS: idle timeout exits while the weapon remains selected
+PASS: Punchy resumes after timer expiry
+PASS: Moves body resumes after timer expiry
+PASS: Moves camera resumes after timer expiry
+PASS: first attack after timeout re-enters combat
+PASS: holding guard prevents timeout beyond its deadline
+PASS: timer expires after guard is released
+PASS: combat can be re-entered after a second timeout
+PASS: item switching still exits after timeout cycles
+PASS: disabled auto-entry leaves weapon attack in vanilla
+PASS: disabled auto-entry closes the combat key gate
+PASS: re-enabled auto-entry works on the next attack
+PASS: disabled item exit leaves manual combat active for a utility
+PASS: re-enabled item exit immediately restores utility mode
+PASS: disabled timeout keeps combat past the configured deadline
+PASS: re-enabled timeout starts a fresh countdown
+PASS: re-enabled timeout eventually returns to vanilla
+PASS: master switch disables automatic mode changes
+PASS: master switch disables Punchy bridge
+PASS: master switch disables Moves bridge
+TNK_STANDALONE_SMOKE_PASS
+
+OPTIONAL-DEPENDENCY STARTUP MATRIX — Combat Punchy 1.0
+PASS: epic_only: punchy=false api=false moves=false
+PASS: punchy_only: punchy=true api=true moves=false
+PASS: moves_only: punchy=false api=false moves=true
+PASS: legacy_punchy: punchy=true api=false moves=true
+
+The test uses an isolated integrated server, synthetic attack/guard key input through Epic Fight's native handler, and a deterministic air target. It is not a full TNK3/manual/remote-server test. Optional matrix runs exercise startup and transformed class loading, not full gameplay.
