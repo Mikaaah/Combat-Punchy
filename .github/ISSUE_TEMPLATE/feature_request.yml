@@ -1,6 +1,7 @@
 name: Suggestion
 description: Suggest an improvement to Combat Punchy.
 title: "[Suggestion]: "
+labels: ["enhancement"]
 body:
   - type: textarea
     id: problem

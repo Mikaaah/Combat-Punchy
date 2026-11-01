@@ -1,6 +1,7 @@
 name: Question
 description: Ask about Combat Punchy's behavior or configuration.
 title: "[Question]: "
+labels: ["question"]
 body:
   - type: input
     id: version
