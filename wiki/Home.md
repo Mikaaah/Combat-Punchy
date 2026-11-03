@@ -4,7 +4,7 @@
 
 **Epic Fight combat. Punchy movement. Automatic switching.**
 
-Combat Punchy connects Epic Fight combat with Punchy first-person animations and Punchy! Moves body/camera behavior. Its automatic switching enters combat when you attack with a supported melee weapon and returns to normal movement when you switch items or stop fighting.
+Combat Punchy connects Epic Fight combat with Punchy first-person animations and Punchy! Moves body/camera behavior. Its automatic switching enters combat when you attack with a supported melee weapon or receive a hit, and returns to normal movement when you switch items or stop fighting.
 
 **Minecraft 1.21.1 · NeoForge · Client-side · Version 1.1**
 
@@ -12,7 +12,7 @@ Combat Punchy connects Epic Fight combat with Punchy first-person animations and
 
 | Guide | What it covers |
 | --- | --- |
-| [Automatic combat](Automatic-Combat.md) | Attack-triggered entry, item switching and the 7-second inactivity timer |
+| [Automatic combat](Automatic-Combat.md) | Attack- and hit-triggered entry, item switching and the 7-second inactivity timer |
 | [Animation compatibility](Animation-Compatibility.md) | First-person hands, third-person movement, cameras and native stances |
 | [Weapon support](Weapon-Support.md) | Epic Fight capabilities, WOM weapons and excluded tools |
 | [Configuration](Configuration.md) | Every setting, default and supported range |

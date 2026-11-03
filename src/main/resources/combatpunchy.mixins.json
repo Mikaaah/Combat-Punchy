@@ -5,7 +5,7 @@
   "plugin": "nl.tnk.combatpunchy.mixin.CombatPunchyMixinPlugin",
   "compatibilityLevel": "JAVA_21",
   "client": [
-    "ControlEngineMixin", "CombatAttackKeyMixin", "EpicFirstPersonMixin", "EpicVanillaModelMixin",
+    "ControlEngineMixin", "CombatAttackKeyMixin", "IncomingHitMixin", "EpicFirstPersonMixin", "EpicVanillaModelMixin",
     "PunchyLegacyConfigMixin", "moves.MovesAnimationMixin", "moves.MovesCameraMixin",
     "moves.MovesTargetingMixin", "moves.MovesBodyRotationMixin"
   ],

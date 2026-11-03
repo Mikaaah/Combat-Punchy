@@ -8,6 +8,7 @@ Settings are stored in `config/combatpunchy-client.toml`. They are client prefer
 | --- | --- | --- |
 | `enabled` | `true` | Master switch for automatic mode changes and compatibility handoffs |
 | `auto_enter_combat` | `true` | Attack with an eligible melee weapon to enter combat |
+| `auto_enter_on_hit` | `true` | Enter when another entity hits you, including projectiles and while holding non-weapons |
 | `auto_exit_on_item_switch` | `true` | Return to vanilla when selecting a non-melee item or empty hand |
 | `start_in_vanilla_mode` | `true` | Start each world/player session in vanilla mode |
 | `auto_exit_on_timeout` | `true` | Return to vanilla after the configured inactivity interval |

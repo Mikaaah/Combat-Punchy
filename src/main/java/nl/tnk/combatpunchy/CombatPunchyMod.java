@@ -17,6 +17,7 @@ public final class CombatPunchyMod {
     public static final ModConfigSpec SPEC;
     public static final ModConfigSpec.BooleanValue ENABLED;
     public static final ModConfigSpec.BooleanValue AUTO_ENTER_COMBAT;
+    public static final ModConfigSpec.BooleanValue AUTO_ENTER_ON_HIT;
     public static final ModConfigSpec.BooleanValue AUTO_EXIT_ON_ITEM_SWITCH;
     public static final ModConfigSpec.BooleanValue START_IN_VANILLA_MODE;
     public static final ModConfigSpec.BooleanValue AUTO_EXIT_ON_TIMEOUT;
@@ -35,6 +36,11 @@ public final class CombatPunchyMod {
                 .define("enabled", true);
         AUTO_ENTER_COMBAT = builder.comment("Enter combat when attacking with an eligible Epic Fight melee weapon.")
                 .define("auto_enter_combat", true);
+        AUTO_ENTER_ON_HIT = builder.comment(
+                "Enter combat when the server reports a hit from another entity, including projectiles.",
+                "Works with tools and empty hands; ignores self-attributed hits and damage without a source entity, such as falling or fire.",
+                "The server has already processed the triggering hit, so its damage is not changed retroactively.")
+                .define("auto_enter_on_hit", true);
         AUTO_EXIT_ON_ITEM_SWITCH = builder.comment("Return to vanilla when selecting a tool, non-melee item or empty hand.")
                 .define("auto_exit_on_item_switch", true);
         START_IN_VANILLA_MODE = builder.comment("Start each world/player session in vanilla, even if the server starts you in combat.")

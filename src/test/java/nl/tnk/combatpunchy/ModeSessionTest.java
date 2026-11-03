@@ -46,6 +46,61 @@ public final class ModeSessionTest {
         check(session.update(false, true, true, false, true, ModeSession.Features.DEFAULT), NONE, "master switch overrides individual features");
         check(session.update(true, false, true, false, true, ModeSession.Features.DEFAULT), NONE, "server restriction overrides individual features");
         check(session.update(true, true, true, false, true, ModeSession.Features.DEFAULT), ENTER_COMBAT, "restored features work after a restriction");
+
+        session.reset();
+        var hitDefaults = ModeSession.Features.DEFAULT;
+        check(session.update(true, true, false, false, false, true, false, hitDefaults), ENTER_COMBAT,
+                "an incoming hit enters combat with a tool or empty hand");
+        check(session.update(true, true, false, true, false, false, false, hitDefaults), NONE,
+                "holding the same non-weapon cannot immediately cancel hit entry");
+        check(session.update(true, true, false, true, false, true, false, hitDefaults), NONE,
+                "repeat hits retain combat without resending mode changes");
+        check(session.update(true, true, false, true, false, false, true, hitDefaults), ENTER_VANILLA,
+                "selecting another non-weapon still exits combat");
+        check(session.update(true, true, false, false, false, false, false, hitDefaults), NONE,
+                "a completed combat session cannot re-enter without another hit");
+        check(session.update(true, true, true, false, false, true, false, hitDefaults), ENTER_COMBAT,
+                "hits also enter while a weapon is equipped");
+        check(session.update(true, true, false, true, false, false, true, hitDefaults), ENTER_VANILLA,
+                "weapon-to-tool switching retains the original exit behavior");
+        session.reset();
+        check(session.update(true, true, false, true, false, true, true, hitDefaults), NONE,
+                "a first-session hit wins over startup and item-exit rules");
+        check(session.update(true, true, false, true, false, false, false, hitDefaults), NONE,
+                "a startup hit remains active with the original held item");
+        check(session.update(true, true, false, false, false, false, false, hitDefaults), NONE,
+                "manual exit or timeout releases hit-triggered protection");
+        check(session.update(true, true, false, true, false, false, false, hitDefaults), ENTER_VANILLA,
+                "later manual combat cannot inherit protection from an earlier hit session");
+        var noHitEntry = new ModeSession.Features(true, true, true, false);
+        session.reset();
+        check(session.update(true, true, true, false, false, true, false, noHitEntry), NONE,
+                "hit activation can be disabled independently");
+        check(session.update(true, true, true, false, true, false, false, noHitEntry), ENTER_COMBAT,
+                "disabling hit activation preserves attack activation");
+        var hitOnly = new ModeSession.Features(false, true, true, true);
+        session.reset();
+        check(session.update(true, true, false, false, false, true, false, hitOnly), ENTER_COMBAT,
+                "disabling attack entry preserves hit activation");
+        check(session.update(false, true, false, false, false, true, false, hitDefaults), NONE,
+                "the master switch overrides incoming hits");
+        check(session.update(true, false, false, false, false, true, false, hitDefaults), NONE,
+                "server mode restrictions override incoming hits");
+        check(session.update(true, true, false, true, false, false, false, hitDefaults), ENTER_VANILLA,
+                "disabled or restricted sessions discard their hit state");
+        session.reset();
+        check(session.update(true, true, false, false, false, true, false, hitDefaults), ENTER_COMBAT,
+                "a fresh hit can re-enter after a restriction");
+        check(session.update(true, true, false, true, false, false, false, noHitEntry), ENTER_VANILLA,
+                "disabling the hit feature releases non-weapon protection");
+        checkHit(IncomingHit.isCombatHit(1, 1, 2, 2), true, "another entity hits the local player");
+        checkHit(IncomingHit.isCombatHit(1, 1, 2, 3), true, "a projectile from another entity counts");
+        checkHit(IncomingHit.isCombatHit(1, 1, -1, 3), true, "an ownerless projectile still counts");
+        checkHit(IncomingHit.isCombatHit(1, 4, 2, 2), false, "damage to another player must not switch local mode");
+        checkHit(IncomingHit.isCombatHit(1, 1, -1, -1), false, "fall/fire damage without an attacker is ignored");
+        checkHit(IncomingHit.isCombatHit(1, 1, 1, 3), false, "the player's own projectile is ignored");
+        checkHit(IncomingHit.isCombatHit(1, 1, -1, 1), false, "direct self damage is ignored");
+        checkHit(IncomingHit.isCombatHit(0, 0, 2, -1), true, "entity ID zero is a valid local player");
         System.out.println("PASS: " + checks + " transition checks");
     }
 
@@ -53,5 +108,10 @@ public final class ModeSessionTest {
     private static void check(ModeSession.Decision actual, ModeSession.Decision expected, String label) {
         checks++;
         if (actual != expected) throw new AssertionError(label + ": " + actual + " != " + expected);
+    }
+
+    private static void checkHit(boolean actual, boolean expected, String label) {
+        checks++;
+        if (actual != expected) throw new AssertionError(label);
     }
 }

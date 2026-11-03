@@ -1,5 +1,8 @@
 # Combat Punchy 1.1
 
+- Added automatic combat entry when another entity or projectile hits you, including while holding a tool or using empty hands.
+- Added `auto_enter_on_hit`, enabled by default and independent of attack-triggered entry.
+- Kept hit-triggered combat active with the current held item until the inactivity timeout; selecting another non-weapon still exits combat.
 - Added a dedicated Epic Fight attachment for Moves' facial layer, preventing the vanilla-head overlay from floating away from the combat head.
 - Kept animated eyes, brows and facial effects on the same head transform as the player's skin during combat.
 - Added `moves_facial_bridge`, enabled by default, with automatic restoration of the vanilla head/hat pose after drawing faces.

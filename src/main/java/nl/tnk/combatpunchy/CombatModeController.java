@@ -1,6 +1,8 @@
 package nl.tnk.combatpunchy;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.protocol.game.ClientboundDamageEventPacket;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.item.UseAnim;
 import net.neoforged.api.distmarker.Dist;
@@ -17,6 +19,8 @@ public final class CombatModeController {
     private static final ModeSession SESSION = new ModeSession();
     private static final CombatIdleTimeout IDLE_TIMEOUT = new CombatIdleTimeout();
     private static LocalPlayerPatch previousPatch;
+    private static Item previousItem;
+    private static int previousSlot = -1;
 
     private CombatModeController() {}
 
@@ -36,6 +40,14 @@ public final class CombatModeController {
         refresh(!aimingAtBlock || CombatPunchyMod.ENTER_WHILE_TARGETING_BLOCK.get(), false);
     }
 
+    /** Called on the client thread before vanilla applies the server's hurt event. */
+    public static void onIncomingHit(ClientboundDamageEventPacket packet) {
+        Minecraft client = Minecraft.getInstance();
+        if (client.player == null || !IncomingHit.isCombatHit(client.player.getId(), packet.entityId(),
+                packet.sourceCauseId(), packet.sourceDirectId())) return;
+        refresh(false, false, true);
+    }
+
     /** Allow only the attack mapping to receive a click while its weapon is still in vanilla mode. */
     public static boolean acceptWeaponAttackInVanilla() {
         Minecraft client = Minecraft.getInstance();
@@ -49,26 +61,38 @@ public final class CombatModeController {
     }
 
     private static void refresh(boolean combatAttack, boolean checkTimeout) {
+        refresh(combatAttack, checkTimeout, false);
+    }
+
+    private static void refresh(boolean combatAttack, boolean checkTimeout, boolean incomingHit) {
         Minecraft client = Minecraft.getInstance();
         LocalPlayerPatch patch = EpicFightCapabilities.getLocalPlayerPatch(client.player);
         if (patch != previousPatch) {
             SESSION.reset();
             IDLE_TIMEOUT.reset();
             previousPatch = patch;
+            previousItem = null;
+            previousSlot = -1;
         }
         if (patch == null || client.level == null || client.player == null) return;
         if (!client.player.isAlive() || client.player.isSpectator() || client.player.isSleeping()) return;
 
         boolean allowed = EpicFightGameRules.CAN_SWITCH_PLAYER_MODE.getRuleValue(client.level);
         boolean weapon = WeaponEligibility.isCombatWeapon(client.player.getMainHandItem());
+        Item item = client.player.getMainHandItem().getItem();
+        int slot = client.player.getInventory().selected;
+        boolean heldItemChanged = item != previousItem || slot != previousSlot;
+        previousItem = item;
+        previousSlot = slot;
         boolean enabled = CombatPunchyMod.ENABLED.get();
         ModeSession.Decision decision = SESSION.update(enabled, allowed,
-                weapon, patch.isEpicFightMode(), combatAttack,
+                weapon, patch.isEpicFightMode(), combatAttack, incomingHit, heldItemChanged,
                 new ModeSession.Features(CombatPunchyMod.AUTO_ENTER_COMBAT.get(),
-                        CombatPunchyMod.AUTO_EXIT_ON_ITEM_SWITCH.get(), CombatPunchyMod.START_IN_VANILLA_MODE.get()));
+                        CombatPunchyMod.AUTO_EXIT_ON_ITEM_SWITCH.get(), CombatPunchyMod.START_IN_VANILLA_MODE.get(),
+                        CombatPunchyMod.AUTO_ENTER_ON_HIT.get()));
         if (!enabled || !allowed) {
             IDLE_TIMEOUT.reset();
-        } else if (weapon && combatAttack) {
+        } else if ((weapon && combatAttack) || (incomingHit && CombatPunchyMod.AUTO_ENTER_ON_HIT.get())) {
             IDLE_TIMEOUT.activity(client.player.tickCount);
         }
         // Evaluate expiry after input processing, so a new attack at the deadline wins.

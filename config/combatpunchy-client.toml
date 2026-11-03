@@ -2,6 +2,9 @@
 enabled = true
 #Enter combat when attacking with an eligible Epic Fight melee weapon.
 auto_enter_combat = true
+#Enter combat when another entity hits you, including projectile hits, with any held item.
+#The triggering hit has already been processed by the server.
+auto_enter_on_hit = true
 #Return to vanilla when selecting a tool, non-melee item or empty hand.
 auto_exit_on_item_switch = true
 #Start each world/player session in vanilla, even if the server starts you in combat.

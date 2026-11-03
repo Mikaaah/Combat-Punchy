@@ -7,7 +7,7 @@ modId="combatpunchy"
 version="1.1"
 displayName="Combat Punchy"
 authors="Mika van Eijken / TNK"
-description='''Attack-triggered Epic Fight combat with standalone Punchy first-person and Punchy Moves body/camera handoffs. No Epic Tweaks or Epic Punchy required.'''
+description='''Attack- and hit-triggered Epic Fight combat with standalone Punchy first-person and Punchy Moves body/camera/face handoffs. No Epic Tweaks or Epic Punchy required.'''
 displayTest="IGNORE_ALL_VERSION"
 
 [[dependencies.combatpunchy]]

@@ -13,11 +13,13 @@ Combat Punchy brings **Epic Fight**, **Punchy** and **Punchy! Moves** together, 
 ## Automatic combat mode
 
 - Attack with an Epic Fight melee weapon to enter combat on the same attack input.
+- Receive a hit from another entity or projectile to enter combat automatically, even with a tool or empty hand selected.
+- Hit-triggered combat stays active with the current held item until timeout; selecting another non-weapon still exits combat.
 - Switch to a tool, non-weapon item or empty hand to return to vanilla mode.
 - Return to vanilla after **7 seconds** without combat activity, even while holding a weapon.
 - Attack again to immediately re-enter combat.
 - Attacks, active combat skills, guarding and receiving hits refresh the timer.
-- Equipping a weapon alone keeps you in vanilla mode until you attack.
+- Equipping a weapon alone keeps you in vanilla mode until you attack or receive a hit.
 
 ## Animation compatibility
 
@@ -38,9 +40,11 @@ Pickaxes, shovels, hoes, fishing rods, ranged weapons and shields do not trigger
 
 ## Configurable features
 
-Separate switches control attack-triggered combat entry, item-switch exit, inactivity exit, starting in vanilla mode, Punchy first-person compatibility, Moves third-person compatibility, Moves camera handling, facial alignment and native combat stances.
+Separate switches control attack-triggered combat entry, hit-triggered combat entry, item-switch exit, inactivity exit, starting in vanilla mode, Punchy first-person compatibility, Moves third-person compatibility, Moves camera handling, facial alignment and native combat stances.
 
 Also includes a master switch, an adjustable combat timeout, a first-person transition delay and optional combat entry while targeting blocks.
+
+Hit-triggered switching uses the server's damage notification. It cannot change damage already calculated for the triggering hit, and it respects the server's Epic Fight mode-switching rule.
 
 ## Known issue
 
