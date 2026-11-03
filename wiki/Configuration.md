@@ -15,6 +15,7 @@ Settings are stored in `config/combatpunchy-client.toml`. They are client prefer
 | `punchy_first_person_bridge` | `true` | Hand off between Punchy normal hands and Epic Fight combat poses |
 | `moves_third_person_bridge` | `true` | Let Moves yield body animation to Epic Fight |
 | `moves_camera_bridge` | `true` | Let Moves yield camera/orbit/targeting; requires the third-person bridge |
+| `moves_facial_bridge` | `true` | Attach animated faces to Epic Fight's head; requires the third-person bridge |
 | `preserve_native_stances` | `true` | Retain sheathed-katana and Ochs guard poses in first person |
 
 ## Timing

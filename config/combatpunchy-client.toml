@@ -18,6 +18,10 @@ moves_third_person_bridge = true
 #Suspend Moves camera, orbit and targeting while Epic Fight owns the player model.
 #Requires moves_third_person_bridge. Disable to keep Moves camera control during combat.
 moves_camera_bridge = true
+
+# Attach animated eyes, brows and face effects to Epic Fight's head during combat.
+# Requires moves_third_person_bridge.
+moves_facial_bridge = true
 #Preserve Epic Fight's sheathed-katana and Ochs guard poses in first person.
 preserve_native_stances = true
 #Hold Epic Fight's first-person renderer briefly after an action to avoid flicker.

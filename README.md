@@ -25,6 +25,7 @@ Combat Punchy brings **Epic Fight**, **Punchy** and **Punchy! Moves** together, 
 - **Epic Fight** takes over for attacks, guarding, dodging and other combat poses.
 - **Punchy! Moves** yields its body animation and camera controls during Epic Fight combat, then resumes when combat ends.
 - Supports **Punchy! Moves 1.0.3–1.0.5**, including its updated movement and flight transitions.
+- Attaches Moves' animated facial features to Epic Fight's head so eyes and brows follow the combat pose.
 - Preserves native sheathed-katana and Ochs stances, with a short transition delay to reduce hand-animation flicker.
 - Retains saved Punchy and Moves preferences.
 - Standalone compatibility with **no Epic Tweaks requirement**.
@@ -37,13 +38,13 @@ Pickaxes, shovels, hoes, fishing rods, ranged weapons and shields do not trigger
 
 ## Configurable features
 
-Separate switches control attack-triggered combat entry, item-switch exit, inactivity exit, starting in vanilla mode, Punchy first-person compatibility, Moves third-person compatibility, Moves camera handling and native combat stances.
+Separate switches control attack-triggered combat entry, item-switch exit, inactivity exit, starting in vanilla mode, Punchy first-person compatibility, Moves third-person compatibility, Moves camera handling, facial alignment and native combat stances.
 
 Also includes a master switch, an adjustable combat timeout, a first-person transition delay and optional combat entry while targeting blocks.
 
 ## Known issue
 
-Punchy! Moves face features can render incorrectly during Epic Fight combat. [Track the known issue](https://github.com/Mikaaah/Combat-Punchy/issues/1).
+Version 1.1 includes a correction for displaced or duplicate Moves facial features during Epic Fight combat. Visual confirmation in Minecraft is pending. [Track the issue](https://github.com/Mikaaah/Combat-Punchy/issues/1).
 
 ## Guides & support
 

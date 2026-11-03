@@ -9,6 +9,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import nl.tnk.combatpunchy.compat.PunchyApiCompat;
 import nl.tnk.combatpunchy.compat.MovesApiCompat;
+import nl.tnk.combatpunchy.compat.MovesFaceCompat;
 
 @Mod(value = CombatPunchyMod.MOD_ID, dist = Dist.CLIENT)
 public final class CombatPunchyMod {
@@ -23,6 +24,7 @@ public final class CombatPunchyMod {
     public static final ModConfigSpec.BooleanValue PUNCHY_BRIDGE;
     public static final ModConfigSpec.BooleanValue MOVES_BRIDGE;
     public static final ModConfigSpec.BooleanValue MOVES_CAMERA_BRIDGE;
+    public static final ModConfigSpec.BooleanValue MOVES_FACIAL_BRIDGE;
     public static final ModConfigSpec.BooleanValue NATIVE_STANCES;
     public static final ModConfigSpec.IntValue FIRST_PERSON_RELEASE_TICKS;
     public static final ModConfigSpec.IntValue COMBAT_TIMEOUT_SECONDS;
@@ -51,6 +53,10 @@ public final class CombatPunchyMod {
                 "Suspend Moves camera, orbit and targeting while Epic Fight owns the player model.",
                 "Requires moves_third_person_bridge. Disable to keep Moves camera control during combat.")
                 .define("moves_camera_bridge", true);
+        MOVES_FACIAL_BRIDGE = builder.comment(
+                "Attach Moves animated eyes, brows and facial effects to Epic Fight's animated head.",
+                "Prevents displaced/duplicate facial features during combat. Requires moves_third_person_bridge.")
+                .define("moves_facial_bridge", true);
         NATIVE_STANCES = builder.comment("Preserve Epic Fight's sheathed-katana and Ochs guard poses in first person.")
                 .define("preserve_native_stances", true);
         FIRST_PERSON_RELEASE_TICKS = builder.comment("Hold Epic Fight's first-person renderer briefly after an action to avoid flicker.")
@@ -65,6 +71,7 @@ public final class CombatPunchyMod {
 
     public CombatPunchyMod(IEventBus modBus, ModContainer container) {
         container.registerConfig(ModConfig.Type.CLIENT, SPEC);
+        MovesFaceCompat.register();
         modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
             PunchyApiCompat.register();
             MovesApiCompat.register();

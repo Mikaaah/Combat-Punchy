@@ -35,10 +35,10 @@ def main():
                     '-cp', os.pathsep.join(map(str, classpath)), '-d', str(classes)]
                    + [str(p) for p in sorted((root / 'src/main/java').rglob('*.java'))], check=True)
     subprocess.run([str(javac), '-source', '21', '-target', '21', '-encoding', 'UTF-8',
-                    '-cp', str(classes), '-d', str(tests)]
+                    '-cp', os.pathsep.join([str(classes)] + list(map(str, classpath))), '-d', str(tests)]
                    + [str(p) for p in sorted((root / 'src/test/java').rglob('*.java'))], check=True)
-    for test_class in ['ModeSessionTest', 'FirstPersonHandoffTest', 'CombatIdleTimeoutTest']:
-        subprocess.run([str(java), '-cp', str(classes) + os.pathsep + str(tests),
+    for test_class in ['ModeSessionTest', 'FirstPersonHandoffTest', 'CombatIdleTimeoutTest', 'MovesFaceTransformTest']:
+        subprocess.run([str(java), '-cp', os.pathsep.join([str(classes), str(tests)] + list(map(str, classpath))),
                         'nl.tnk.combatpunchy.' + test_class], check=True)
     metadata = tomllib.loads((root / 'src/main/resources/META-INF/neoforge.mods.toml').read_text())
     version = metadata['mods'][0]['version']
