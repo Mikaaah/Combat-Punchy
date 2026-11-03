@@ -6,7 +6,7 @@
 
 Combat Punchy brings **Epic Fight**, **Punchy** and **Punchy! Moves** together, switching between combat animations and normal movement as you play.
 
-**Minecraft 1.21.1 · NeoForge · Client-side · Version 1.0**
+**Minecraft 1.21.1 · NeoForge · Client-side · Version 1.1**
 
 [Wiki](https://github.com/Mikaaah/Combat-Punchy/wiki) · [Releases](https://github.com/Mikaaah/Combat-Punchy/releases) · [Report a bug](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) · [Changelog](CHANGELOG.md)
 
@@ -24,6 +24,7 @@ Combat Punchy brings **Epic Fight**, **Punchy** and **Punchy! Moves** together, 
 - **Punchy** handles normal first-person movement, interactions and idle periods between attacks.
 - **Epic Fight** takes over for attacks, guarding, dodging and other combat poses.
 - **Punchy! Moves** yields its body animation and camera controls during Epic Fight combat, then resumes when combat ends.
+- Supports **Punchy! Moves 1.0.3–1.0.5**, including its updated movement and flight transitions.
 - Preserves native sheathed-katana and Ochs stances, with a short transition delay to reduce hand-animation flicker.
 - Retains saved Punchy and Moves preferences.
 - Standalone compatibility with **no Epic Tweaks requirement**.

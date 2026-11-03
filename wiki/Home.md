@@ -6,7 +6,7 @@
 
 Combat Punchy connects Epic Fight combat with Punchy first-person animations and Punchy! Moves body/camera behavior. Its automatic switching enters combat when you attack with a supported melee weapon and returns to normal movement when you switch items or stop fighting.
 
-**Minecraft 1.21.1 · NeoForge · Client-side · Version 1.0**
+**Minecraft 1.21.1 · NeoForge · Client-side · Version 1.1**
 
 ## Guides
 

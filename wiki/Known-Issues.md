@@ -2,7 +2,7 @@
 
 ## Punchy! Moves facial rendering
 
-**Status: open · Combat Punchy 1.0**
+**Status: open · Combat Punchy 1.1**
 
 Punchy! Moves face features can render incorrectly during Epic Fight combat. A fix and a reliable workaround are not confirmed.
 

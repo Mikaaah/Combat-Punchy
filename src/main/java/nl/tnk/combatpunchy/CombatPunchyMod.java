@@ -8,6 +8,7 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import nl.tnk.combatpunchy.compat.PunchyApiCompat;
+import nl.tnk.combatpunchy.compat.MovesApiCompat;
 
 @Mod(value = CombatPunchyMod.MOD_ID, dist = Dist.CLIENT)
 public final class CombatPunchyMod {
@@ -64,6 +65,9 @@ public final class CombatPunchyMod {
 
     public CombatPunchyMod(IEventBus modBus, ModContainer container) {
         container.registerConfig(ModConfig.Type.CLIENT, SPEC);
-        modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(PunchyApiCompat::register));
+        modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
+            PunchyApiCompat.register();
+            MovesApiCompat.register();
+        }));
     }
 }

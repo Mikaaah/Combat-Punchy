@@ -1,3 +1,12 @@
+# Combat Punchy 1.1
+
+- Added support for **Punchy! Moves 1.0.4 and 1.0.5**, alongside 1.0.3.
+- Removed the exact Moves 1.0.3 version restriction that prevented newer supported releases from loading.
+- Connected Epic Fight combat to Moves' animation-intent API so flight transitions yield their base pose during combat.
+- Retained automatic combat switching, the **7-second** default timeout, and the existing feature settings.
+
+**Known issue:** Punchy! Moves face features can render incorrectly during Epic Fight combat.
+
 # Combat Punchy 1.0
 
 Initial public release.

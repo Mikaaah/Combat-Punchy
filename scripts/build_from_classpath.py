@@ -5,6 +5,7 @@ import os
 from pathlib import Path
 import subprocess
 import shutil
+import tomllib
 import zipfile
 
 
@@ -39,7 +40,9 @@ def main():
     for test_class in ['ModeSessionTest', 'FirstPersonHandoffTest', 'CombatIdleTimeoutTest']:
         subprocess.run([str(java), '-cp', str(classes) + os.pathsep + str(tests),
                         'nl.tnk.combatpunchy.' + test_class], check=True)
-    jar = root / 'build/libs/combat-punchy-1.0-neoforge-1.21.1.jar'
+    metadata = tomllib.loads((root / 'src/main/resources/META-INF/neoforge.mods.toml').read_text())
+    version = metadata['mods'][0]['version']
+    jar = root / f'build/libs/combat-punchy-{version}-neoforge-1.21.1.jar'
     jar.parent.mkdir(parents=True, exist_ok=True)
 
     def put(archive, name, data):
@@ -48,7 +51,8 @@ def main():
         archive.writestr(info, data)
 
     with zipfile.ZipFile(jar, 'w') as archive:
-        put(archive, 'META-INF/MANIFEST.MF', b'Manifest-Version: 1.0\nImplementation-Title: Combat Punchy\nImplementation-Version: 1.0\n\n')
+        put(archive, 'META-INF/MANIFEST.MF', ('Manifest-Version: 1.0\nImplementation-Title: Combat Punchy\n'
+                                          f'Implementation-Version: {version}\n\n').encode())
         for directory in [classes, root / 'src/main/resources']:
             for path in sorted(directory.rglob('*')):
                 if path.is_file():

@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'nl.tnk'
-version = '1.0'
+version = '1.1'
 base.archivesName = 'combat-punchy'
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
@@ -31,7 +31,7 @@ neoForge {
 
 dependencies {
     implementation 'curse.maven:epic-fight-mod-405076:8175609'
-    compileOnly 'maven.modrinth:mzgtK8pY:NanubWnt'
+    compileOnly 'maven.modrinth:mzgtK8pY:gNBTRfyi'
     compileOnly 'io.github.llamalad7:mixinextras-neoforge:0.5.5'
 }
 
@@ -39,6 +39,14 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
     options.compilerArgs += ['-proc:none']
 }
+
+tasks.named('jar') {
+    archiveClassifier = 'neoforge-1.21.1'
+    manifest.attributes('Implementation-Title': 'Combat Punchy', 'Implementation-Version': project.version)
+}
+
+// The policy checks below are executable test mains rather than JUnit tests.
+tasks.named('test') { failOnNoDiscoveredTests = false }
 
 tasks.register('verifyTransitions', JavaExec) {
     dependsOn testClasses
