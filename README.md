@@ -48,7 +48,7 @@ Hit-triggered switching uses the server's damage notification. It cannot change 
 
 ## Known issue
 
-Version 1.1 includes a correction for displaced or duplicate Moves facial features during Epic Fight combat. Visual confirmation in Minecraft is pending. [Track the issue](https://github.com/Mikaaah/Combat-Punchy/issues/1).
+Version 1.1 includes a correction for displaced or duplicate Moves facial features during Epic Fight combat. A basic client test with the default skin showed aligned facial features during combat and hurt poses. Broader skin and animation-pack coverage is still pending. [Track the issue](https://github.com/Mikaaah/Combat-Punchy/issues/1).
 
 ## Guides & support
 
@@ -73,4 +73,4 @@ Install the Forge builds of the optional animation mods. Both remain optional: e
 
 Build with `./gradlew build` using JDK 17. The distributable includes MixinExtras and generated production mappings. Use `combat-punchy-1.1-forge-1.20.1.jar` from `build/libs/`.
 
-Validation: the Java 17 Forge build and all 180 automated checks pass. No Minecraft client playtest has been completed for this port; in-game facial rendering still needs visual confirmation.
+Validation: the Java 17 Forge build and all 180 automated checks pass. On 4 November 2026, the exact release JAR was launched in a clean Forge 47.4.13 client with Epic Fight 20.14.17, Punchy 3.1b and Moves 1.0.5. It reached a single-player world, rendered first- and third-person combat, handled entity-attributed incoming damage and item switching, and saved/quit cleanly without Combat Punchy or mixin failures. Both optional API bridges registered successfully. This was an offline test with no audio device; Moves’ Fluid & Foolish animation resource pack was absent, so full resource-pack animation coverage remains unverified.
