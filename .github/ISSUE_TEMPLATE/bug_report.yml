@@ -23,9 +23,9 @@ body:
   - type: textarea
     id: environment
     attributes:
-      label: Minecraft, NeoForge and companion mod versions
+      label: Minecraft, Forge and companion mod versions
       description: Include Epic Fight, Punchy, Punchy! Moves and WOM when present. Write "not present" for optional mods you do not use.
-      placeholder: "Minecraft:\nNeoForge:\nEpic Fight:\nPunchy:\nPunchy! Moves:\nWOM:"
+      placeholder: "Minecraft:\nForge:\nEpic Fight:\nPunchy:\nPunchy! Moves:\nWOM:"
     validations:
       required: true
   - type: dropdown

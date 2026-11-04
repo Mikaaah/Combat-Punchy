@@ -66,7 +66,7 @@ public final class RenderOwnership {
 
     private static boolean forceVanillaItems(Minecraft client) {
         if (client.player == null) return true;
-        RenderEngine renderer = RenderEngine.getInstance();
+        RenderEngine renderer = yesman.epicfight.client.ClientEngine.getInstance().renderEngine;
         for (InteractionHand hand : InteractionHand.values()) {
             RenderItemBase itemRenderer = renderer.getItemRenderer(client.player.getItemInHand(hand));
             if (itemRenderer != null && itemRenderer.forceVanillaFirstPerson()) return true;

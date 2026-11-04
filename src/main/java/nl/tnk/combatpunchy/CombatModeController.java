@@ -5,10 +5,10 @@ import net.minecraft.network.protocol.game.ClientboundDamageEventPacket;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.item.UseAnim;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.event.TickEvent;
 import yesman.epicfight.world.capabilities.EpicFightCapabilities;
 import yesman.epicfight.client.world.capabilites.entitypatch.player.LocalPlayerPatch;
 import yesman.epicfight.world.gamerule.EpicFightGameRules;
@@ -25,7 +25,8 @@ public final class CombatModeController {
     private CombatModeController() {}
 
     @SubscribeEvent
-    public static void afterClientTick(ClientTickEvent.Post event) {
+    public static void afterClientTick(TickEvent.ClientTickEvent event) {
+        if (event.phase != TickEvent.Phase.END) return;
         refresh(false, true);
     }
 

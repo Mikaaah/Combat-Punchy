@@ -1,17 +1,22 @@
 plugins {
     id 'java-library'
-    id 'net.neoforged.moddev' version '2.0.148'
+    id 'net.minecraftforge.gradle' version '6.0.36'
+    id 'org.spongepowered.mixin' version '0.7.38'
 }
 
 group = 'nl.tnk'
 version = '1.1'
 base.archivesName = 'combat-punchy'
-java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 repositories {
     maven {
-        url = 'https://www.cursemaven.com'
-        content { includeGroup 'curse.maven' }
+        url = 'https://maven.creeperhost.net'
+        content {
+            includeGroupByRegex 'net\\.minecraftforge.*'
+            includeGroupByRegex 'org\\.spongepowered.*'
+            includeGroup 'cpw.mods'
+        }
     }
     maven {
         url = 'https://api.modrinth.com/maven'
@@ -19,35 +24,47 @@ repositories {
     }
 }
 
-neoForge {
-    version = '21.1.262'
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
     runs {
-        client { client() }
-    }
-    mods {
-        combatpunchy { sourceSet sourceSets.main }
+        client {
+            workingDirectory project.file('run')
+            mods { combatpunchy { source sourceSets.main } }
+        }
     }
 }
 
+mixin {
+    add sourceSets.main, 'combatpunchy.refmap.json'
+    config 'combatpunchy.mixins.json'
+}
+
 dependencies {
-    implementation 'curse.maven:epic-fight-mod-405076:8175609'
-    compileOnly 'maven.modrinth:mzgtK8pY:gNBTRfyi'
-    compileOnly 'io.github.llamalad7:mixinextras-neoforge:0.5.5'
+    minecraft 'net.minecraftforge:forge:1.20.1-47.4.13'
+    implementation fg.deobf('maven.modrinth:vu3NZ5Ma:KEBfkBat')
+    compileOnly fg.deobf('maven.modrinth:mzgtK8pY:WrPmToBr')
+    runtimeOnly fg.deobf('maven.modrinth:mzgtK8pY:WrPmToBr')
+    runtimeOnly fg.deobf('maven.modrinth:8aoMKplv:DdPbuBDy')
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    compileOnly 'io.github.llamalad7:mixinextras-common:0.5.0'
+    runtimeOnly 'io.github.llamalad7:mixinextras-forge:0.5.0'
+    annotationProcessor 'io.github.llamalad7:mixinextras-common:0.5.0'
+    jarJar(group: 'io.github.llamalad7', name: 'mixinextras-forge', version: '[0.5.0,0.6)') {
+        jarJar.pin(it, '0.5.0')
+    }
 }
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
-    options.compilerArgs += ['-proc:none']
 }
 
 tasks.named('jar') {
-    archiveClassifier = 'neoforge-1.21.1'
-    manifest.attributes('Implementation-Title': 'Combat Punchy', 'Implementation-Version': project.version)
+    archiveClassifier = 'slim'
+    manifest.attributes('Implementation-Title': 'Combat Punchy', 'Implementation-Version': project.version, 'MixinConfigs': 'combatpunchy.mixins.json')
+    finalizedBy 'reobfJar'
 }
 
 // The policy checks below are executable test mains rather than JUnit tests.
-tasks.named('test') { failOnNoDiscoveredTests = false }
-
 sourceSets.test {
     compileClasspath += sourceSets.main.compileClasspath
     runtimeClasspath += sourceSets.main.runtimeClasspath
@@ -84,3 +101,9 @@ tasks.register('verifyMovesFaces', JavaExec) {
 }
 
 tasks.named('check') { dependsOn verifyMovesFaces }
+
+jarJar.enable()
+tasks.named("build") { dependsOn "jarJar" }
+tasks.named("jarJar") { archiveClassifier = "forge-1.20.1" }
+reobf { jarJar {} }
+tasks.named("jarJar") { finalizedBy "reobfJarJar" }

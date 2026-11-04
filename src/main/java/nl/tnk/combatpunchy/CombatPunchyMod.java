@@ -1,37 +1,39 @@
 package nl.tnk.combatpunchy;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModContainer;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.common.ModConfigSpec;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.common.ForgeConfigSpec;
 import nl.tnk.combatpunchy.compat.PunchyApiCompat;
 import nl.tnk.combatpunchy.compat.MovesApiCompat;
 import nl.tnk.combatpunchy.compat.MovesFaceCompat;
 
-@Mod(value = CombatPunchyMod.MOD_ID, dist = Dist.CLIENT)
+@Mod(CombatPunchyMod.MOD_ID)
 public final class CombatPunchyMod {
     public static final String MOD_ID = "combatpunchy";
-    public static final ModConfigSpec SPEC;
-    public static final ModConfigSpec.BooleanValue ENABLED;
-    public static final ModConfigSpec.BooleanValue AUTO_ENTER_COMBAT;
-    public static final ModConfigSpec.BooleanValue AUTO_ENTER_ON_HIT;
-    public static final ModConfigSpec.BooleanValue AUTO_EXIT_ON_ITEM_SWITCH;
-    public static final ModConfigSpec.BooleanValue START_IN_VANILLA_MODE;
-    public static final ModConfigSpec.BooleanValue AUTO_EXIT_ON_TIMEOUT;
-    public static final ModConfigSpec.BooleanValue ENTER_WHILE_TARGETING_BLOCK;
-    public static final ModConfigSpec.BooleanValue PUNCHY_BRIDGE;
-    public static final ModConfigSpec.BooleanValue MOVES_BRIDGE;
-    public static final ModConfigSpec.BooleanValue MOVES_CAMERA_BRIDGE;
-    public static final ModConfigSpec.BooleanValue MOVES_FACIAL_BRIDGE;
-    public static final ModConfigSpec.BooleanValue NATIVE_STANCES;
-    public static final ModConfigSpec.IntValue FIRST_PERSON_RELEASE_TICKS;
-    public static final ModConfigSpec.IntValue COMBAT_TIMEOUT_SECONDS;
+    public static final ForgeConfigSpec SPEC;
+    public static final ForgeConfigSpec.BooleanValue ENABLED;
+    public static final ForgeConfigSpec.BooleanValue AUTO_ENTER_COMBAT;
+    public static final ForgeConfigSpec.BooleanValue AUTO_ENTER_ON_HIT;
+    public static final ForgeConfigSpec.BooleanValue AUTO_EXIT_ON_ITEM_SWITCH;
+    public static final ForgeConfigSpec.BooleanValue START_IN_VANILLA_MODE;
+    public static final ForgeConfigSpec.BooleanValue AUTO_EXIT_ON_TIMEOUT;
+    public static final ForgeConfigSpec.BooleanValue ENTER_WHILE_TARGETING_BLOCK;
+    public static final ForgeConfigSpec.BooleanValue PUNCHY_BRIDGE;
+    public static final ForgeConfigSpec.BooleanValue MOVES_BRIDGE;
+    public static final ForgeConfigSpec.BooleanValue MOVES_CAMERA_BRIDGE;
+    public static final ForgeConfigSpec.BooleanValue MOVES_FACIAL_BRIDGE;
+    public static final ForgeConfigSpec.BooleanValue NATIVE_STANCES;
+    public static final ForgeConfigSpec.IntValue FIRST_PERSON_RELEASE_TICKS;
+    public static final ForgeConfigSpec.IntValue COMBAT_TIMEOUT_SECONDS;
 
     static {
-        ModConfigSpec.Builder builder = new ModConfigSpec.Builder();
+        ForgeConfigSpec.Builder builder = new ForgeConfigSpec.Builder();
         ENABLED = builder.comment("Master switch for all Combat Punchy automatic mode changes and compatibility handoffs.")
                 .define("enabled", true);
         AUTO_ENTER_COMBAT = builder.comment("Enter combat when attacking with an eligible Epic Fight melee weapon.")
@@ -75,9 +77,16 @@ public final class CombatPunchyMod {
         SPEC = builder.build();
     }
 
-    public CombatPunchyMod(IEventBus modBus, ModContainer container) {
-        container.registerConfig(ModConfig.Type.CLIENT, SPEC);
-        MovesFaceCompat.register();
+    public CombatPunchyMod(FMLJavaModLoadingContext context) {
+        if (FMLEnvironment.dist != Dist.CLIENT) return;
+        for (String incompatible : new String[]{"tnkcombatmode", "epictweaks", "efpunchycompat"}) {
+            if (ModList.get().isLoaded(incompatible)) {
+                throw new IllegalStateException("Combat Punchy replaces " + incompatible + "; remove its JAR before launching.");
+            }
+        }
+        IEventBus modBus = context.getModEventBus();
+        context.registerConfig(ModConfig.Type.CLIENT, SPEC);
+        MovesFaceCompat.register(modBus);
         modBus.addListener((FMLClientSetupEvent event) -> event.enqueueWork(() -> {
             PunchyApiCompat.register();
             MovesApiCompat.register();

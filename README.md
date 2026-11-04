@@ -6,7 +6,7 @@
 
 Combat Punchy brings **Epic Fight**, **Punchy** and **Punchy! Moves** together, switching between combat animations and normal movement as you play.
 
-**Minecraft 1.21.1 · NeoForge · Client-side · Version 1.1**
+**Minecraft 1.20.1 · Forge · Client-side · Version 1.1**
 
 [Wiki](https://github.com/Mikaaah/Combat-Punchy/wiki) · [Releases](https://github.com/Mikaaah/Combat-Punchy/releases) · [Report a bug](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) · [Changelog](CHANGELOG.md)
 
@@ -26,7 +26,7 @@ Combat Punchy brings **Epic Fight**, **Punchy** and **Punchy! Moves** together, 
 - **Punchy** handles normal first-person movement, interactions and idle periods between attacks.
 - **Epic Fight** takes over for attacks, guarding, dodging and other combat poses.
 - **Punchy! Moves** yields its body animation and camera controls during Epic Fight combat, then resumes when combat ends.
-- Supports **Punchy! Moves 1.0.3–1.0.5**, including its updated movement and flight transitions.
+- Supports **Punchy! Moves 1.0.5**, including its updated movement and flight transitions.
 - Attaches Moves' animated facial features to Epic Fight's head so eyes and brows follow the combat pose.
 - Preserves native sheathed-katana and Ochs stances, with a short transition delay to reduce hand-animation flicker.
 - Retains saved Punchy and Moves preferences.
@@ -55,3 +55,22 @@ Version 1.1 includes a correction for displaced or duplicate Moves facial featur
 [Automatic combat](https://github.com/Mikaaah/Combat-Punchy/wiki/Automatic-Combat) · [Weapon support](https://github.com/Mikaaah/Combat-Punchy/wiki/Weapon-Support) · [Configuration](https://github.com/Mikaaah/Combat-Punchy/wiki/Configuration) · [Compatibility](https://github.com/Mikaaah/Combat-Punchy/wiki/Compatibility) · [Known issues](https://github.com/Mikaaah/Combat-Punchy/wiki/Known-Issues)
 
 Use the [bug report](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) or [suggestion](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=feature_request.yml) form for this mod. See [support guidance](SUPPORT.md) for the details that help identify an issue.
+
+## Forge 1.20.1 port
+
+This branch targets Java 17 and Forge 47.4.13 or newer in the 47.x series. It uses the inspected stable Epic Fight 20.14.17 API; other Epic Fight versions are not declared compatible.
+
+| Component | Supported version |
+| --- | --- |
+| Minecraft | 1.20.1 |
+| Forge | 47.4.13–47.x |
+| Java | 17 |
+| Epic Fight (required) | 20.14.17 |
+| Punchy (optional) | 3.1b |
+| Punchy! Moves (optional) | 1.0.5 |
+
+Install the Forge builds of the optional animation mods. Both remain optional: either bridge can be used independently, and automatic combat switching also works with Epic Fight alone. Do not combine Combat Punchy with TNK Combat Mode, Epic Tweaks or Epic Punchy.
+
+Build with `./gradlew build` using JDK 17. The distributable includes MixinExtras and generated production mappings. Use `combat-punchy-1.1-forge-1.20.1.jar` from `build/libs/`.
+
+Validation: the Java 17 Forge build and all 180 automated checks pass. No Minecraft client playtest has been completed for this port; in-game facial rendering still needs visual confirmation.

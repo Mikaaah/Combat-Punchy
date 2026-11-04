@@ -32,11 +32,12 @@ public final class WeaponEligibility {
         CapabilityItem capability = EpicFightCapabilities.getItemStackCapability(stack);
         if (!(capability instanceof WeaponCapability) || capability instanceof RangedWeaponCapability
                 || capability.isEmpty()) return false;
-        return !capability.isWeaponCategory(WeaponCategories.NOT_WEAPON)
-                && !capability.isWeaponCategory(WeaponCategories.PICKAXE)
-                && !capability.isWeaponCategory(WeaponCategories.SHOVEL)
-                && !capability.isWeaponCategory(WeaponCategories.HOE)
-                && !capability.isWeaponCategory(WeaponCategories.SHIELD)
-                && !capability.isWeaponCategory(WeaponCategories.RANGED);
+        return capability.getWeaponCategory() != WeaponCategories.NOT_WEAPON
+                && capability.getWeaponCategory() != WeaponCategories.PICKAXE
+                && capability.getWeaponCategory() != WeaponCategories.SHOVEL
+                && capability.getWeaponCategory() != WeaponCategories.HOE
+                && capability.getWeaponCategory() != WeaponCategories.SHIELD
+                && capability.getWeaponCategory() != WeaponCategories.BOW
+                && capability.getWeaponCategory() != WeaponCategories.CROSSBOW;
     }
 }

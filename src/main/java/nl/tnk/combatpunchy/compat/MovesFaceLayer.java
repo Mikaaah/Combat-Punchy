@@ -39,7 +39,7 @@ public final class MovesFaceLayer extends PatchedLayer<AbstractClientPlayer,
         try (FaceRenderPose ignored = new FaceRenderPose(model.head, model.hat)) {
             // Match the skinning matrix used by Epic Fight's head mesh, including
             // its inverse bind pose. A Root attachment cannot follow combat head motion.
-            stack.mulPose(headTransform(poses[head.getId()], head.getToOrigin()));
+            stack.mulPoseMatrix(headTransform(poses[head.getId()], head.getToOrigin()));
             layer.render(stack, buffers, light, player, player.walkAnimation.position(),
                     player.walkAnimation.speed(), partial, age, yaw, pitch);
         } finally {

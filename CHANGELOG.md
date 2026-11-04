@@ -1,4 +1,15 @@
-# Combat Punchy 1.1
+# Combat Punchy changelog
+
+## 1.1 — Forge 1.20.1
+
+- Ported Combat Punchy to Minecraft 1.20.1 and Forge 47.4.13+ using Java 17.
+- Retained attack-triggered and incoming-hit combat entry, item-switch exit and configurable inactivity timeout.
+- Adapted first-person handoffs to Epic Fight 20.14.17's Forge render events.
+- Preserved Punchy 3.1b and Punchy! Moves 1.0.5 body, camera and facial compatibility.
+- Adapted the animated-head facial attachment to Forge's patched-renderer registration event.
+- Bundled MixinExtras and generated Forge production remapping metadata.
+
+## 1.1 — NeoForge 1.21.1
 
 - Added automatic combat entry when another entity or projectile hits you, including while holding a tool or using empty hands.
 - Added `auto_enter_on_hit`, enabled by default and independent of attack-triggered entry.
@@ -13,7 +24,7 @@
 
 The facial-rendering correction is included in this rebuilt 1.1; visual confirmation in Minecraft is still pending.
 
-# Combat Punchy 1.0
+## 1.0 — NeoForge 1.21.1
 
 Initial public release.
 
