@@ -8,7 +8,7 @@
   "client": [
     "ControlEngineMixin", "CombatAttackKeyMixin", "IncomingHitMixin", "EpicFirstPersonMixin", "EpicVanillaModelMixin",
     "PunchyLegacyConfigMixin", "moves.MovesAnimationMixin", "moves.MovesCameraMixin",
-    "moves.MovesTargetingMixin", "moves.MovesBodyRotationMixin"
+    "moves.MovesSpatialCameraMixin", "moves.MovesTargetingMixin", "moves.MovesBodyRotationMixin"
   ],
   "injectors": {"defaultRequire": 1}
 }

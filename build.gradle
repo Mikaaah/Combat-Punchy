@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'nl.tnk'
-version = '1.1'
+version = '1.2'
 base.archivesName = 'combat-punchy'
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -41,9 +41,12 @@ mixin {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.4.13'
+    // Minecraft supplies this at runtime; the face-transform API uses it directly.
+    compileOnly 'org.joml:joml:1.10.5'
+    testImplementation 'org.joml:joml:1.10.5'
     implementation fg.deobf('maven.modrinth:vu3NZ5Ma:KEBfkBat')
-    compileOnly fg.deobf('maven.modrinth:mzgtK8pY:WrPmToBr')
-    runtimeOnly fg.deobf('maven.modrinth:mzgtK8pY:WrPmToBr')
+    compileOnly fg.deobf('maven.modrinth:mzgtK8pY:q0vE6iEZ')
+    runtimeOnly fg.deobf('maven.modrinth:mzgtK8pY:q0vE6iEZ')
     runtimeOnly fg.deobf('maven.modrinth:8aoMKplv:DdPbuBDy')
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     compileOnly 'io.github.llamalad7:mixinextras-common:0.5.0'

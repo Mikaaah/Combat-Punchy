@@ -6,7 +6,7 @@
 
 Combat Punchy brings **Epic Fight**, **Punchy** and **Punchy! Moves** together, switching between combat animations and normal movement as you play.
 
-**Minecraft 1.20.1 · Forge · Client-side · Version 1.1**
+**Minecraft 1.20.1 · Forge · Client-side · Version 1.2**
 
 [Wiki](https://github.com/Mikaaah/Combat-Punchy/wiki) · [Releases](https://github.com/Mikaaah/Combat-Punchy/releases) · [Report a bug](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) · [Changelog](CHANGELOG.md)
 
@@ -26,7 +26,7 @@ Combat Punchy brings **Epic Fight**, **Punchy** and **Punchy! Moves** together, 
 - **Punchy** handles normal first-person movement, interactions and idle periods between attacks.
 - **Epic Fight** takes over for attacks, guarding, dodging and other combat poses.
 - **Punchy! Moves** yields its body animation and camera controls during Epic Fight combat, then resumes when combat ends.
-- Supports **Punchy! Moves 1.0.5**, including its updated movement and flight transitions.
+- Supports **Punchy! Moves 1.0.5–1.0.7**, including its updated movement and flight transitions.
 - Attaches Moves' animated facial features to Epic Fight's head so eyes and brows follow the combat pose.
 - Preserves native sheathed-katana and Ochs stances, with a short transition delay to reduce hand-animation flicker.
 - Retains saved Punchy and Moves preferences.
@@ -48,7 +48,7 @@ Hit-triggered switching uses the server's damage notification. It cannot change 
 
 ## Known issue
 
-Version 1.1 includes a correction for displaced or duplicate Moves facial features during Epic Fight combat. A basic client test with the default skin showed aligned facial features during combat and hurt poses. Broader skin and animation-pack coverage is still pending. [Track the issue](https://github.com/Mikaaah/Combat-Punchy/issues/1).
+The existing correction for displaced or duplicate Moves facial features remains enabled. A client test with Moves 1.0.7, Fluid & Foolish 1.0.1 and the default skin showed aligned features during combat and hurt poses. Broader skin and animation-pack coverage is still pending. [Track the issue](https://github.com/Mikaaah/Combat-Punchy/issues/1).
 
 ## Guides & support
 
@@ -67,10 +67,14 @@ This branch targets Java 17 and Forge 47.4.13 or newer in the 47.x series. It us
 | Java | 17 |
 | Epic Fight (required) | 20.14.17 |
 | Punchy (optional) | 3.1b |
-| Punchy! Moves (optional) | 1.0.5 |
+| Punchy! Moves (optional) | 1.0.5–1.0.7 |
 
 Install the Forge builds of the optional animation mods. Both remain optional: either bridge can be used independently, and automatic combat switching also works with Epic Fight alone. Do not combine Combat Punchy with TNK Combat Mode, Epic Tweaks or Epic Punchy.
 
-Build with `./gradlew build` using JDK 17. The distributable includes MixinExtras and generated production mappings. Use `combat-punchy-1.1-forge-1.20.1.jar` from `build/libs/`.
+Build with `./gradlew build` using JDK 17. The distributable includes MixinExtras and generated production mappings. Use `combat-punchy-1.2-forge-1.20.1.jar` from `build/libs/`.
 
-Validation: the Java 17 Forge build and all 180 automated checks pass. On 4 November 2026, the exact release JAR was launched in a clean Forge 47.4.13 client with Epic Fight 20.14.17, Punchy 3.1b and Moves 1.0.5. It reached a single-player world, rendered first- and third-person combat, handled entity-attributed incoming damage and item switching, and saved/quit cleanly without Combat Punchy or mixin failures. Both optional API bridges registered successfully. This was an offline test with no audio device; Moves’ Fluid & Foolish animation resource pack was absent, so full resource-pack animation coverage remains unverified.
+Validation on 6 November 2026: the Java 17 Forge build and all 180 automated checks pass. The exact 1.2 release JAR ran in a clean Forge 47.4.13 client with Epic Fight 20.14.17, Punchy 3.1b, Moves 1.0.7, Expressions 1.0.6, Spatial GUI 1.10.1 and Fluid & Foolish 1.0.1 (268 animation clips loaded). In-world checks covered attack entry, entity-attributed incoming damage, item switching, combat facial poses and the Spatial GUI inventory camera handoff. The world saved and the client exited normally (exit code 0), without Combat Punchy or mixin failures. The test used an offline profile with muted audio. Both optional API bridges registered. An additional 24 checks across both loaders verified bridge selection with Moves absent and with actual Moves 1.0.5, 1.0.6-hotfix and 1.0.7 JARs.
+
+## Moves 1.0.7 compatibility
+
+Combat Punchy 1.2 supports Moves 1.0.6, 1.0.6-hotfix and 1.0.7 alongside earlier supported builds. The new inventory camera handoff yields its Moves shoulder-camera ownership during Epic Fight combat, respecting the existing camera-bridge toggle. Older Moves builds skip this additional hook; Punchy and Moves remain optional. Punchy 3.1b remains supported.

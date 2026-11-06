@@ -1,3 +1,10 @@
+# Combat Punchy 1.2
+
+- Added support for Punchy! Moves 1.0.6, 1.0.6-hotfix and 1.0.7.
+- Prevented Moves' new Spatial GUI camera handoff from restoring its shoulder-camera offset during Epic Fight combat.
+- Preserved support for earlier Moves builds and Punchy 3.1b.
+- Retained automatic combat switching, incoming-hit entry, timeout settings and facial attachment handling.
+
 # Combat Punchy changelog
 
 ## 1.1 — Forge 1.20.1
