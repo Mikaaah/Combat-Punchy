@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'nl.tnk'
-version = '1.1'
+version = '1.2'
 base.archivesName = 'combat-punchy'
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
@@ -31,7 +31,7 @@ neoForge {
 
 dependencies {
     implementation 'curse.maven:epic-fight-mod-405076:8175609'
-    compileOnly 'maven.modrinth:mzgtK8pY:gNBTRfyi'
+    compileOnly 'maven.modrinth:mzgtK8pY:NAvreY42'
     compileOnly 'io.github.llamalad7:mixinextras-neoforge:0.5.5'
 }
 

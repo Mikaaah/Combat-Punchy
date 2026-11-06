@@ -11,6 +11,7 @@ public final class CombatPunchyMixinPlugin implements IMixinConfigPlugin {
     public void onLoad(String mixinPackage) {}
     public String getRefMapperConfig() { return null; }
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+        if (mixinClassName.endsWith("MovesSpatialCameraMixin")) return IntegrationPresence.MOVES_SPATIAL_CAMERA;
         if (mixinClassName.contains(".moves.")) return IntegrationPresence.MOVES;
         if (mixinClassName.endsWith("PunchyLegacyConfigMixin"))
             return IntegrationPresence.PUNCHY && !IntegrationPresence.PUNCHY_API;
