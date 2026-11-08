@@ -1,14 +1,15 @@
-![Combat Punchy — Epic Fight × Punchy × Punchy! Moves](docs/branding/banner.png)
+<p align="center"><img src="docs/branding/banner.png" alt="Combat Punchy" width="100%"></p>
 
-# Combat Punchy
+<h1 align="center">Combat Punchy</h1>
 
-**Epic Fight combat. Punchy movement. Automatic switching.**
+<p align="center"><strong>Epic Fight combat. Punchy movement. Automatic switching that follows the action.</strong></p>
 
-Combat Punchy brings **Epic Fight**, **Punchy** and **Punchy! Moves** together, switching between combat animations and normal movement as you play.
+<p align="center"><a href="https://github.com/Mikaaah/Combat-Punchy/releases">Downloads</a> · <a href="https://github.com/Mikaaah/Combat-Punchy/wiki">Player guide</a> · <a href="https://github.com/Mikaaah/Combat-Punchy/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Combat-Punchy/blob/port/forge-1.20.1/CHANGELOG.md">Changelog</a> · <a href="https://discord.gg/CRYk3uDPVt">Discord</a></p>
 
-**Minecraft 1.20.1 · Forge · Client-side · Version 1.2**
+<p align="center"><img src="https://img.shields.io/badge/Minecraft-1.20.1-5b8731?style=flat-square" alt="Minecraft 1.20.1"> <img src="https://img.shields.io/badge/Forge-d77828?style=flat-square" alt="Forge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
-[Wiki](https://github.com/Mikaaah/Combat-Punchy/wiki) · [Releases](https://github.com/Mikaaah/Combat-Punchy/releases) · [Report a bug](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) · [Changelog](CHANGELOG.md)
+**Source guide: 1.2 · Client-side · Java 17.** Use the guide matching the edition you install.
+
 
 ## Automatic combat mode
 
@@ -71,10 +72,13 @@ This branch targets Java 17 and Forge 47.4.13 or newer in the 47.x series. It us
 
 Install the Forge builds of the optional animation mods. Both remain optional: either bridge can be used independently, and automatic combat switching also works with Epic Fight alone. Do not combine Combat Punchy with TNK Combat Mode, Epic Tweaks or Epic Punchy.
 
-Build with `./gradlew build` using JDK 17. The distributable includes MixinExtras and generated production mappings. Use `combat-punchy-1.2-forge-1.20.1.jar` from `build/libs/`.
-
-Validation on 6 November 2026: the Java 17 Forge build and all 180 automated checks pass. The exact 1.2 release JAR ran in a clean Forge 47.4.13 client with Epic Fight 20.14.17, Punchy 3.1b, Moves 1.0.7, Expressions 1.0.6, Spatial GUI 1.10.1 and Fluid & Foolish 1.0.1 (268 animation clips loaded). In-world checks covered attack entry, entity-attributed incoming damage, item switching, combat facial poses and the Spatial GUI inventory camera handoff. The world saved and the client exited normally (exit code 0), without Combat Punchy or mixin failures. The test used an offline profile with muted audio. Both optional API bridges registered. An additional 24 checks across both loaders verified bridge selection with Moves absent and with actual Moves 1.0.5, 1.0.6-hotfix and 1.0.7 JARs.
-
 ## Moves 1.0.7 compatibility
 
 Combat Punchy 1.2 supports Moves 1.0.6, 1.0.6-hotfix and 1.0.7 alongside earlier supported builds. The new inventory camera handoff yields its Moves shoulder-camera ownership during Epic Fight combat, respecting the existing camera-bridge toggle. Older Moves builds skip this additional hook; Punchy and Moves remain optional. Punchy 3.1b remains supported.
+## Pull up a chair
+
+Questions, builds, feedback, server news and the occasional wildly overambitious factory: join the **Towns & Kingdoms Modding Hub**.
+
+[![Join the Towns & Kingdoms Discord](https://i.imgur.com/Ojgcccm.png)](https://discord.gg/CRYk3uDPVt)
+
+**[Join Discord](https://discord.gg/CRYk3uDPVt)** · [Explore all projects](https://mikaaah.github.io/TownsAndKingdoms/projects/) · [CurseForge projects](https://www.curseforge.com/members/mikaaah/projects)
