@@ -21,3 +21,7 @@ Combat Punchy connects Epic Fight combat with Punchy first-person animations and
 | [Changelog](https://github.com/Mikaaah/Combat-Punchy/blob/main/CHANGELOG.md) | Version history |
 
 [Source](https://github.com/Mikaaah/Combat-Punchy) · [Report a bug](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) · [Suggestions](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=feature_request.yml)
+
+## Other editions
+
+**[1.2 · Forge 1.20.1](https://github.com/Mikaaah/Combat-Punchy/tree/port/forge-1.20.1)** — Combat Punchy is client-side. The NeoForge 1.21.1 edition uses Java 21; the Forge 1.20.1 port uses Java 17 and its own matching Epic Fight and animation-mod versions.

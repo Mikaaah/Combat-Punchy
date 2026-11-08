@@ -17,3 +17,7 @@
 - [All mod projects](https://mikaaah.github.io/TownsAndKingdoms/projects/)
 - [Join Discord](https://discord.gg/CRYk3uDPVt)
 - [Report an issue](https://github.com/Mikaaah/Combat-Punchy/issues)
+
+### Edition guides
+
+- [1.2 · Forge 1.20.1](https://github.com/Mikaaah/Combat-Punchy/tree/port/forge-1.20.1)

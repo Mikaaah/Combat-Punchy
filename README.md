@@ -10,6 +10,8 @@
 
 **Source guide: 1.2.** Use the guide matching the edition you install.
 
+> **[1.2 · Forge 1.20.1 edition guide](https://github.com/Mikaaah/Combat-Punchy/tree/port/forge-1.20.1)** — Combat Punchy is client-side. The NeoForge 1.21.1 edition uses Java 21; the Forge 1.20.1 port uses Java 17 and its own matching Epic Fight and animation-mod versions.
+
 ## Automatic combat mode
 
 - Attack with an Epic Fight melee weapon to enter combat on the same attack input.
