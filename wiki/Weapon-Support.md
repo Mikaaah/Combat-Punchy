@@ -1,3 +1,5 @@
+[← Guide home](https://github.com/Mikaaah/Combat-Punchy/wiki) · [Project](https://github.com/Mikaaah/Combat-Punchy) · [Get help](https://github.com/Mikaaah/Combat-Punchy/issues)
+
 # Weapon support
 
 Combat Punchy uses **registered Epic Fight melee weapon capabilities** to decide which held items can trigger automatic combat. Item names and attack-damage values alone do not make an item eligible.
@@ -22,4 +24,4 @@ An axe with an eligible melee capability can enter combat when attacking an enti
 
 A weapon from another addon must expose a suitable Epic Fight melee capability and avoid the excluded types/categories. Compatibility with every weapon addon is not implied.
 
-[Automatic combat](Automatic-Combat.md) · [Wiki home](Home.md)
+[Automatic combat](https://github.com/Mikaaah/Combat-Punchy/wiki/Automatic-Combat) · [Wiki home](https://github.com/Mikaaah/Combat-Punchy/wiki/Home)

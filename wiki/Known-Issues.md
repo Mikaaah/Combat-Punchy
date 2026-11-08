@@ -1,12 +1,12 @@
+[← Guide home](https://github.com/Mikaaah/Combat-Punchy/wiki) · [Project](https://github.com/Mikaaah/Combat-Punchy) · [Get help](https://github.com/Mikaaah/Combat-Punchy/issues)
+
 # Known issues
 
 ## Punchy! Moves facial rendering
 
-**Status: correction included; in-game confirmation pending · Combat Punchy 1.1**
+**Status: open · Combat Punchy 1.0**
 
-Earlier builds attached Moves' facial overlay to Epic Fight's Root bone while the skin followed its animated Head bone, causing offset or apparently duplicated eyes. The rebuilt 1.1 gives the facial layer the same head skinning transform and prevents vanilla head/hat rotations from being applied a second time. Animated facial features remain enabled.
-
-`moves_facial_bridge` enables this correction by default and requires `moves_third_person_bridge`. The issue remains open pending visual confirmation in Minecraft.
+Punchy! Moves face features can render incorrectly during Epic Fight combat. A fix and a reliable workaround are not confirmed.
 
 [Track this issue](https://github.com/Mikaaah/Combat-Punchy/issues/1). If affected, add your versions, first-/third-person perspective, other player-rendering mods/shaders, and a screenshot or short clip.
 
@@ -21,6 +21,6 @@ Earlier builds attached Moves' facial overlay to Epic Fight's Root bone while th
 | Punchy handoff is absent | The Punchy bridge and Epic Fight’s animated first-person model setting |
 | Moves retains camera control | Both `moves_third_person_bridge` and `moves_camera_bridge` must be enabled |
 
-These checks describe settings and expected behavior. The facial attachment correction above still needs visual confirmation in-game.
+These checks describe settings and expected behavior; they are not confirmed fixes for the facial-rendering issue.
 
-[Report a bug](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) · [Configuration](Configuration.md) · [Wiki home](Home.md)
+[Report a bug](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) · [Configuration](https://github.com/Mikaaah/Combat-Punchy/wiki/Configuration) · [Wiki home](https://github.com/Mikaaah/Combat-Punchy/wiki/Home)

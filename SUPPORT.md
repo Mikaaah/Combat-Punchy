@@ -1,11 +1,14 @@
-# Combat Punchy support
+# Getting help with Combat Punchy
 
-- [Feature guides and configuration](https://github.com/Mikaaah/Combat-Punchy/wiki)
-- [Known issues](https://github.com/Mikaaah/Combat-Punchy/wiki/Known-Issues)
-- [Bug reports](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml)
-- [Suggestions](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=feature_request.yml)
-- [Questions](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=question.yml)
+Use the [issue tracker](https://github.com/Mikaaah/Combat-Punchy/issues) for reproducible problems and feature requests. For setup questions and sharing your builds, join [Discord](https://discord.gg/CRYk3uDPVt).
 
-Search existing issues before opening another report. Include your Combat Punchy, Minecraft, NeoForge, Epic Fight, Punchy and Punchy! Moves versions. State which optional mods are absent, which weapon/action triggers the problem, and what you expected to happen. Add relevant client logs and a screenshot or short clip for animation problems. Remove personal information and tokens from logs.
+## A useful bug report
 
-The [Punchy! Moves facial-rendering issue](https://github.com/Mikaaah/Combat-Punchy/issues/1) already has a tracker; add matching reports there.
+1. Give the Minecraft, loader and mod versions, plus relevant companion mods.
+2. Describe what you expected and what happened.
+3. List the shortest steps that reproduce the problem.
+4. Attach the relevant log or crash report. Screenshots help with rendering and interface problems.
+
+Check the [player guide](https://github.com/Mikaaah/Combat-Punchy/wiki) and existing issues first. Keep passwords, access tokens and private server addresses out of attachments.
+
+[Project home](README.md) · [All projects](https://mikaaah.github.io/TownsAndKingdoms/projects/)

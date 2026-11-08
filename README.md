@@ -1,14 +1,12 @@
-![Combat Punchy — Epic Fight × Punchy × Punchy! Moves](docs/branding/banner.png)
+<p align="center"><img src="docs/branding/banner.png" alt="Combat Punchy" width="100%"></p>
 
-# Combat Punchy
+<h1 align="center">Combat Punchy</h1>
 
-**Epic Fight combat. Punchy movement. Automatic switching.**
+<p align="center"><strong>Epic Fight combat. Punchy movement. Automatic switching that follows the action.</strong></p>
 
-Combat Punchy brings **Epic Fight**, **Punchy** and **Punchy! Moves** together, switching between combat animations and normal movement as you play.
+<p align="center"><a href="https://github.com/Mikaaah/Combat-Punchy/releases">Downloads</a> · <a href="https://github.com/Mikaaah/Combat-Punchy/wiki">Player guide</a> · <a href="https://github.com/Mikaaah/Combat-Punchy/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Combat-Punchy/blob/main/CHANGELOG.md">Changelog</a> · <a href="https://discord.gg/CRYk3uDPVt">Discord</a></p>
 
-**Minecraft 1.21.1 · NeoForge · Client-side · Version 1.2**
-
-[Wiki](https://github.com/Mikaaah/Combat-Punchy/wiki) · [Releases](https://github.com/Mikaaah/Combat-Punchy/releases) · [Report a bug](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) · [Changelog](CHANGELOG.md)
+<p align="center"><img src="https://img.shields.io/badge/Minecraft-1.21.1-5b8731?style=flat-square" alt="Minecraft 1.21.1"> <img src="https://img.shields.io/badge/NeoForge-d77828?style=flat-square" alt="NeoForge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
 ## Automatic combat mode
 
@@ -61,7 +59,8 @@ Use the [bug report](https://github.com/Mikaaah/Combat-Punchy/issues/new?templat
 Combat Punchy 1.2 supports Moves 1.0.6, 1.0.6-hotfix and 1.0.7 alongside earlier supported builds. The new inventory camera handoff yields its Moves shoulder-camera ownership during Epic Fight combat, respecting the existing camera-bridge toggle. Older Moves builds skip this additional hook; Punchy and Moves remain optional. Punchy 3.1b remains supported.
 
 
-## Build and validation
+## Supported versions
+
 
 | Component | Supported version |
 | --- | --- |
@@ -72,6 +71,13 @@ Combat Punchy 1.2 supports Moves 1.0.6, 1.0.6-hotfix and 1.0.7 alongside earlier
 | Punchy (optional) | 2.8g–3.1b |
 | Punchy! Moves (optional) | 1.0.3–1.0.7 |
 
-Build with `./gradlew build` using JDK 21. Use `combat-punchy-1.2-neoforge-1.21.1.jar` from `build/libs/`.
 
-Validation on 6 November 2026: the full build and all 180 automated checks pass. The exact 1.2 release JAR ran in a clean NeoForge 21.1.262 client with Epic Fight 21.17.3.1, Punchy 3.1b, Moves 1.0.7, Expressions 1.0.6, Spatial GUI 1.10.1 and Fluid & Foolish 1.0.1 (268 animation clips loaded). In-world checks covered attack entry, entity-attributed incoming damage, item switching, combat facial poses and the Spatial GUI inventory camera handoff. Both optional API bridges registered. The final run saved the world and exited normally (exit code 0), without Combat Punchy or mixin failures. Two earlier runs were externally terminated without a Java crash report; the final retest used a smaller heap. The test used an offline profile with muted audio. An additional 24 checks across both loaders verified bridge selection with Moves absent and with actual Moves 1.0.5, 1.0.6-hotfix and 1.0.7 JARs.
+[Read the release notes](CHANGELOG.md) for compatibility changes. Report animation problems with the installed skin, resource packs and mod versions.
+
+## Pull up a chair
+
+Questions, builds, feedback, server news and the occasional wildly overambitious factory: join the **Towns & Kingdoms Modding Hub**.
+
+[![Join the Towns & Kingdoms Discord](https://i.imgur.com/Ojgcccm.png)](https://discord.gg/CRYk3uDPVt)
+
+**[Join Discord](https://discord.gg/CRYk3uDPVt)** · [Explore all projects](https://mikaaah.github.io/TownsAndKingdoms/projects/) · [CurseForge projects](https://www.curseforge.com/members/mikaaah/projects)

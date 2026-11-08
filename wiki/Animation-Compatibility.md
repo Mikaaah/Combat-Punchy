@@ -1,3 +1,5 @@
+[← Guide home](https://github.com/Mikaaah/Combat-Punchy/wiki) · [Project](https://github.com/Mikaaah/Combat-Punchy) · [Get help](https://github.com/Mikaaah/Combat-Punchy/issues)
+
 # Animation compatibility
 
 | Situation | Animation owner |
@@ -25,6 +27,6 @@ The bridges temporarily hand off rendering ownership. Combat Punchy does not rew
 
 ## Known limitation
 
-Punchy! Moves facial features can render incorrectly during Epic Fight combat. See [known issues](Known-Issues.md).
+Punchy! Moves facial features can render incorrectly during Epic Fight combat. See [known issues](https://github.com/Mikaaah/Combat-Punchy/wiki/Known-Issues).
 
-[Configuration](Configuration.md) · [Wiki home](Home.md)
+[Configuration](https://github.com/Mikaaah/Combat-Punchy/wiki/Configuration) · [Wiki home](https://github.com/Mikaaah/Combat-Punchy/wiki/Home)
