@@ -6,7 +6,9 @@
 
 Combat Punchy connects Epic Fight combat with Punchy first-person animations and Punchy! Moves body/camera behavior. Its automatic switching enters combat when you attack with a supported melee weapon or receive an entity-attributed hit and returns to normal movement when you switch items or stop fighting.
 
-**Minecraft 1.21.1 · NeoForge · Client-side · Version 1.2**
+**Current delivered build 1.2.1 · NeoForge 1.21.1 / Forge 1.20.1 · Client-side**
+
+The source snapshots remain 1.2. See [compatibility](https://github.com/Mikaaah/Combat-Punchy/wiki/Compatibility) before choosing animation-mod versions.
 
 ## Guides
 
@@ -17,7 +19,7 @@ Combat Punchy connects Epic Fight combat with Punchy first-person animations and
 | [Weapon support](https://github.com/Mikaaah/Combat-Punchy/wiki/Weapon-Support) | Epic Fight capabilities, WOM weapons and excluded tools |
 | [Configuration](https://github.com/Mikaaah/Combat-Punchy/wiki/Configuration) | Every setting, default and supported range |
 | [Compatibility](https://github.com/Mikaaah/Combat-Punchy/wiki/Compatibility) | Required and optional mods, version constraints and overlapping addons |
-| [Known issues](https://github.com/Mikaaah/Combat-Punchy/wiki/Known-Issues) | Confirmed visual limitation and troubleshooting |
+| [Known issues](https://github.com/Mikaaah/Combat-Punchy/wiki/Known-Issues) | Resolved facial report and troubleshooting |
 | [Changelog](https://github.com/Mikaaah/Combat-Punchy/blob/main/CHANGELOG.md) | Version history |
 
 [Source](https://github.com/Mikaaah/Combat-Punchy) · [Report a bug](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) · [Suggestions](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=feature_request.yml)

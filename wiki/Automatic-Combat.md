@@ -8,6 +8,10 @@ With the default settings, equipping an eligible weapon keeps you in vanilla mod
 
 Selecting an item alone does not start combat. Normal block mining/chopping stays in vanilla mode unless `enter_while_targeting_block` is enabled.
 
+## Enter combat when hit
+
+Entity- or projectile-attributed damage can also trigger combat, including with a tool or empty hand. The current item may remain selected until timeout; choosing another non-weapon exits combat. `auto_enter_on_hit` controls this separately from attack entry. Switching happens after the server reports damage.
+
 ## Return to normal movement
 
 Selecting a tool, a non-melee item or an empty hand returns you to vanilla mode by default. Switching between eligible melee weapons keeps combat mode active.
