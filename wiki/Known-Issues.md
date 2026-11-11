@@ -1,26 +1,16 @@
-# Known issues
+# Troubleshooting and resolved reports
 
-## Punchy! Moves facial rendering
-
-**Status: correction included; in-game confirmation pending · Combat Punchy 1.1**
-
-Earlier builds attached Moves' facial overlay to Epic Fight's Root bone while the skin followed its animated Head bone, causing offset or apparently duplicated eyes. The rebuilt 1.1 gives the facial layer the same head skinning transform and prevents vanilla head/hat rotations from being applied a second time. Animated facial features remain enabled.
-
-`moves_facial_bridge` enables this correction by default and requires `moves_third_person_bridge`. The issue remains open pending visual confirmation in Minecraft.
-
-[Track this issue](https://github.com/Mikaaah/Combat-Punchy/issues/1). If affected, add your versions, first-/third-person perspective, other player-rendering mods/shaders, and a screenshot or short clip.
-
-## Behavior to check before reporting
+The earlier [Punchy! Moves facial-alignment report](https://github.com/Mikaaah/Combat-Punchy/issues/1) is closed. The dedicated facial attachment is retained. No additional confirmed open Combat Punchy report was found during the 11 November 2026 review.
 
 | Symptom | Check |
 | --- | --- |
-| Equipping a weapon does not enter combat | Expected: attack with an eligible weapon to enter |
-| Block mining does not enter combat | Expected with `enter_while_targeting_block = false` |
-| Mode does not switch | Master/feature switches, weapon eligibility and the server’s Epic Fight switching rule |
-| Combat never times out | `auto_exit_on_timeout`, a nonzero timeout and whether activity keeps refreshing it |
-| Punchy handoff is absent | The Punchy bridge and Epic Fight’s animated first-person model setting |
-| Moves retains camera control | Both `moves_third_person_bridge` and `moves_camera_bridge` must be enabled |
+| Equipping a weapon does not enter combat | Attack with an eligible weapon, or receive an entity-attributed hit. |
+| Mining does not enter combat | Expected with `enter_while_targeting_block = false`. |
+| Mode does not switch | Check the master switch, feature toggles, weapon eligibility and the server's Epic Fight switching rule. |
+| Combat never times out | Check `auto_exit_on_timeout`, a nonzero timeout and activity that keeps refreshing it. |
+| Moves retains camera control | Enable both `moves_third_person_bridge` and `moves_camera_bridge`. |
+| Punchy 3.2 or Moves 1.0.8 is rejected | Use the matching 1.2.1 build; the older 1.2 source has narrower version bounds. |
 
-These checks describe settings and expected behavior. The facial attachment correction above still needs visual confirmation in-game.
+For a new rendering problem, include the exact JAR versions, perspective, skin/hat layers, resource packs and a short recording.
 
-[Report a bug](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) · [Configuration](Configuration.md) · [Wiki home](Home.md)
+[Guide home](https://github.com/Mikaaah/Combat-Punchy/wiki) · [Report an issue](https://github.com/Mikaaah/Combat-Punchy/issues) · [Discord](https://discord.gg/CRYk3uDPVt)

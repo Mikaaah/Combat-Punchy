@@ -1,26 +1,20 @@
 # Compatibility
 
-Combat Punchy 1.1 is a **client-side** addon for Minecraft 1.21.1 / NeoForge. The version constraints below are taken from its mod metadata.
+Combat Punchy is a **client-side** addon. Choose the JAR for your Minecraft version and loader.
 
-| Component | Status | Declared version |
-| --- | --- | --- |
-| Minecraft | Required | 1.21.1 |
-| NeoForge | Required | 21.1.262 or newer within 21.1.x |
-| Epic Fight | Required | 21.17.3.1 exactly |
-| Punchy | Optional first-person integration | 2.8g up to, excluding, 3.2 |
-| Punchy! Moves (`punchy_moves`) | Optional body/camera integration | 1.0.3–1.0.5 |
-| Weapons of Miracles | Optional weapon support | Eligible registered Epic Fight melee capabilities |
+| 1.2.1 edition | Java | Required Epic Fight | Optional animation versions declared by the JAR |
+| --- | --- | --- | --- |
+| NeoForge 1.21.1, NeoForge 21.1.262+ within 21.1 | 21 | 21.17.3.1 | Punchy [2.8g, 3.3); Moves [1.0.3, 1.0.9) |
+| Forge 1.20.1, Forge 47.4.13+ within 47 | 17 | 20.14.17 | Punchy [3.1b, 3.3); Moves [1.0.5, 1.0.9) |
 
-Automatic mode switching is provided by Combat Punchy with Epic Fight. Punchy and Moves provide their respective integrations when present.
+**The supplied 1.2.1 hotfix adds Punchy 3.2 and Moves 1.0.8 support on both ports.** `[a, b)` means version a is included and b is excluded. These newer builds are separate from the 1.2 Java source currently checked into GitHub.
+
+Registered Epic Fight melee capabilities, including eligible Weapons of Miracles weapons, provide automatic weapon recognition. Punchy and Moves are optional; Epic Fight is required.
 
 ## Overlapping addons
 
-Combat Punchy replaces the earlier **TNK Combat Mode** implementation. Its metadata marks **TNK Combat Mode** (`tnkcombatmode`), **Epic Tweaks** (`epictweaks`) and **Epic Punchy** (`efpunchycompat`) as incompatible because they overlap its behavior.
+Remove TNK Combat Mode (`tnkcombatmode`), Epic Tweaks (`epictweaks`) and Epic Punchy (`efpunchycompat`) when using Combat Punchy. Their overlapping bridges are marked incompatible.
 
-“Standalone” means Combat Punchy provides its own compatibility bridges; Epic Fight remains required.
+Epic Fight's multiplayer requirements and server mode-switching rules still apply. Use the [resolved reports and troubleshooting page](https://github.com/Mikaaah/Combat-Punchy/wiki/Known-Issues) for common symptoms.
 
-## Scope
-
-Epic Fight server rules still control whether the player may switch modes. The addon does not replace native movesets, rebalance weapons or promise compatibility with every player-model, camera or shader mod.
-
-[Animation compatibility](Animation-Compatibility.md) · [Known issues](Known-Issues.md) · [Wiki home](Home.md)
+[Guide home](https://github.com/Mikaaah/Combat-Punchy/wiki) · [Report an issue](https://github.com/Mikaaah/Combat-Punchy/issues) · [Discord](https://discord.gg/CRYk3uDPVt)

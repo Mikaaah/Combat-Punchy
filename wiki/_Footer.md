@@ -1,3 +1,3 @@
-[Combat Punchy](https://github.com/Mikaaah/Combat-Punchy) · [Report a bug](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) · [Suggestions](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=feature_request.yml)
+[![Join the Towns & Kingdoms Discord](https://i.imgur.com/Ojgcccm.png)](https://discord.gg/CRYk3uDPVt)
 
-By Mikaaah / Towns & Kingdoms · [MIT license](https://github.com/Mikaaah/Combat-Punchy/blob/main/LICENSE)
+[Join Discord](https://discord.gg/CRYk3uDPVt) · [All mod projects](https://mikaaah.github.io/TownsAndKingdoms/projects/) · [Repository](https://github.com/Mikaaah/Combat-Punchy) · [Report an issue](https://github.com/Mikaaah/Combat-Punchy/issues)

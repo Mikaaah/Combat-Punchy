@@ -1,30 +1,24 @@
 # Animation compatibility
 
+## Current 1.2.1 build
+
 | Situation | Animation owner |
 | --- | --- |
-| Normal first-person movement, interactions and idle intervals between combat actions | Punchy, when present and its bridge is enabled |
-| Attacks, guarding and other native combat poses | Epic Fight |
-| Body animation while Epic Fight owns the player model | Epic Fight; Punchy! Moves yields its locomotion/body rotation |
-| Camera, orbit and targeting while Epic Fight owns the model | Epic Fight when both Moves bridge options are enabled |
+| Normal first-person movement and interactions outside battle mode | Punchy, when installed and enabled |
+| First-person hands throughout Epic Fight battle mode | Epic Fight, including between attacks |
+| Body animation while Epic Fight owns the player model | Epic Fight; Moves yields its body animation |
+| Camera while Epic Fight owns the player model | Epic Fight, with both Moves bridge settings enabled |
+| Moves facial expressions during combat | Moves artwork attached to Epic Fight's animated head |
 
-## First-person handoff
+Automatic mode switching still enters on a supported attack or entity-attributed hit and exits on item selection or inactivity. Animation bridges retain saved Punchy and Moves preferences.
 
-The default release delay is **2 ticks**. It briefly retains Epic Fight's first-person renderer after an action to reduce flicker, then lets Punchy resume. The range is 0–5 ticks.
+## Earlier 1.2 source
 
-Changing the selected item/slot or player session clears stale handoff state. Items that explicitly require vanilla first-person rendering retain that behavior.
+The 1.2 Java snapshot uses action-based first-person handoffs and a two-tick default release delay, configurable from zero to five ticks. Its native-stance option retains sheathed-katana and Ochs poses. That older timing should not be used to describe the supplied 1.2.1 battle-mode ownership.
 
-Epic Fight's animated first-person model must be enabled for its first-person combat rendering to take ownership.
+## Facial attachment
 
-## Native stances
+The earlier [facial-alignment report](https://github.com/Mikaaah/Combat-Punchy/issues/1) is closed. Report new regressions with exact versions, perspective, skin and resource packs.
 
-`preserve_native_stances` keeps Epic Fight's sheathed-katana and Ochs guard poses in first person. Disable it if you prefer the normal handoff behavior outside active actions.
 
-## Saved preferences
-
-The bridges temporarily hand off rendering ownership. Combat Punchy does not rewrite saved Punchy or Moves preferences.
-
-## Known limitation
-
-Punchy! Moves facial features can render incorrectly during Epic Fight combat. See [known issues](Known-Issues.md).
-
-[Configuration](Configuration.md) · [Wiki home](Home.md)
+[Guide home](https://github.com/Mikaaah/Combat-Punchy/wiki) · [Report an issue](https://github.com/Mikaaah/Combat-Punchy/issues)

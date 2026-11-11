@@ -4,11 +4,11 @@
 
 <p align="center"><strong>Epic Fight combat. Punchy movement. Automatic switching that follows the action.</strong></p>
 
-<p align="center"><a href="https://github.com/Mikaaah/Combat-Punchy/releases">Downloads</a> · <a href="https://github.com/Mikaaah/Combat-Punchy/wiki">Player guide</a> · <a href="https://github.com/Mikaaah/Combat-Punchy/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Combat-Punchy/blob/port/forge-1.20.1/CHANGELOG.md">Changelog</a> · <a href="https://discord.gg/CRYk3uDPVt">Discord</a></p>
+<p align="center"><a href="https://www.curseforge.com/minecraft/mc-mods/combat-punchy-epic-fight-x-punchy-x-punchy-moves">Downloads</a> · <a href="https://github.com/Mikaaah/Combat-Punchy/wiki">Player guide</a> · <a href="https://github.com/Mikaaah/Combat-Punchy/issues">Report an issue</a> · <a href="https://github.com/Mikaaah/Combat-Punchy/blob/port/forge-1.20.1/CHANGELOG.md">Changelog</a> · <a href="https://discord.gg/CRYk3uDPVt">Discord</a></p>
 
 <p align="center"><img src="https://img.shields.io/badge/Minecraft-1.20.1-5b8731?style=flat-square" alt="Minecraft 1.20.1"> <img src="https://img.shields.io/badge/Forge-d77828?style=flat-square" alt="Forge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
-**Source guide: 1.2 · Client-side · Java 17.** Use the guide matching the edition you install.
+**Forge 1.20.1 · Client-side · Java 17.** The supplied current build is **1.2.1**, supporting Punchy 3.2 and Moves 1.0.8. This branch retains the earlier 1.2 Java source.
 
 
 ## Automatic combat mode
@@ -47,9 +47,9 @@ Also includes a master switch, an adjustable combat timeout, a first-person tran
 
 Hit-triggered switching uses the server's damage notification. It cannot change damage already calculated for the triggering hit, and it respects the server's Epic Fight mode-switching rule.
 
-## Known issue
+## Facial alignment
 
-The existing correction for displaced or duplicate Moves facial features remains enabled. A client test with Moves 1.0.7, Fluid & Foolish 1.0.1 and the default skin showed aligned features during combat and hurt poses. Broader skin and animation-pack coverage is still pending. [Track the issue](https://github.com/Mikaaah/Combat-Punchy/issues/1).
+The earlier facial-alignment report is [closed](https://github.com/Mikaaah/Combat-Punchy/issues/1). Report new regressions with exact versions, perspective, skin and resource packs.
 
 ## Guides & support
 
@@ -72,9 +72,10 @@ This branch targets Java 17 and Forge 47.4.13 or newer in the 47.x series. It us
 
 Install the Forge builds of the optional animation mods. Both remain optional: either bridge can be used independently, and automatic combat switching also works with Epic Fight alone. Do not combine Combat Punchy with TNK Combat Mode, Epic Tweaks or Epic Punchy.
 
-## Moves 1.0.7 compatibility
+## Current 1.2.1 build
 
-Combat Punchy 1.2 supports Moves 1.0.6, 1.0.6-hotfix and 1.0.7 alongside earlier supported builds. The new inventory camera handoff yields its Moves shoulder-camera ownership during Epic Fight combat, respecting the existing camera-bridge toggle. Older Moves builds skip this additional hook; Punchy and Moves remain optional. Punchy 3.1b remains supported.
+The delivered hotfix supports Punchy 3.2 and Moves 1.0.8 and keeps Epic Fight in control of hands throughout battle mode. The table above records the older 1.2 source bounds. [Current JAR requirements](https://github.com/Mikaaah/Combat-Punchy/wiki/Compatibility).
+
 ## Pull up a chair
 
 Questions, builds, feedback, server news and the occasional wildly overambitious factory: join the **Towns & Kingdoms Modding Hub**.

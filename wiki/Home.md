@@ -4,20 +4,26 @@
 
 **Epic Fight combat. Punchy movement. Automatic switching.**
 
-Combat Punchy connects Epic Fight combat with Punchy first-person animations and Punchy! Moves body/camera behavior. Its automatic switching enters combat when you attack with a supported melee weapon or receive a hit, and returns to normal movement when you switch items or stop fighting.
+Combat Punchy connects Epic Fight combat with Punchy first-person animations and Punchy! Moves body/camera behavior. Its automatic switching enters combat when you attack with a supported melee weapon or receive an entity-attributed hit and returns to normal movement when you switch items or stop fighting.
 
-**Minecraft 1.21.1 · NeoForge · Client-side · Version 1.1**
+**Current delivered build 1.2.1 · NeoForge 1.21.1 / Forge 1.20.1 · Client-side**
+
+The source snapshots remain 1.2. See [compatibility](https://github.com/Mikaaah/Combat-Punchy/wiki/Compatibility) before choosing animation-mod versions.
 
 ## Guides
 
 | Guide | What it covers |
 | --- | --- |
-| [Automatic combat](Automatic-Combat.md) | Attack- and hit-triggered entry, item switching and the 7-second inactivity timer |
-| [Animation compatibility](Animation-Compatibility.md) | First-person hands, third-person movement, cameras and native stances |
-| [Weapon support](Weapon-Support.md) | Epic Fight capabilities, WOM weapons and excluded tools |
-| [Configuration](Configuration.md) | Every setting, default and supported range |
-| [Compatibility](Compatibility.md) | Required and optional mods, version constraints and overlapping addons |
-| [Known issues](Known-Issues.md) | Confirmed visual limitation and troubleshooting |
+| [Automatic combat](https://github.com/Mikaaah/Combat-Punchy/wiki/Automatic-Combat) | Attack-triggered entry, item switching and the 7-second inactivity timer |
+| [Animation compatibility](https://github.com/Mikaaah/Combat-Punchy/wiki/Animation-Compatibility) | First-person hands, third-person movement, cameras and native stances |
+| [Weapon support](https://github.com/Mikaaah/Combat-Punchy/wiki/Weapon-Support) | Epic Fight capabilities, WOM weapons and excluded tools |
+| [Configuration](https://github.com/Mikaaah/Combat-Punchy/wiki/Configuration) | Every setting, default and supported range |
+| [Compatibility](https://github.com/Mikaaah/Combat-Punchy/wiki/Compatibility) | Required and optional mods, version constraints and overlapping addons |
+| [Known issues](https://github.com/Mikaaah/Combat-Punchy/wiki/Known-Issues) | Resolved facial report and troubleshooting |
 | [Changelog](https://github.com/Mikaaah/Combat-Punchy/blob/main/CHANGELOG.md) | Version history |
 
 [Source](https://github.com/Mikaaah/Combat-Punchy) · [Report a bug](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) · [Suggestions](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=feature_request.yml)
+
+## Other editions
+
+**[1.2 · Forge 1.20.1](https://github.com/Mikaaah/Combat-Punchy/tree/port/forge-1.20.1)** — Combat Punchy is client-side. The NeoForge 1.21.1 edition uses Java 21; the Forge 1.20.1 port uses Java 17 and its own matching Epic Fight and animation-mod versions.
