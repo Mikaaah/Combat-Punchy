@@ -1,0 +1,33 @@
+name: Publish verified JARs to CurseForge
+on:
+  push:
+    branches: [main]
+    paths: ['.github/publish/releases/**/request.json']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Existing verified release to upload
+        required: true
+        default: '1.3.2'
+permissions:
+  contents: read
+concurrency:
+  group: combat-punchy-curseforge
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Upload existing verified release
+        env:
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+          RELEASE_VERSION: ${{ inputs.version || '1.3.2' }}
+        run: python3 .github/scripts/publish_curseforge.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: curseforge-upload-results
+          path: curseforge-upload-results.json
+          if-no-files-found: ignore
