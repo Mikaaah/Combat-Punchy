@@ -16,7 +16,7 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Item;
-import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraft.resources.ResourceLocation;
 import nl.tnk.combatpunchy.CombatPunchyMod;
 
@@ -60,7 +60,8 @@ public final class BackWeaponLayer extends RenderLayer<AbstractClientPlayer, Pla
             Map<Item, BackWeaponOptions.Pose> resolved = new HashMap<>();
             BackWeaponOptions.overrides(entries).forEach((id, pose) -> {
                 ResourceLocation key = ResourceLocation.tryParse(id);
-                if (key != null) BuiltInRegistries.ITEM.getOptional(key).ifPresent(value -> resolved.put(value, pose));
+                if (key != null && ForgeRegistries.ITEMS.containsKey(key))
+                    resolved.put(ForgeRegistries.ITEMS.getValue(key), pose);
             });
             itemOverrides = Map.copyOf(resolved);
             previousOverrides = List.copyOf(entries);
