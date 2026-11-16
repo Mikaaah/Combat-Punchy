@@ -71,6 +71,18 @@ public final class MovesFaceTransformTest {
         }
         check(java.util.Arrays.equals(savedHead, values(head)), "normal render restores original head");
         check(java.util.Arrays.equals(savedHat, values(hat)), "normal render restores original hat");
+        FaceRenderPose reusable = new FaceRenderPose();
+        try (FaceRenderPose ignored = reusable.capture(head, hat)) {
+            check(zeroPose(head) && zeroPose(hat), "reusable snapshot neutralizes both parts");
+        }
+        head.xRot = 0.9F;
+        float[] secondPose = values(head);
+        try (FaceRenderPose ignored = reusable.capture(head, hat)) {
+            check(zeroPose(head), "reused snapshot captures the next frame");
+        }
+        check(java.util.Arrays.equals(secondPose, values(head)), "reuse restores the latest pose, not a stale frame");
+        reusable.close();
+        check(java.util.Arrays.equals(secondPose, values(head)), "closing a returned snapshot is idempotent");
         System.out.println("PASS: " + checks + " facial attachment/pose checks");
     }
 

@@ -4,7 +4,7 @@ license="MIT"
 
 [[mods]]
 modId="combatpunchy"
-version="1.2"
+version="${file.jarVersion}"
 displayName="Combat Punchy"
 authors="Mika van Eijken / TNK"
 description='''Attack- and hit-triggered Epic Fight combat with standalone Punchy first-person and Punchy Moves body/camera/face handoffs. No Epic Tweaks or Epic Punchy required.'''
@@ -45,14 +45,14 @@ config="combatpunchy.mixins.json"
 [[dependencies.combatpunchy]]
 modId="punchy"
 type="optional"
-versionRange="[2.8g,3.2)"
+versionRange="[3.2a,3.3)"
 ordering="AFTER"
 side="CLIENT"
 
 [[dependencies.combatpunchy]]
 modId="punchy_moves"
 type="optional"
-versionRange="[1.0.3,1.0.8)"
+versionRange="[1.0.9,1.0.10)"
 ordering="AFTER"
 side="CLIENT"
 

@@ -21,6 +21,11 @@ public final class MovesFaceLayer extends PatchedLayer<AbstractClientPlayer,
             PlayerModel<AbstractClientPlayer>> original = new RenderOriginalModelLayer<>(
                     "Root", new Vec3f(0, 0.75F, 0), new Vec3f());
 
+    private final FaceRenderPose facePose = new FaceRenderPose();
+    private final OpenMatrix4f skinning = new OpenMatrix4f();
+    private final Matrix4f headMatrix = new Matrix4f();
+    private boolean rendering;
+
     @Override
     protected void renderLayer(AbstractClientPlayerPatch<AbstractClientPlayer> patch, AbstractClientPlayer player,
             RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> layer, PoseStack stack,
@@ -35,22 +40,32 @@ public final class MovesFaceLayer extends PatchedLayer<AbstractClientPlayer,
         if (head.getId() < 0 || head.getId() >= poses.length || poses[head.getId()] == null) return;
 
         PlayerModel<AbstractClientPlayer> model = layer.getParentModel();
+        // The usual path reuses snapshots/matrices. A nested render gets its own snapshot.
+        FaceRenderPose snapshot = rendering ? new FaceRenderPose() : facePose;
+        boolean nested = rendering;
+        rendering = true;
         stack.pushPose();
-        try (FaceRenderPose ignored = new FaceRenderPose(model.head, model.hat)) {
+        try (FaceRenderPose ignored = snapshot.capture(model.head, model.hat)) {
             // Match the skinning matrix used by Epic Fight's head mesh, including
             // its inverse bind pose. A Root attachment cannot follow combat head motion.
-            stack.mulPose(headTransform(poses[head.getId()], head.getToOrigin()));
+            stack.mulPose(headTransform(poses[head.getId()], head.getToOrigin(), skinning, headMatrix));
             layer.render(stack, buffers, light, player, player.walkAnimation.position(),
                     player.walkAnimation.speed(), partial, age, yaw, pitch);
         } finally {
             stack.popPose();
+            rendering = nested;
         }
     }
 
     public static Matrix4f headTransform(OpenMatrix4f animatedHead, OpenMatrix4f inverseBind) {
-        OpenMatrix4f skinning = OpenMatrix4f.mul(animatedHead, inverseBind, null);
+        return headTransform(animatedHead, inverseBind, new OpenMatrix4f(), new Matrix4f());
+    }
+
+    private static Matrix4f headTransform(OpenMatrix4f animatedHead, OpenMatrix4f inverseBind,
+            OpenMatrix4f skinning, Matrix4f result) {
+        OpenMatrix4f.mul(animatedHead, inverseBind, skinning);
         // Vanilla face vertices use pixels below a top-down model origin. The
         // Epic Fight player mesh uses block units above the feet (neck at 24/16).
-        return OpenMatrix4f.exportToMojangMatrix(skinning).translate(0, 24.0F / 16.0F, 0).scale(-1, -1, 1);
+        return OpenMatrix4f.exportToMojangMatrix(skinning, result).translate(0, 24.0F / 16.0F, 0).scale(-1, -1, 1);
     }
 }

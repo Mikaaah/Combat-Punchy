@@ -34,6 +34,16 @@ public final class ModeSession {
     public Decision update(boolean enabled, boolean switchingAllowed, boolean weapon,
                            boolean inCombat, boolean combatAttack, boolean incomingHit,
                            boolean heldItemChanged, Features features) {
+        return update(enabled, switchingAllowed, weapon, inCombat, combatAttack, incomingHit,
+                heldItemChanged, features.autoEnterCombat(), features.autoExitOnItemSwitch(),
+                features.startInVanillaMode(), features.autoEnterOnHit());
+    }
+
+    /** Primitive flags keep the client input/tick path allocation-free. */
+    public Decision update(boolean enabled, boolean switchingAllowed, boolean weapon,
+                           boolean inCombat, boolean combatAttack, boolean incomingHit,
+                           boolean heldItemChanged, boolean autoEnterCombat, boolean autoExitOnItemSwitch,
+                           boolean startInVanillaMode, boolean autoEnterOnHit) {
         if (!enabled || !switchingAllowed) {
             reset();
             return Decision.NONE;
@@ -41,22 +51,22 @@ public final class ModeSession {
 
         boolean firstUpdate = !initialized;
         initialized = true;
-        if (!inCombat || heldItemChanged || !features.autoEnterOnHit()) enteredOnHit = false;
+        if (!inCombat || heldItemChanged || !autoEnterOnHit) enteredOnHit = false;
         // A real hit wins over startup/item-exit rules in this update. Retain the
         // mode with the current tool/empty hand until timeout or another selection.
-        if (incomingHit && features.autoEnterOnHit()) {
+        if (incomingHit && autoEnterOnHit) {
             enteredOnHit = true;
             return inCombat ? Decision.NONE : Decision.ENTER_COMBAT;
         }
         if (!weapon) {
-            return inCombat && !enteredOnHit && (features.autoExitOnItemSwitch()
-                    || (firstUpdate && features.startInVanillaMode())) ? Decision.ENTER_VANILLA : Decision.NONE;
+            return inCombat && !enteredOnHit && (autoExitOnItemSwitch
+                    || (firstUpdate && startInVanillaMode)) ? Decision.ENTER_VANILLA : Decision.NONE;
         }
-        if (combatAttack && features.autoEnterCombat()) {
+        if (combatAttack && autoEnterCombat) {
             return inCombat ? Decision.NONE : Decision.ENTER_COMBAT;
         }
         // Even servers whose initialMode is combat start this interaction policy in vanilla.
-        if (firstUpdate && inCombat && features.startInVanillaMode()) {
+        if (firstUpdate && inCombat && startInVanillaMode) {
             return Decision.ENTER_VANILLA;
         }
         return Decision.NONE;
