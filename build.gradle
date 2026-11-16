@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'nl.tnk'
-version = '1.2'
+version = new groovy.json.JsonSlurper().parse(file('release.json')).version
 base.archivesName = 'combat-punchy'
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
@@ -45,9 +45,10 @@ dependencies {
     compileOnly 'org.joml:joml:1.10.5'
     testImplementation 'org.joml:joml:1.10.5'
     implementation fg.deobf('maven.modrinth:vu3NZ5Ma:KEBfkBat')
-    compileOnly fg.deobf('maven.modrinth:mzgtK8pY:q0vE6iEZ')
-    runtimeOnly fg.deobf('maven.modrinth:mzgtK8pY:q0vE6iEZ')
-    runtimeOnly fg.deobf('maven.modrinth:8aoMKplv:DdPbuBDy')
+    compileOnly fg.deobf('maven.modrinth:mzgtK8pY:jwu6hvZS')
+    runtimeOnly fg.deobf('maven.modrinth:mzgtK8pY:jwu6hvZS')
+    compileOnly fg.deobf('maven.modrinth:8aoMKplv:GW8FqJOs')
+    runtimeOnly fg.deobf('maven.modrinth:8aoMKplv:GW8FqJOs')
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     compileOnly 'io.github.llamalad7:mixinextras-common:0.5.0'
     runtimeOnly 'io.github.llamalad7:mixinextras-forge:0.5.0'
@@ -59,6 +60,7 @@ dependencies {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+    options.compilerArgs += ['-Xlint:deprecation', '-Xlint:unchecked']
 }
 
 tasks.named('jar') {
@@ -110,3 +112,62 @@ tasks.named("build") { dependsOn "jarJar" }
 tasks.named("jarJar") { archiveClassifier = "forge-1.20.1" }
 reobf { jarJar {} }
 tasks.named("jarJar") { finalizedBy "reobfJarJar" }
+
+// Validate the actual final distributable using the TNK naming system.
+apply from: 'release-tools/gradle/release.gradle'
+
+gradle.projectsEvaluated { tasks.named('tnkReleaseCheck') { dependsOn 'reobfJarJar' } }
+
+
+tasks.register('fetchCompatDependencies', Exec) {
+    commandLine 'python3', 'tools/fetch_compat_dependencies.py'
+    inputs.file('compat-dependencies.json')
+    inputs.file('tools/fetch_compat_dependencies.py')
+    outputs.dir('build/compat-deps')
+}
+tasks.register('verifyUpstreamContracts', JavaExec) {
+    dependsOn testClasses, 'fetchCompatDependencies'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'nl.tnk.combatpunchy.UpstreamContractTest'
+    def pins = new groovy.json.JsonSlurper().parse(file('compat-dependencies.json'))
+    args file('build/compat-deps/' + pins.find { it.filename.startsWith('punchy-') && !it.filename.startsWith('punchy-moves-') }.filename).absolutePath,
+         file('build/compat-deps/' + pins.find { it.filename.startsWith('punchy-moves-') }.filename).absolutePath
+}
+tasks.named('check') { dependsOn 'verifyUpstreamContracts' }
+
+ tasks.register('verifyBackWeapons', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'nl.tnk.combatpunchy.BackWeaponStateTest'
+}
+tasks.named('check') { dependsOn 'verifyBackWeapons' }
+
+tasks.register('verifyBackPlacement', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'nl.tnk.combatpunchy.BackWeaponOptionsTest'
+}
+tasks.named('check') { dependsOn 'verifyBackPlacement' }
+
+tasks.register('verifyOffhandStowing', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'nl.tnk.combatpunchy.OffhandStowStateTest'
+}
+tasks.named('check') { dependsOn 'verifyOffhandStowing' }
+
+
+tasks.register('verifyInputContracts', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'nl.tnk.combatpunchy.InputContractTest'
+}
+tasks.named('check') { dependsOn 'verifyInputContracts' }
+
+
+tasks.register('verifyOptionalIntegrations', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'nl.tnk.combatpunchy.OptionalIntegrationTest'
+}
+tasks.named('check') { dependsOn 'verifyOptionalIntegrations' }

@@ -5,7 +5,7 @@ clientSideOnly=true
 
 [[mods]]
 modId="combatpunchy"
-version="1.2"
+version="${file.jarVersion}"
 displayName="Combat Punchy"
 authors="Mika van Eijken / TNK"
 description='''Attack- and hit-triggered Epic Fight combat with standalone Punchy first-person and Punchy Moves body/camera/face handoffs. No Epic Tweaks or Epic Punchy required.'''
@@ -35,14 +35,14 @@ side="CLIENT"
 [[dependencies.combatpunchy]]
 modId="punchy"
 mandatory=false
-versionRange="[3.1b]"
+versionRange="[3.2a,3.3)"
 ordering="AFTER"
 side="CLIENT"
 
 [[dependencies.combatpunchy]]
 modId="punchy_moves"
 mandatory=false
-versionRange="[1.0.5,1.0.8)"
+versionRange="[1.0.5,1.0.9)"
 ordering="AFTER"
 side="CLIENT"
 
