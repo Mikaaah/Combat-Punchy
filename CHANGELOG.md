@@ -1,3 +1,9 @@
+# 1.3.4 — Fix Punchy! Moves FML requirements
+
+- Correct Forge metadata that rejected installed Punchy! Moves 1.0.9.
+- Require Moves 1.0.9 or newer with no upper version bound on both loaders.
+- Retain the exact 1.3.3 Java runtime classes; this is a dependency-metadata hotfix.
+
 # 1.3.3 — Combat responsiveness and sheath ownership
 
 - Suppress sheathed offhand items in Epic Fight's patched held-item renderer as well as vanilla and Punchy hands.
