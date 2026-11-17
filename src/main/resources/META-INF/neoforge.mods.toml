@@ -52,7 +52,7 @@ side="CLIENT"
 [[dependencies.combatpunchy]]
 modId="punchy_moves"
 type="optional"
-versionRange="[1.0.9,1.0.10)"
+versionRange="[1.0.9,)"
 ordering="AFTER"
 side="CLIENT"
 

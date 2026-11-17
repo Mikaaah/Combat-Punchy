@@ -9,14 +9,14 @@
 <p align="center"><img src="https://img.shields.io/badge/Minecraft-1.21.1-5b8731?style=flat-square" alt="Minecraft 1.21.1"> <img src="https://img.shields.io/badge/NeoForge-d77828?style=flat-square" alt="NeoForge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
 
-**Current build: 1.3.3.** Client-side Epic Fight, Punchy and Punchy! Moves integration.
+**Current build: 1.3.4.** Client-side Epic Fight, Punchy and Punchy! Moves integration.
 
 ## Supported targets
 
 | Loader | Minecraft | Java | Epic Fight | Punchy (optional) | Moves (optional) |
 | --- | --- | --- | --- | --- | --- |
-| NeoForge 21.1.262+ within 21.1 | 1.21.1 | 21 | 21.17.3.1 | 3.2a–3.2b; tested 3.2b | 1.0.9 |
-| Forge 47.4.13+ within 47 | 1.20.1 | 17 | 20.14.17 | 3.2a–3.2b; tested 3.2b | 1.0.9 |
+| NeoForge 21.1.262+ within 21.1 | 1.21.1 | 21 | 21.17.3.1 | 3.2a–3.2b; tested 3.2b | 1.0.9 or newer |
+| Forge 47.4.13+ within 47 | 1.20.1 | 17 | 20.14.17 | 3.2a–3.2b; tested 3.2b | 1.0.9 or newer |
 
 Use the JAR matching your loader. Punchy and Moves remain optional; older versions outside these ranges are rejected so their missing API hooks cannot silently fail. This source project has NeoForge and Forge implementations; it has no Fabric port.
 
@@ -47,3 +47,7 @@ Run `./gradlew build` with the Java version above. The build runs transition, ti
 API contracts verify target descriptors and injection call counts; they do not replace graphical, multiplayer or full-modpack testing. See the diagnostic report supplied with the build for the actual validation performed.
 
 [Release notes](CHANGELOG.md) · [Support](SUPPORT.md) · [Issues](https://github.com/Mikaaah/Combat-Punchy/issues)
+
+## Moves dependency hotfix
+
+The FML range is `[1.0.9,)` on both loaders: 1.0.9 is included and there is no maximum. The previous Forge range `[1.0.5,1.0.9)` incorrectly excluded 1.0.9. The Java runtime is unchanged from 1.3.3. Newer Moves versions may load without a metadata ceiling; their APIs still need to remain compatible.
