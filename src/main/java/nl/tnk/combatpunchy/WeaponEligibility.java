@@ -3,6 +3,7 @@ package nl.tnk.combatpunchy;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import nl.tnk.combatpunchy.mixin.CapabilityItemPresetAccessor;
 import yesman.epicfight.world.capabilities.EpicFightCapabilities;
 import yesman.epicfight.world.capabilities.item.CapabilityItem;
 import yesman.epicfight.world.capabilities.item.CapabilityItem.WeaponCategories;
@@ -25,10 +26,12 @@ public final class WeaponEligibility {
         CapabilityItem capability = EpicFightCapabilities.getItemStackCapability(stack);
         if (!(capability instanceof WeaponCapability weapon) || capability instanceof RangedWeaponCapability
                 || capability.isEmpty()) return false;
-        // Neo's native tool presets inherit AXE, with their actual tool identity in
-        // capability tags. An item's mining tag alone must not override a custom moveset.
+        // Native builder merges can lose tool tags and report the legacy FIST category.
+        // The assigned preset ID survives, including custom movesets on pickaxe subclasses.
+        ResourceLocation preset = ((CapabilityItemPresetAccessor) capability).combatpunchy$getPresetId();
         boolean swordTagged = stack.is(ItemTags.SWORDS);
-        if ((!swordTagged && weapon.hasMatchingTag(PICKAXE_CAPABILITY))
+        if ((!swordTagged && (PICKAXE_CAPABILITY.equals(preset) || weapon.hasMatchingTag(PICKAXE_CAPABILITY)))
+                || SHOVEL_CAPABILITY.equals(preset) || HOE_CAPABILITY.equals(preset)
                 || weapon.hasMatchingTag(SHOVEL_CAPABILITY) || weapon.hasMatchingTag(HOE_CAPABILITY)) return false;
         return !capability.isWeaponCategory(WeaponCategories.NOT_WEAPON)
                 && (!capability.isWeaponCategory(WeaponCategories.PICKAXE) || swordTagged)

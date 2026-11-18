@@ -33,6 +33,11 @@ public final class UpstreamContractTest {
             check(mixins != null && new String(mixins.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8)
                     .contains("\"BackWeaponEpicHeldItemMixin\""), "Epic Fight hand suppression mixin must be registered");
         }
+        // Neo's merged native tool presets may lose categories/tags; their original preset ID survives.
+        field(localType("yesman/epicfight/world/capabilities/item/CapabilityItem"), "id",
+                "Lnet/minecraft/resources/ResourceLocation;");
+        method(localType("nl/tnk/combatpunchy/mixin/CapabilityItemPresetAccessor"), "combatpunchy$getPresetId",
+                "()Lnet/minecraft/resources/ResourceLocation;");
         // The reload fallback must remain common-side and follow native capability assignment.
         ClassNode itemProvider = localType("yesman/epicfight/world/capabilities/provider/CommonItemCapabilityProvider");
         method(itemProvider, "addDefaultItems", "()V");
