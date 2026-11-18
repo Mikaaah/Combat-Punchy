@@ -1,3 +1,12 @@
+# 1.3.5 — Weapon compatibility and combat mining
+
+- Respect registered Epic Fight melee movesets on Cataclysm weapons that inherit from pickaxes, including Infernal Forge, Void Forge and Brontes. Honor their sword tag with the native pickaxe moveset too; ordinary mining pickaxes stay excluded from automatic combat entry.
+- Keep backported `minecraft:*_spear` weapons on Epic Fight's native spear animations during combat instead of falling back to vanilla stab handling when aiming at blocks.
+- Block block-breaking in combat mode except with axes and pickaxes; keep ordinary mining outside combat.
+- Preserve combat attacks through blocks/grass instead of letting mining preference consume them.
+- Add the enabled-by-default `combat_mining_axes_pickaxes_only` client setting.
+- Retain Punchy! Moves 1.0.9 or newer with no maximum version.
+
 # 1.3.4 — Fix Punchy! Moves FML requirements
 
 - Correct Forge metadata that rejected installed Punchy! Moves 1.0.9.

@@ -59,7 +59,8 @@ public final class CombatModeController {
         Minecraft client = Minecraft.getInstance();
         if (client.screen != null || client.isPaused()) return;
         boolean aimingAtBlock = client.hitResult != null && client.hitResult.getType() == HitResult.Type.BLOCK;
-        refresh(!aimingAtBlock || CombatPunchyMod.ENTER_WHILE_TARGETING_BLOCK.get(), false);
+        refresh(!aimingAtBlock || CombatPunchyMod.ENTER_WHILE_TARGETING_BLOCK.get()
+                || CombatMining.blocksMining(), false);
     }
 
     /** Called on the client thread before vanilla applies the server's hurt event. */
