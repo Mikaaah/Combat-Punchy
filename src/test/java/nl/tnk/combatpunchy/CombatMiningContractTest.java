@@ -115,8 +115,9 @@ public final class CombatMiningContractTest {
                 "mining preference targets native attack eligibility");
         check(Integer.valueOf(1).equals(value(modify, "require")), "missing preference target must fail visibly");
         Object location = value(modify, "at");
-        check(location instanceof AnnotationNode, "preference hook must have one expression target");
-        AnnotationNode at = (AnnotationNode) location;
+        check(location instanceof List<?> locations && locations.size() == 1
+                && locations.get(0) instanceof AnnotationNode, "preference hook must have one expression target");
+        AnnotationNode at = (AnnotationNode) ((List<?>) location).get(0);
         check("INVOKE".equals(value(at, "value"))
                 && ("L" + strategy + ";checkHitResult()Z").equals(value(at, "target")),
                 "native mode, entity and target gates must run before mining-preference override");
