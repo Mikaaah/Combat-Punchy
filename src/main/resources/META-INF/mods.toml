@@ -30,7 +30,7 @@ modId="epicfight"
 mandatory=true
 versionRange="[20.14.17]"
 ordering="AFTER"
-side="CLIENT"
+side="BOTH"
 
 [[dependencies.combatpunchy]]
 modId="punchy"

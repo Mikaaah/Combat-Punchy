@@ -33,6 +33,20 @@ public final class UpstreamContractTest {
             check(mixins != null && new String(mixins.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8)
                     .contains("\"BackWeaponEpicHeldItemMixin\""), "Epic Fight hand suppression mixin must be registered");
         }
+        // The reload fallback must remain common-side and follow native capability assignment.
+        ClassNode itemProvider = localType("yesman/epicfight/world/capabilities/provider/ItemCapabilityProvider");
+        method(itemProvider, "addDefaultItems", "()V");
+        method(itemProvider, "get", "(Lnet/minecraft/world/item/Item;)Lyesman/epicfight/world/capabilities/item/CapabilityItem;");
+        method(itemProvider, "put", "(Lnet/minecraft/world/item/Item;Lyesman/epicfight/world/capabilities/item/CapabilityItem;)V");
+        method(localType("yesman/epicfight/world/capabilities/item/WeaponTypeReloadListener"), "get", "(Ljava/lang/String;)Ljava/util/function/Function;");
+        method(localType("yesman/epicfight/world/capabilities/item/WeaponCapability"), "hasMatchingTag", "(Lnet/minecraft/resources/ResourceLocation;)Z");
+        for (String helper : new String[]{"CataclysmWeaponFallbacks", "CataclysmFallbackPolicy"}) {
+            ClassNode commonHelper = localType("nl/tnk/combatpunchy/" + helper);
+            boolean clientReference = commonHelper.methods.stream()
+                    .flatMap(m -> java.util.stream.StreamSupport.stream(m.instructions.spliterator(), false))
+                    .anyMatch(n -> n instanceof MethodInsnNode call && call.owner.startsWith("net/minecraft/client/"));
+            check(!clientReference, helper + " must not load Minecraft client APIs on a server");
+        }
         try (ZipFile punchy = new ZipFile(args[0]); ZipFile moves = new ZipFile(args[1])) {
             ClassNode api = type(punchy, "punchy/api/PunchyApi");
             method(api, "remove", "(Ljava/lang/String;)V");
