@@ -171,3 +171,11 @@ tasks.register('verifyOptionalIntegrations', JavaExec) {
     mainClass = 'nl.tnk.combatpunchy.OptionalIntegrationTest'
 }
 tasks.named('check') { dependsOn 'verifyOptionalIntegrations' }
+
+
+tasks.register('verifyCombatMining', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'nl.tnk.combatpunchy.CombatMiningContractTest'
+}
+tasks.named('check') { dependsOn 'verifyCombatMining' }

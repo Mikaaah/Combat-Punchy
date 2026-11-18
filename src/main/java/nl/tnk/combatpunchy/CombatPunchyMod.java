@@ -30,6 +30,7 @@ public final class CombatPunchyMod {
     public static final ForgeConfigSpec.BooleanValue START_IN_VANILLA_MODE;
     public static final ForgeConfigSpec.BooleanValue AUTO_EXIT_ON_TIMEOUT;
     public static final ForgeConfigSpec.BooleanValue ENTER_WHILE_TARGETING_BLOCK;
+    public static final ForgeConfigSpec.BooleanValue COMBAT_MINING_RESTRICTION;
     public static final ForgeConfigSpec.BooleanValue PUNCHY_BRIDGE;
     public static final ForgeConfigSpec.BooleanValue MOVES_BRIDGE;
     public static final ForgeConfigSpec.BooleanValue MOVES_CAMERA_BRIDGE;
@@ -59,6 +60,10 @@ public final class CombatPunchyMod {
                 "Also enter combat when pressing attack while looking at a block.",
                 "False keeps normal block mining/chopping in vanilla until you attack an entity or swing into air.")
                 .define("enter_while_targeting_block", false);
+        COMBAT_MINING_RESTRICTION = builder.comment(
+                "Only axes and pickaxes may break blocks in Epic Fight combat mode.",
+                "Other items attack instead of starting block mining. Normal vanilla-mode mining is unaffected.")
+                .define("combat_mining_axes_pickaxes_only", true);
         PUNCHY_BRIDGE = builder.comment("Let Punchy render normal first-person actions; Epic Fight renders combat poses.")
                 .define("punchy_first_person_bridge", true);
         MOVES_BRIDGE = builder.comment("Let Moves yield body animation, targeting and camera control to Epic Fight.")

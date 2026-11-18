@@ -9,7 +9,7 @@
 <p align="center"><img src="https://img.shields.io/badge/Minecraft-1.20.1-5b8731?style=flat-square" alt="Minecraft 1.20.1"> <img src="https://img.shields.io/badge/Forge-d77828?style=flat-square" alt="Forge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
 
-**Current build: 1.3.4.** Client-side Epic Fight, Punchy and Punchy! Moves integration.
+**Current build: 1.3.5.** Client-side Epic Fight, Punchy and Punchy! Moves integration.
 
 ## Supported targets
 
@@ -25,6 +25,12 @@ Use the JAR matching your loader. Punchy and Moves remain optional; older versio
 Attack with an eligible registered Epic Fight melee weapon to enter battle mode on that input. Entity-attributed damage can also trigger combat. Selecting a non-weapon exits battle mode. The configurable inactivity timeout defaults to seven seconds (140 player ticks); attacks, combat actions, guarding and hits refresh it. Zero disables the timeout.
 
 The first attack predicts **visual ownership**, not damage. Epic Fight changes local mode and sends its native mode packet before processing the original attack. Combat Punchy never consumes/replays that click, queues another attack, or bypasses stamina, animation restrictions or server rules. If basic and innate attacks share a binding, Epic Fight's native tap/hold discrimination still applies. Holding attack does not gain automatic repeated attacks.
+
+## Weapon compatibility and mining
+
+Combat eligibility follows the registered Epic Fight melee capability, including pack-assigned movesets on tools. Cataclysm's Infernal Forge, Void Forge and Brontes also remain eligible with the native pickaxe capability because they declare the standard sword tag. Ordinary pickaxes remain mining tools. Existing server/datapack weapon types are retained.
+
+In combat, `combat_mining_axes_pickaxes_only` defaults to true: only axe/pickaxe classes or standard axe/pickaxe tags may break blocks. Other items keep the native combat attack path while looking at blocks, including Vanilla Backport's `minecraft:*_spear` weapons. Mining outside combat and the separate `enter_while_targeting_block` auto-entry setting retain their behavior. This is a client input restriction, not a server permission rule.
 
 ## Back weapons and offhand visibility
 
@@ -42,7 +48,7 @@ The local client state is confined to Minecraft's client thread. Local patch loo
 
 ## Build and checks
 
-Run `./gradlew build` with the Java version above. The build runs transition, timeout, handoff/prediction, offhand, back placement, face restoration, optional absence, native input and upstream bytecode-contract checks. Source and packaged metadata versions come from `release.json`.
+Run `./gradlew build` with the Java version above. The build runs transition, timeout, handoff/prediction, offhand, back placement, face restoration, optional absence, native input, combat-mining/tool-classification and upstream bytecode-contract checks. Source and packaged metadata versions come from `release.json`.
 
 API contracts verify target descriptors and injection call counts; they do not replace graphical, multiplayer or full-modpack testing. See the diagnostic report supplied with the build for the actual validation performed.
 
@@ -50,4 +56,4 @@ API contracts verify target descriptors and injection call counts; they do not r
 
 ## Moves dependency hotfix
 
-The FML range is `[1.0.9,)` on both loaders: 1.0.9 is included and there is no maximum. The previous Forge range `[1.0.5,1.0.9)` incorrectly excluded 1.0.9. The Java runtime is unchanged from 1.3.3. Newer Moves versions may load without a metadata ceiling; their APIs still need to remain compatible.
+The FML range is `[1.0.9,)` on both loaders: 1.0.9 is included and there is no maximum. The previous Forge range `[1.0.5,1.0.9)` incorrectly excluded 1.0.9. Newer Moves versions may load without a metadata ceiling; their APIs still need to remain compatible.

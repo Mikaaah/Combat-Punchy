@@ -8,6 +8,8 @@
   "client": [
     "ControlEngineMixin",
     "CombatAttackKeyMixin",
+    "CombatMiningMixin",
+    "CombatMiningAttackMixin",
     "IncomingHitMixin",
     "EpicFirstPersonMixin",
     "EpicVanillaModelMixin",
