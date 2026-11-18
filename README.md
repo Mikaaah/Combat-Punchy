@@ -9,7 +9,7 @@
 <p align="center"><img src="https://img.shields.io/badge/Minecraft-1.21.1-5b8731?style=flat-square" alt="Minecraft 1.21.1"> <img src="https://img.shields.io/badge/NeoForge-d77828?style=flat-square" alt="NeoForge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
 
-**Current build: 1.3.5.** Client-side Epic Fight, Punchy and Punchy! Moves integration.
+**Current build: 1.3.5.** Client-side Epic Fight, Punchy and Punchy! Moves integration, with optional common weapon defaults.
 
 ## Supported targets
 
@@ -28,7 +28,9 @@ The first attack predicts **visual ownership**, not damage. Epic Fight changes l
 
 ## Weapon compatibility and mining
 
-Combat eligibility follows the registered Epic Fight melee capability, including pack-assigned movesets on tools. Cataclysm's Infernal Forge, Void Forge and Brontes also remain eligible with the native pickaxe capability because they declare the standard sword tag. Ordinary pickaxes remain mining tools. Existing server/datapack weapon types are retained.
+Combat eligibility follows the registered Epic Fight melee capability, including pack-assigned movesets on tools. Cataclysm's Infernal Forge, Void Forge and Brontes also remain eligible with the native pickaxe capability because they declare the standard sword tag. Ordinary pickaxes remain mining tools. Existing server/datapack weapon types are retained. If no capability is assigned to these three weapons, a reload-time fallback supplies Epic Fight's native animated pickaxe moveset. Explicit empty assignments are also retained.
+
+For multiplayer, the server must supply the same capabilities. If it has no Cataclysm weapon datapack/addon, install Combat Punchy on the Epic Fight server as well to enable these three defaults; its rendering, input and configuration still run only on clients. Clients connecting to an unchanged server cannot create authoritative server weapon capabilities.
 
 In combat, `combat_mining_axes_pickaxes_only` defaults to true: only axe/pickaxe classes or standard axe/pickaxe tags may break blocks. Other items keep the native combat attack path while looking at blocks, including Vanilla Backport's `minecraft:*_spear` weapons. Mining outside combat and the separate `enter_while_targeting_block` auto-entry setting retain their behavior. This is a client input restriction, not a server permission rule.
 
@@ -48,7 +50,7 @@ The local client state is confined to Minecraft's client thread. Local patch loo
 
 ## Build and checks
 
-Run `./gradlew build` with the Java version above. The build runs transition, timeout, handoff/prediction, offhand, back placement, face restoration, optional absence, native input, combat-mining/tool-classification and upstream bytecode-contract checks. Source and packaged metadata versions come from `release.json`.
+Run `./gradlew build` with the Java version above. The build runs transition, timeout, handoff/prediction, offhand, back placement, face restoration, optional absence, native input, Cataclysm fallback precedence, combat-mining/tool-classification and upstream bytecode-contract checks. Source and packaged metadata versions come from `release.json`.
 
 API contracts verify target descriptors and injection call counts; they do not replace graphical, multiplayer or full-modpack testing. See the diagnostic report supplied with the build for the actual validation performed.
 

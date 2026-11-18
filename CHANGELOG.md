@@ -1,6 +1,7 @@
 # 1.3.5 — Weapon compatibility and combat mining
 
 - Respect registered Epic Fight melee movesets on Cataclysm weapons that inherit from pickaxes, including Infernal Forge, Void Forge and Brontes. Honor their sword tag with the native pickaxe moveset too; ordinary mining pickaxes stay excluded from automatic combat entry.
+- Supply a native Epic Fight pickaxe/axe moveset for the three Cataclysm weapons only when no capability exists. Keep explicit empty, addon and user datapack assignments intact.
 - Keep backported `minecraft:*_spear` weapons on Epic Fight's native spear animations during combat instead of falling back to vanilla stab handling when aiming at blocks.
 - Block block-breaking in combat mode except with axes and pickaxes; keep ordinary mining outside combat.
 - Preserve combat attacks through blocks/grass instead of letting mining preference consume them.

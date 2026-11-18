@@ -152,3 +152,11 @@ tasks.register('verifyCombatMining', JavaExec) {
     mainClass = 'nl.tnk.combatpunchy.CombatMiningContractTest'
 }
 tasks.named('check') { dependsOn 'verifyCombatMining' }
+
+
+tasks.register('verifyCataclysmFallbacks', JavaExec) {
+    dependsOn testClasses
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'nl.tnk.combatpunchy.CataclysmFallbackPolicyTest'
+}
+tasks.named('check') { dependsOn 'verifyCataclysmFallbacks' }

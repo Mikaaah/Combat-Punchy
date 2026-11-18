@@ -4,6 +4,9 @@
   "package": "nl.tnk.combatpunchy.mixin",
   "plugin": "nl.tnk.combatpunchy.mixin.CombatPunchyMixinPlugin",
   "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "CataclysmWeaponFallbackMixin"
+  ],
   "client": [
     "ControlEngineMixin",
     "CombatAttackKeyMixin",
