@@ -4,6 +4,7 @@ package nl.tnk.combatpunchy.compat;
 public final class IntegrationPresence {
     public static final boolean PUNCHY = has("punchy/config/PunchyConfig.class");
     public static final boolean PUNCHY_API = has("punchy/api/PunchyApi.class");
+    public static final boolean PUNCHY_NATIVE_EPICFIGHT = has("punchy/compat/EpicFightHands.class");
     public static final boolean MOVES = has("punchymoves/client/PlayerAnimationEngine.class");
     public static final boolean MOVES_SPATIAL_CAMERA = MOVES
             && has("punchymoves/client/compat/spatial/SpatialCameraEntry.class");

@@ -5,10 +5,29 @@
   "package": "nl.tnk.combatpunchy.mixin",
   "plugin": "nl.tnk.combatpunchy.mixin.CombatPunchyMixinPlugin",
   "compatibilityLevel": "JAVA_17",
-  "client": [
-    "ControlEngineMixin", "CombatAttackKeyMixin", "IncomingHitMixin", "EpicFirstPersonMixin", "EpicVanillaModelMixin",
-    "PunchyLegacyConfigMixin", "moves.MovesAnimationMixin", "moves.MovesCameraMixin",
-    "moves.MovesSpatialCameraMixin", "moves.MovesTargetingMixin", "moves.MovesBodyRotationMixin"
+  "mixins": [
+    "CataclysmWeaponFallbackMixin"
   ],
-  "injectors": {"defaultRequire": 1}
+  "client": [
+    "ControlEngineMixin",
+    "CombatAttackKeyMixin",
+    "CombatMiningMixin",
+    "CombatMiningAttackMixin",
+    "IncomingHitMixin",
+    "EpicFirstPersonMixin",
+    "EpicVanillaModelMixin",
+    "PunchyLegacyConfigMixin",
+    "moves.MovesAnimationMixin",
+    "moves.MovesCameraMixin",
+    "moves.MovesSpatialCameraMixin",
+    "moves.MovesTargetingMixin",
+    "moves.MovesBodyRotationMixin",
+    "BackWeaponTickMixin",
+    "BackWeaponHeldItemMixin",
+    "BackWeaponEpicHeldItemMixin",
+    "BackWeaponFirstPersonMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
 }

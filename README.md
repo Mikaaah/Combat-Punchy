@@ -8,78 +8,54 @@
 
 <p align="center"><img src="https://img.shields.io/badge/Minecraft-1.20.1-5b8731?style=flat-square" alt="Minecraft 1.20.1"> <img src="https://img.shields.io/badge/Forge-d77828?style=flat-square" alt="Forge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
-**Forge 1.20.1 · Client-side · Java 17.** The supplied current build is **1.2.1**, supporting Punchy 3.2 and Moves 1.0.8. This branch retains the earlier 1.2 Java source.
 
+**Current build: 1.3.5.** Client-side Epic Fight, Punchy and Punchy! Moves integration, with optional common weapon defaults.
 
-## Automatic combat mode
+## Supported targets
 
-- Attack with an Epic Fight melee weapon to enter combat on the same attack input.
-- Receive a hit from another entity or projectile to enter combat automatically, even with a tool or empty hand selected.
-- Hit-triggered combat stays active with the current held item until timeout; selecting another non-weapon still exits combat.
-- Switch to a tool, non-weapon item or empty hand to return to vanilla mode.
-- Return to vanilla after **7 seconds** without combat activity, even while holding a weapon.
-- Attack again to immediately re-enter combat.
-- Attacks, active combat skills, guarding and receiving hits refresh the timer.
-- Equipping a weapon alone keeps you in vanilla mode until you attack or receive a hit.
+| Loader | Minecraft | Java | Epic Fight | Punchy (optional) | Moves (optional) |
+| --- | --- | --- | --- | --- | --- |
+| NeoForge 21.1.262+ within 21.1 | 1.21.1 | 21 | 21.17.3.1 | 3.2a–3.2b; tested 3.2b | 1.0.9 or newer |
+| Forge 47.4.13+ within 47 | 1.20.1 | 17 | 20.14.17 | 3.2a–3.2b; tested 3.2b | 1.0.9 or newer |
 
-## Animation compatibility
+Use the JAR matching your loader. Punchy and Moves remain optional; older versions outside these ranges are rejected so their missing API hooks cannot silently fail. This source project has NeoForge and Forge implementations; it has no Fabric port.
 
-- **Punchy** handles normal first-person movement, interactions and idle periods between attacks.
-- **Epic Fight** takes over for attacks, guarding, dodging and other combat poses.
-- **Punchy! Moves** yields its body animation and camera controls during Epic Fight combat, then resumes when combat ends.
-- Supports **Punchy! Moves 1.0.5–1.0.7**, including its updated movement and flight transitions.
-- Attaches Moves' animated facial features to Epic Fight's head so eyes and brows follow the combat pose.
-- Preserves native sheathed-katana and Ochs stances, with a short transition delay to reduce hand-animation flicker.
-- Retains saved Punchy and Moves preferences.
-- Standalone compatibility with **no Epic Tweaks requirement**.
+## Automatic combat
 
-## Weapon support
+Attack with an eligible registered Epic Fight melee weapon to enter battle mode on that input. Entity-attributed damage can also trigger combat. Selecting a non-weapon exits battle mode. The configurable inactivity timeout defaults to seven seconds (140 player ticks); attacks, combat actions, guarding and hits refresh it. Zero disables the timeout.
 
-Recognises Epic Fight melee weapons and **Weapons of Miracles (WOM)** weapons through their registered weapon capabilities.
+The first attack predicts **visual ownership**, not damage. Epic Fight changes local mode and sends its native mode packet before processing the original attack. Combat Punchy never consumes/replays that click, queues another attack, or bypasses stamina, animation restrictions or server rules. If basic and innate attacks share a binding, Epic Fight's native tap/hold discrimination still applies. Holding attack does not gain automatic repeated attacks.
 
-Pickaxes, shovels, hoes, fishing rods, ranged weapons and shields do not trigger automatic melee combat. Axes with melee support can trigger combat against entities or when swinging into air; normal block mining stays in vanilla by default.
+## Weapon compatibility and mining
 
-## Configurable features
+Combat eligibility follows the registered Epic Fight melee capability, including pack-assigned movesets on tools. Cataclysm's Infernal Forge, Void Forge and Brontes also remain eligible with the native pickaxe capability because they declare the standard sword tag. Ordinary pickaxes remain mining tools. Existing server/datapack weapon types are retained. If no capability is assigned to these three weapons, a reload-time fallback supplies Epic Fight's native animated pickaxe moveset. Explicit empty assignments are also retained.
 
-Separate switches control attack-triggered combat entry, hit-triggered combat entry, item-switch exit, inactivity exit, starting in vanilla mode, Punchy first-person compatibility, Moves third-person compatibility, Moves camera handling, facial alignment and native combat stances.
+For multiplayer, the server must supply the same capabilities. If it has no Cataclysm weapon datapack/addon, install Combat Punchy on the Epic Fight server as well to enable these three defaults; its rendering, input and configuration still run only on clients. Clients connecting to an unchanged server cannot create authoritative server weapon capabilities.
 
-Also includes a master switch, an adjustable combat timeout, a first-person transition delay and optional combat entry while targeting blocks.
+In combat, `combat_mining_axes_pickaxes_only` defaults to true: only axe/pickaxe classes or standard axe/pickaxe tags may break blocks. Other items keep the native combat attack path while looking at blocks, including Vanilla Backport's `minecraft:*_spear` weapons. Mining outside combat and the separate `enter_while_targeting_block` auto-entry setting retain their behavior. This is a client input restriction, not a server permission rule.
 
-Hit-triggered switching uses the server's damage notification. It cannot change damage already calculated for the triggering hit, and it respects the server's Epic Fight mode-switching rule.
+## Back weapons and offhand visibility
 
-## Facial alignment
+Your last eligible hotbar weapon can appear on your back while using tools/blocks. Eligible offhand weapons and shields stow outside battle mode. This is local cosmetic state: no items are moved or deleted. Axes, mining tools and fists/gloves keep their existing behavior.
 
-The earlier facial-alignment report is [closed](https://github.com/Mikaaah/Combat-Punchy/issues/1). Report new regressions with exact versions, perspective, skin and resource packs.
+Vanilla, Epic Fight and Punchy hand layers share the offhand suppression decision. The hand becomes visible immediately when entering combat or using/swinging the offhand. Moves' delayed item-swap visuals retain ownership until their handoff completes. State resets when the local player, world or patch changes.
 
-## Guides & support
+Placement remains configurable: `back_weapon_offset`, `back_weapon_scale`, `back_weapon_rotation`, pitch/yaw, shield scale/rotation, and `back_item_overrides` (`item_id|scale|rotation|pitch|yaw`). Existing configuration is retained.
 
-[Automatic combat](https://github.com/Mikaaah/Combat-Punchy/wiki/Automatic-Combat) · [Weapon support](https://github.com/Mikaaah/Combat-Punchy/wiki/Weapon-Support) · [Configuration](https://github.com/Mikaaah/Combat-Punchy/wiki/Configuration) · [Compatibility](https://github.com/Mikaaah/Combat-Punchy/wiki/Compatibility) · [Known issues](https://github.com/Mikaaah/Combat-Punchy/wiki/Known-Issues)
+## API and rendering design
 
-Use the [bug report](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) or [suggestion](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=feature_request.yml) form for this mod. See [support guidance](SUPPORT.md) for the details that help identify an issue.
+Stable Punchy v3 and Moves APIs are called through guarded, typed bridges. Optional mod absence is tested with a rejecting class loader. Bundled Expressions uses one-time class discovery at layer registration; there are no reflective API calls in render/tick loops.
 
-## Forge 1.20.1 port
+The local client state is confined to Minecraft's client thread. Local patch lookups are shared per player tick. Hand classification and placement defaults are cached with owner/stack/config invalidation. Face poses and matrices are reused for ordinary rendering, with independent snapshots for nested renders and restoration in `finally`.
 
-This branch targets Java 17 and Forge 47.4.13 or newer in the 47.x series. It uses the inspected stable Epic Fight 20.14.17 API; other Epic Fight versions are not declared compatible.
+## Build and checks
 
-| Component | Supported version |
-| --- | --- |
-| Minecraft | 1.20.1 |
-| Forge | 47.4.13–47.x |
-| Java | 17 |
-| Epic Fight (required) | 20.14.17 |
-| Punchy (optional) | 3.1b |
-| Punchy! Moves (optional) | 1.0.5–1.0.7 |
+Run `./gradlew build` with the Java version above. The build runs transition, timeout, handoff/prediction, offhand, back placement, face restoration, optional absence, native input, Cataclysm fallback precedence, combat-mining/tool-classification and upstream bytecode-contract checks. Source and packaged metadata versions come from `release.json`.
 
-Install the Forge builds of the optional animation mods. Both remain optional: either bridge can be used independently, and automatic combat switching also works with Epic Fight alone. Do not combine Combat Punchy with TNK Combat Mode, Epic Tweaks or Epic Punchy.
+API contracts verify target descriptors and injection call counts; they do not replace graphical, multiplayer or full-modpack testing. See the diagnostic report supplied with the build for the actual validation performed.
 
-## Current 1.2.1 build
+[Release notes](CHANGELOG.md) · [Support](SUPPORT.md) · [Issues](https://github.com/Mikaaah/Combat-Punchy/issues)
 
-The delivered hotfix supports Punchy 3.2 and Moves 1.0.8 and keeps Epic Fight in control of hands throughout battle mode. The table above records the older 1.2 source bounds. [Current JAR requirements](https://github.com/Mikaaah/Combat-Punchy/wiki/Compatibility).
+## Moves dependency hotfix
 
-## Pull up a chair
-
-Questions, builds, feedback, server news and the occasional wildly overambitious factory: join the **Towns & Kingdoms Modding Hub**.
-
-[![Join the Towns & Kingdoms Discord](https://i.imgur.com/Ojgcccm.png)](https://discord.gg/CRYk3uDPVt)
-
-**[Join Discord](https://discord.gg/CRYk3uDPVt)** · [Explore all projects](https://mikaaah.github.io/TownsAndKingdoms/projects/) · [CurseForge projects](https://www.curseforge.com/members/mikaaah/projects)
+The FML range is `[1.0.9,)` on both loaders: 1.0.9 is included and there is no maximum. The previous Forge range `[1.0.5,1.0.9)` incorrectly excluded 1.0.9. Newer Moves versions may load without a metadata ceiling; their APIs still need to remain compatible.
