@@ -1,3 +1,57 @@
+# 1.3.5 — Weapon compatibility and combat mining
+
+- Respect registered Epic Fight melee movesets on Cataclysm weapons that inherit from pickaxes, including Infernal Forge, Void Forge and Brontes. Honor their sword tag with the native pickaxe moveset too; ordinary mining pickaxes stay excluded from automatic combat entry.
+- Supply a native Epic Fight pickaxe/axe moveset for the three Cataclysm weapons only when no capability exists. Keep explicit empty, addon and user datapack assignments intact.
+- Keep backported `minecraft:*_spear` weapons on Epic Fight's native spear animations during combat instead of falling back to vanilla stab handling when aiming at blocks.
+- Block block-breaking in combat mode except with axes and pickaxes; keep ordinary mining outside combat.
+- Preserve combat attacks through blocks/grass instead of letting mining preference consume them.
+- Add the enabled-by-default `combat_mining_axes_pickaxes_only` client setting.
+- Retain Punchy! Moves 1.0.9 or newer with no maximum version.
+
+# 1.3.4 — Fix Punchy! Moves FML requirements
+
+- Correct Forge metadata that rejected installed Punchy! Moves 1.0.9.
+- Require Moves 1.0.9 or newer with no upper version bound on both loaders.
+- Retain the exact 1.3.3 Java runtime classes; this is a dependency-metadata hotfix.
+
+# 1.3.3 — Combat responsiveness and sheath ownership
+
+- Suppress sheathed offhand items in Epic Fight's patched held-item renderer as well as vanilla and Punchy hands.
+- Restore hand visibility immediately for combat, offhand use and delayed hand-swap transitions.
+- Give the first eligible attack immediate client-side render ownership while forwarding its original native attack once.
+- Cache local patch/classification lookups and render poses; clear session references on player/world replacement.
+- Replace reflective optional API calls with typed Punchy/Moves bridges and explicit compatible minimum versions.
+- Update tested Punchy pin to 3.2b; retain Moves 1.0.9 and the existing loader-specific Epic Fight versions.
+- Replace NeoForge's deprecated config-list overload with its supported editable-list API.
+
+Epic Fight's native animation/stamina restrictions, server rules and shared attack/special-key long-press detection remain authoritative.
+
+# 1.3.2 — Punchy! Moves 1.0.9 compatibility
+
+- Allow and verify Punchy! Moves 1.0.9 on both supported loaders.
+- Preserve offhand stowing, equip animations, back placement and automatic combat switching from 1.3.1.
+
+# 1.3.1 — Offhand stowing and equip animations
+
+- Hide the complete first-person offhand, including skin, sleeves, armor and overlays, while its weapon is stowed.
+- Play the animation pack’s offhand hand-out and hand-in clips when stowing and drawing without moving inventory items.
+- Wait for the lowering animation before moving the offhand item to the back; immediately release it for combat and active use.
+- Keep existing combat entry, inactivity timeout and weapon placement settings.
+
+# 1.3.0 — Action-based hands and back weapons
+
+- Refine default back weapons to 85% scale with a 6-degree inward handle tilt.
+- Add global tilt/pitch/yaw and per-item size/rotation overrides for custom weapon models.
+- Center shields upright on the back with independent shield size and rotation controls.
+
+- Restore Punchy between combat actions while preserving Epic Fight attacks, guards and skills.
+- Override only Punchy’s native Epic Fight ownership gate; keep its other integrations and armor fixes.
+- Add local cosmetic back displays for eligible offhand and recently selected main-hand weapons, following Moves and Epic Fight torso animation.
+- Bring the offhand item back during combat and active use; expose back offset/scale settings.
+- Target Punchy 3.2a and Punchy! Moves 1.0.8 on both loaders.
+- Respect Epic Fight weapon categories, excluding axes, mining tools and gloves/fists.
+- Preserve automatic combat entry, item-switch exit and the configurable inactivity timeout.
+
 # Combat Punchy 1.2.1 — delivered hotfix
 
 - Added support for Punchy 3.2 and Punchy! Moves 1.0.8 on NeoForge 1.21.1 and Forge 1.20.1.

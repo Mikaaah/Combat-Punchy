@@ -101,6 +101,18 @@ public final class ModeSessionTest {
         checkHit(IncomingHit.isCombatHit(1, 1, 1, 3), false, "the player's own projectile is ignored");
         checkHit(IncomingHit.isCombatHit(1, 1, -1, 1), false, "direct self damage is ignored");
         checkHit(IncomingHit.isCombatHit(0, 0, 2, -1), true, "entity ID zero is a valid local player");
+        session.reset();
+        check(session.update(true, true, true, false, true, false, true, true, true, true, true),
+                ENTER_COMBAT, "allocation-free first attack beats startup with an item change");
+        check(session.update(true, true, true, true, true, false, false, true, true, true, true),
+                NONE, "allocation-free repeat does not resend the mode packet");
+        check(session.update(true, true, false, true, false, false, true, true, true, true, true),
+                ENTER_VANILLA, "allocation-free selection exit remains immediate");
+        session.reset();
+        check(session.update(true, false, true, false, true, false, false, true, true, true, true),
+                NONE, "allocation-free entry respects server restrictions");
+        check(session.update(false, true, true, false, true, false, false, true, true, true, true),
+                NONE, "allocation-free entry respects the master switch");
         System.out.println("PASS: " + checks + " transition checks");
     }
 

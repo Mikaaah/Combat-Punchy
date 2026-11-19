@@ -6,6 +6,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.UseAnim;
 import nl.tnk.combatpunchy.CombatPunchyMod;
+import nl.tnk.combatpunchy.CombatModeController;
 import nl.tnk.combatpunchy.FirstPersonHandoff;
 import yesman.epicfight.api.animation.LivingMotions;
 import yesman.epicfight.api.animation.types.EntityState;
@@ -26,6 +27,14 @@ public final class RenderOwnership {
 
     private RenderOwnership() {}
 
+    /** Client-thread lifecycle reset; release the old world's player/patch immediately. */
+    public static void resetSession() {
+        HANDOFF.reset();
+        lastPatch = null;
+        lastItem = null;
+        lastSlot = -1;
+    }
+
     public static boolean filterFirstPerson() {
         return IntegrationPresence.PUNCHY && CombatPunchyMod.ENABLED.get() && CombatPunchyMod.PUNCHY_BRIDGE.get();
     }
@@ -36,7 +45,7 @@ public final class RenderOwnership {
 
     public static boolean epicFirstPerson() {
         Minecraft client = Minecraft.getInstance();
-        LocalPlayerPatch patch = EpicFightCapabilities.getLocalPlayerPatch(client.player);
+        LocalPlayerPatch patch = CombatModeController.currentPatch();
         Item item = client.player == null ? null : client.player.getMainHandItem().getItem();
         int slot = client.player == null ? -1 : client.player.getInventory().selected;
         if (patch != lastPatch || item != lastItem || slot != lastSlot) {
@@ -50,13 +59,13 @@ public final class RenderOwnership {
         if (!allowed) return HANDOFF.update(0, false, false, 0);
 
         EntityState state = patch.getEntityState();
-        boolean action = state.attacking() || state.inaction() || state.hurt() || state.knockDown()
+        boolean action = CombatModeController.isAttackPredicted() || state.attacking() || state.inaction() || state.hurt() || state.knockDown()
                 || patch.getCurrentLivingMotion() == LivingMotions.INACTION;
         boolean guard = patch.currentCompositeMotion == LivingMotions.BLOCK
                 || (client.player.isUsingItem() && client.player.getUseItem().getUseAnimation() == UseAnim.BLOCK);
         boolean stance = false;
         if (CombatPunchyMod.NATIVE_STANCES.get()) {
-            CapabilityItem cap = EpicFightCapabilities.getItemStackCapability(client.player.getMainHandItem());
+            CapabilityItem cap = patch.getHoldingItemCapability(InteractionHand.MAIN_HAND);
             Style style = cap.getStyle(patch);
             stance = style == CapabilityItem.Styles.SHEATH || style == CapabilityItem.Styles.OCHS;
         }
@@ -64,19 +73,27 @@ public final class RenderOwnership {
                 CombatPunchyMod.FIRST_PERSON_RELEASE_TICKS.get());
     }
 
+    /** Keep Punchy's native battle gate when our handoff is switched off. */
+    public static boolean punchyDisabledForEpicFight() {
+        if (filterFirstPerson()) return epicFirstPerson();
+        var patch = CombatModeController.currentPatch();
+        return patch != null && patch.isEpicFightMode() && ClientConfig.enableAnimatedFirstPersonModel;
+    }
+
     private static boolean forceVanillaItems(Minecraft client) {
         if (client.player == null) return true;
         RenderEngine renderer = RenderEngine.getInstance();
-        for (InteractionHand hand : InteractionHand.values()) {
-            RenderItemBase itemRenderer = renderer.getItemRenderer(client.player.getItemInHand(hand));
-            if (itemRenderer != null && itemRenderer.forceVanillaFirstPerson()) return true;
-        }
-        return false;
+        RenderItemBase main = renderer.getItemRenderer(client.player.getMainHandItem());
+        if (main != null && main.forceVanillaFirstPerson()) return true;
+        RenderItemBase off = renderer.getItemRenderer(client.player.getOffhandItem());
+        return off != null && off.forceVanillaFirstPerson();
     }
 
     public static boolean epicBody(AbstractClientPlayer player) {
         if (!movesBridge() || player == null) return false;
-        AbstractClientPlayerPatch<?> patch = EpicFightCapabilities.getEntityPatch(player, AbstractClientPlayerPatch.class);
+        AbstractClientPlayerPatch<?> patch = player == Minecraft.getInstance().player
+                ? CombatModeController.currentPatch()
+                : EpicFightCapabilities.getEntityPatch(player, AbstractClientPlayerPatch.class);
         return patch != null && patch.overrideRender();
     }
 

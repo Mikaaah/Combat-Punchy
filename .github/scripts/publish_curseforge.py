@@ -55,8 +55,15 @@ changelog = (root / 'changelog.html').read_text()
 assert hashlib.sha256(changelog.encode()).hexdigest() == manifest['changelog_sha256']
 versions = request(CF + '/api/game/versions', authenticated=True)
 existing = request(f'https://www.curseforge.com/api/v1/mods/{PROJECT}/files?pageIndex=0&pageSize=50&sort=dateCreated&sortDescending=true')['data']
+target = os.environ['RELEASE_TARGET']
+artifacts = [
+    artifact for artifact in manifest['artifacts']
+    if f"{artifact['labels'][1]}-{artifact['labels'][0]}" == target
+]
+if len(artifacts) != 1:
+    raise SystemExit(f'Expected one verified artifact for release target {target}')
 plans = []
-for artifact in manifest['artifacts']:
+for artifact in artifacts:
     path = root / artifact['filename']
     payload = path.read_bytes()
     assert hashlib.sha256(payload).hexdigest() == artifact['sha256'], path.name
