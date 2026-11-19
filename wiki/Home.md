@@ -24,6 +24,7 @@ The source snapshots remain 1.2. See [compatibility](https://github.com/Mikaaah/
 
 [Source](https://github.com/Mikaaah/Combat-Punchy) · [Report a bug](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=bug_report.yml) · [Suggestions](https://github.com/Mikaaah/Combat-Punchy/issues/new?template=feature_request.yml)
 
-## Other editions
+## Source branches
 
-**[1.2 · Forge 1.20.1](https://github.com/Mikaaah/Combat-Punchy/tree/port/forge-1.20.1)** — Combat Punchy is client-side. The NeoForge 1.21.1 edition uses Java 21; the Forge 1.20.1 port uses Java 17 and its own matching Epic Fight and animation-mod versions.
+- [NeoForge 1.21.1](https://github.com/Mikaaah/Combat-Punchy/tree/neoforge-1.21.1) uses Java 21.
+- [Forge 1.20.1](https://github.com/Mikaaah/Combat-Punchy/tree/forge-1.20.1) uses Java 17 and its own matching Epic Fight and animation-mod versions.

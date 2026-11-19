@@ -18,6 +18,7 @@
 - [Join Discord](https://discord.gg/CRYk3uDPVt)
 - [Report an issue](https://github.com/Mikaaah/Combat-Punchy/issues)
 
-### Edition guides
+### Source branches
 
-- [1.2 · Forge 1.20.1](https://github.com/Mikaaah/Combat-Punchy/tree/port/forge-1.20.1)
+- [NeoForge 1.21.1](https://github.com/Mikaaah/Combat-Punchy/tree/neoforge-1.21.1)
+- [Forge 1.20.1](https://github.com/Mikaaah/Combat-Punchy/tree/forge-1.20.1)

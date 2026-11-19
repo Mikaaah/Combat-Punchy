@@ -50,7 +50,7 @@ The local client state is confined to Minecraft's client thread. Local patch loo
 
 ## Build and checks
 
-Run `./gradlew build` with the Java version above. The build runs transition, timeout, handoff/prediction, offhand, back placement, face restoration, optional absence, native input, Cataclysm fallback precedence, combat-mining/tool-classification and upstream bytecode-contract checks. Source and packaged metadata versions come from `release.json`.
+Check out [NeoForge 1.21.1](https://github.com/Mikaaah/Combat-Punchy/tree/neoforge-1.21.1) or [Forge 1.20.1](https://github.com/Mikaaah/Combat-Punchy/tree/forge-1.20.1), then run `./gradlew build` with the Java version above. The build runs transition, timeout, handoff/prediction, offhand, back placement, face restoration, optional absence, native input, Cataclysm fallback precedence, combat-mining/tool-classification and upstream bytecode-contract checks. Source and packaged metadata versions come from `release.json`.
 
 API contracts verify target descriptors and injection call counts; they do not replace graphical, multiplayer or full-modpack testing. See the diagnostic report supplied with the build for the actual validation performed.
 

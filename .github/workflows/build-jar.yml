@@ -1,0 +1,48 @@
+name: Build Combat Punchy JAR
+
+on:
+  workflow_call:
+    inputs:
+      source-ref:
+        required: true
+        type: string
+      target:
+        required: true
+        type: string
+      java-version:
+        required: true
+        type: string
+      version:
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  jar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source-ref }}
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ inputs.java-version }}
+      - name: Check release version
+        env:
+          EXPECTED_VERSION: ${{ inputs.version }}
+          TARGET: ${{ inputs.target }}
+        run: |
+          jq -e --arg version "$EXPECTED_VERSION" --arg target "$TARGET" \
+            '.version == $version and any(.targets[]; .id == $target)' release.json
+      - name: Build and verify JAR
+        run: ./gradlew --no-daemon tnkReleaseCheck
+      - uses: actions/upload-artifact@v4
+        with:
+          name: combat-punchy-${{ inputs.version }}-${{ inputs.target }}
+          path: build/libs/combat-punchy-${{ inputs.version }}-${{ inputs.target }}.jar
+          if-no-files-found: error
