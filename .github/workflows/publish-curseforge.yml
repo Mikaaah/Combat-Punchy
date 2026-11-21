@@ -25,14 +25,16 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - name: Publish existing verified release
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: publish
         env:
           CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
           RELEASE_VERSION: ${{ inputs.version }}
           RELEASE_TARGET: ${{ inputs.target }}
         run: python3 .github/scripts/publish_curseforge.py
-      - uses: actions/upload-artifact@v4
+      - name: upload results
+        uses: actions/upload-artifact@v4
         if: always()
         with:
           name: curseforge-upload-results-${{ inputs.target }}

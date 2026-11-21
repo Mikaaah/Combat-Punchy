@@ -24,24 +24,27 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
-      - uses: actions/checkout@v4
+      - name: checkout
+        uses: actions/checkout@v4
         with:
           ref: ${{ inputs.source-ref }}
           persist-credentials: false
-      - uses: actions/setup-java@v4
+      - name: setup java
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: ${{ inputs.java-version }}
-      - name: Check release version
+      - name: check version
         env:
           EXPECTED_VERSION: ${{ inputs.version }}
           TARGET: ${{ inputs.target }}
         run: |
           jq -e --arg version "$EXPECTED_VERSION" --arg target "$TARGET" \
             '.version == $version and any(.targets[]; .id == $target)' release.json
-      - name: Build and verify JAR
+      - name: build
         run: ./gradlew --no-daemon tnkReleaseCheck
-      - uses: actions/upload-artifact@v4
+      - name: upload jar
+        uses: actions/upload-artifact@v4
         with:
           name: combat-punchy-${{ inputs.version }}-${{ inputs.target }}
           path: build/libs/combat-punchy-${{ inputs.version }}-${{ inputs.target }}.jar
