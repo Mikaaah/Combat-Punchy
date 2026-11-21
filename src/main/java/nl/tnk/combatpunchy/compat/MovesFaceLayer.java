@@ -40,7 +40,6 @@ public final class MovesFaceLayer extends PatchedLayer<AbstractClientPlayer,
         if (head.getId() < 0 || head.getId() >= poses.length || poses[head.getId()] == null) return;
 
         PlayerModel<AbstractClientPlayer> model = layer.getParentModel();
-        // The usual path reuses snapshots/matrices. A nested render gets its own snapshot.
         FaceRenderPose snapshot = rendering ? new FaceRenderPose() : facePose;
         boolean nested = rendering;
         rendering = true;

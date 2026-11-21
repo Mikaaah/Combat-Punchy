@@ -4,7 +4,6 @@ import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.world.entity.HumanoidArm;
 import nl.tnk.combatpunchy.CombatPunchyMod;
 import nl.tnk.combatpunchy.back.BackWeapons;
-import org.slf4j.LoggerFactory;
 import punchy.api.PunchyApi;
 
 /** Optional integration entry point; the typed bridge loads only when Punchy is present. */
@@ -27,7 +26,6 @@ public final class PunchyApiCompat {
             });
             BackWeapons.punchyLayersRegistered();
             PunchyBackAnimation.register();
-            LoggerFactory.getLogger("CombatPunchy").info("Registered typed Punchy v3 handoff and sheath layers");
         }
     }
 }
