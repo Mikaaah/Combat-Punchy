@@ -26,6 +26,7 @@ public final class CombatPunchyMod {
     public static final ForgeConfigSpec.BooleanValue ENABLED;
     public static final ForgeConfigSpec.BooleanValue AUTO_ENTER_COMBAT;
     public static final ForgeConfigSpec.BooleanValue AUTO_ENTER_ON_HIT;
+    public static final ForgeConfigSpec.BooleanValue AUTO_ENTER_ON_COMBAT_ACTION;
     public static final ForgeConfigSpec.BooleanValue AUTO_EXIT_ON_ITEM_SWITCH;
     public static final ForgeConfigSpec.BooleanValue START_IN_VANILLA_MODE;
     public static final ForgeConfigSpec.BooleanValue AUTO_EXIT_ON_TIMEOUT;
@@ -50,7 +51,11 @@ public final class CombatPunchyMod {
                 "Works with tools and empty hands; ignores self-attributed hits and damage without a source entity, such as falling or fire.",
                 "The server has already processed the triggering hit, so its damage is not changed retroactively.")
                 .define("auto_enter_on_hit", true);
-        AUTO_EXIT_ON_ITEM_SWITCH = builder.comment("Return to vanilla when selecting a tool, non-melee item or empty hand.")
+        AUTO_ENTER_ON_COMBAT_ACTION = builder.comment(
+                "Enter combat when using an equipped Epic Fight dodge, guard, mobility or innate skill, or when starting to block with a shield.")
+                .define("auto_enter_on_combat_action", true);
+        AUTO_EXIT_ON_ITEM_SWITCH = builder.comment(
+                "Start a fresh combat_timeout_seconds grace period when swapping from a melee weapon to a non-weapon in combat.")
                 .define("auto_exit_on_item_switch", true);
         START_IN_VANILLA_MODE = builder.comment("Start each world/player session in vanilla, even if the server starts you in combat.")
                 .define("start_in_vanilla_mode", true);
@@ -66,10 +71,10 @@ public final class CombatPunchyMod {
                 .define("combat_mining_axes_pickaxes_only", true);
         PUNCHY_BRIDGE = builder.comment("Let Punchy render normal first-person actions; Epic Fight renders combat poses.")
                 .define("punchy_first_person_bridge", true);
-        MOVES_BRIDGE = builder.comment("Let Moves yield body animation, targeting and camera control to Epic Fight.")
+        MOVES_BRIDGE = builder.comment("Give Epic Fight control of Moves locomotion and body animation throughout combat.")
                 .define("moves_third_person_bridge", true);
         MOVES_CAMERA_BRIDGE = builder.comment(
-                "Suspend Moves camera, orbit and targeting while Epic Fight owns the player model.",
+                "Suspend Moves camera, orbit and targeting during Epic Fight combat.",
                 "Requires moves_third_person_bridge. Disable to keep Moves camera control during combat.")
                 .define("moves_camera_bridge", true);
         MOVES_FACIAL_BRIDGE = builder.comment(
@@ -81,7 +86,7 @@ public final class CombatPunchyMod {
         FIRST_PERSON_RELEASE_TICKS = builder.comment("Hold Epic Fight's first-person renderer briefly after an action to avoid flicker.")
                 .defineInRange("first_person_release_ticks", 2, 0, 5);
         COMBAT_TIMEOUT_SECONDS = builder.comment(
-                "Return to vanilla after this many seconds without combat activity. Zero disables the timeout.",
+                "Return to vanilla after this many seconds without combat activity. Zero disables both inactivity and item-switch exit timers.",
                 "Attacks, active combat animations/skills, guarding and receiving hits refresh the timer.",
                 "Uses player ticks; pausing does not consume the timer.")
                 .defineInRange("combat_timeout_seconds", 7, 0, 300);

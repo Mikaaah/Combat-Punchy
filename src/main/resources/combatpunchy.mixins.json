@@ -10,6 +10,7 @@
   ],
   "client": [
     "ControlEngineMixin",
+    "CombatItemSwitchMixin",
     "CombatAttackKeyMixin",
     "CombatMiningMixin",
     "CombatMiningAttackMixin",

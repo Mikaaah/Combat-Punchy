@@ -19,6 +19,7 @@ public final class CombatMiningContractTest {
     public static void main(String[] args) throws IOException {
         CombatMiningPolicyTest.main(args);
         weaponContracts();
+        itemSwitchGraceHook();
         ClassNode gameMode = type("net/minecraft/client/multiplayer/MultiPlayerGameMode");
         method(gameMode, "startDestroyBlock", "(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Z");
         method(gameMode, "continueDestroyBlock", "(Lnet/minecraft/core/BlockPos;Lnet/minecraft/core/Direction;)Z");
@@ -69,6 +70,50 @@ public final class CombatMiningContractTest {
         check(axeClass && pickaxeClass && axeTag && pickaxeTag,
                 "vanilla subclasses and standard tool tags both grant mining permission");
         System.out.println("PASS: " + checks + " native mining hook and tool classification contracts");
+    }
+
+    private static void itemSwitchGraceHook() throws IOException {
+        String owner = "yesman/epicfight/client/world/capabilites/entitypatch/player/LocalPlayerPatch";
+        String target = "updateHeldItem(Lyesman/epicfight/world/capabilities/item/CapabilityItem;Lyesman/epicfight/world/capabilities/item/CapabilityItem;)V";
+        MethodNode nativeHeldItem = method(type(owner), "updateHeldItem",
+                "(Lyesman/epicfight/world/capabilities/item/CapabilityItem;Lyesman/epicfight/world/capabilities/item/CapabilityItem;)V");
+        int exits = 0;
+        for (AbstractInsnNode instruction : nativeHeldItem.instructions) {
+            if (instruction instanceof MethodInsnNode call && call.owner.equals(owner)
+                    && call.name.equals("toVanillaMode") && call.desc.equals("(Z)V")) exits++;
+        }
+        check(exits == 1, "native item-switch preference must have exactly one exit call to defer");
+        MethodNode hook = namedMethod(type("nl/tnk/combatpunchy/mixin/CombatItemSwitchMixin"),
+                "combatpunchy$deferNativeItemExit");
+        AnnotationNode wrap = null;
+        if (hook.visibleAnnotations != null) {
+            for (AnnotationNode annotation : hook.visibleAnnotations) if (annotation.desc.endsWith("/WrapOperation;")) wrap = annotation;
+        }
+        if (hook.invisibleAnnotations != null) {
+            for (AnnotationNode annotation : hook.invisibleAnnotations) if (annotation.desc.endsWith("/WrapOperation;")) wrap = annotation;
+        }
+        check(wrap != null, "native item preference must be wrapped without canceling unrelated item updates");
+        check(value(wrap, "method") instanceof List<?> targets && targets.size() == 1 && targets.contains(target),
+                "manual and general mode-switch paths must remain outside the item-preference hook");
+        check(Integer.valueOf(1).equals(value(wrap, "require")), "missing native preference exit must fail visibly");
+        Object location = value(wrap, "at");
+        AnnotationNode at = location instanceof AnnotationNode direct ? direct
+                : location instanceof List<?> locations && locations.size() == 1
+                && locations.get(0) instanceof AnnotationNode node ? node : null;
+        check(at != null && "INVOKE".equals(value(at, "value"))
+                && ("L" + owner + ";toVanillaMode(Z)V").equals(value(at, "target")),
+                "only the native mining-preference mode exit is deferred");
+        int fallbackCalls = 0;
+        boolean checksOwnership = false;
+        for (AbstractInsnNode instruction : hook.instructions) {
+            if (!(instruction instanceof MethodInsnNode call)) continue;
+            if (call.owner.equals("nl/tnk/combatpunchy/CombatModeController")
+                    && call.name.equals("deferNativeItemSwitch")) checksOwnership = true;
+            if (call.owner.equals("com/llamalad7/mixinextras/injector/wrapoperation/Operation")
+                    && call.name.equals("call")) fallbackCalls++;
+        }
+        check(checksOwnership && fallbackCalls == 1,
+                "unowned/disabled sessions keep exactly one original native exit without replay");
     }
 
     private static void weaponContracts() throws IOException {

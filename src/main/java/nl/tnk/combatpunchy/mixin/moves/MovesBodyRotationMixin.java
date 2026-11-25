@@ -15,6 +15,6 @@ public abstract class MovesBodyRotationMixin {
     @Inject(method = "applyBodyRotationBlend", at = @At("HEAD"), cancellable = true, require = 1)
     private static void combatpunchy$keepNativeBodyYaw(AbstractClientPlayer player, PlayerPoseState state,
                                                       float partial, CallbackInfo ci) {
-        if (RenderOwnership.epicBody(player)) ci.cancel();
+        if (RenderOwnership.epicMovesControl(player)) ci.cancel();
     }
 }

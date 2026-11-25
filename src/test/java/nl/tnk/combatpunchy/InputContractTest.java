@@ -41,6 +41,12 @@ public final class InputContractTest {
         }
         check(calls == 1, "input callback cannot generate/replay an additional attack");
 
+        actionHook(engine, mixin, "maybeDodge", "combatpunchy$beforeDodge", "DODGE");
+        actionHook(engine, mixin, "maybeGuard", "combatpunchy$beforeGuard", "GUARD");
+        actionHook(engine, mixin, "maybePerformMoverSkill", "combatpunchy$beforePerformMoverSkill", "MOBILITY");
+        actionHook(engine, mixin, "handleSeparateWeaponInnateSkill",
+                "combatpunchy$beforeSeparateWeaponInnateSkill", "WEAPON_INNATE_SKILL");
+
         ClassNode keyMixin = type("nl/tnk/combatpunchy/mixin/CombatAttackKeyMixin");
         MethodNode key = method(keyMixin, "combatpunchy$acceptFirstWeaponAttack",
                 "(Lcom/mojang/blaze3d/platform/InputConstants$Key;Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfoReturnable;)V");
@@ -72,6 +78,30 @@ public final class InputContractTest {
         }
         check(clearsBack && clearsRendering, "disconnect/world replacement clears both cosmetic owner caches");
         System.out.println("PASS: " + checks + " native input, prediction and lifecycle contracts");
+    }
+
+    private static void actionHook(ClassNode engine, ClassNode mixin, String target, String hook, String action) {
+        method(engine, target, "()V");
+        MethodNode callback = method(mixin, hook, "(Lorg/spongepowered/asm/mixin/injection/callback/CallbackInfo;)V");
+        AnnotationNode inject = annotation(callback, "Lorg/spongepowered/asm/mixin/injection/Inject;");
+        check(value(inject, "method") instanceof List<?> targets && targets.contains(target + "()V"),
+                "mode entry must happen in the native " + action + " handler");
+        check(!Boolean.TRUE.equals(value(inject, "cancellable"))
+                && value(inject, "at") instanceof List<?> locations && locations.size() == 1
+                && "HEAD".equals(value((AnnotationNode) locations.get(0), "value")),
+                "the native action must continue through its original checks after mode entry");
+        int inputCalls = 0;
+        boolean matchesAction = false;
+        for (AbstractInsnNode instruction : callback.instructions) {
+            if (instruction instanceof FieldInsnNode field && field.name.equals(action)
+                    && field.owner.equals("yesman/epicfight/api/client/input/action/EpicFightInputAction")) matchesAction = true;
+            if (instruction instanceof MethodInsnNode call) {
+                inputCalls++;
+                check(call.owner.equals("nl/tnk/combatpunchy/CombatModeController") && call.name.equals("beforeCombatAction"),
+                        "combat input hooks cannot replay a skill or synthesize input");
+            }
+        }
+        check(matchesAction && inputCalls == 1, "the native " + action + " action enters once");
     }
 
     private static ClassNode type(String name) throws IOException {

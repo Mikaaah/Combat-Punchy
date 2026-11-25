@@ -2,7 +2,7 @@
   "schema": 1,
   "project": "combat-punchy",
   "artifact_id": "combat-punchy",
-  "version": "1.3.5",
+  "version": "1.3.6",
   "edition": "standard",
   "changelog": "CHANGELOG.md",
   "targets": [

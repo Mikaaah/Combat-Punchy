@@ -14,11 +14,9 @@ public final class ModeSession {
     }
 
     private boolean initialized;
-    private boolean enteredOnHit;
 
     public void reset() {
         initialized = false;
-        enteredOnHit = false;
     }
 
     public Decision update(boolean enabled, boolean switchingAllowed, boolean weapon,
@@ -34,15 +32,14 @@ public final class ModeSession {
     public Decision update(boolean enabled, boolean switchingAllowed, boolean weapon,
                            boolean inCombat, boolean combatAttack, boolean incomingHit,
                            boolean heldItemChanged, Features features) {
-        return update(enabled, switchingAllowed, weapon, inCombat, combatAttack, incomingHit,
-                heldItemChanged, features.autoEnterCombat(), features.autoExitOnItemSwitch(),
-                features.startInVanillaMode(), features.autoEnterOnHit());
+        return update(enabled, switchingAllowed, weapon, inCombat, combatAttack, false, incomingHit,
+                features.autoEnterCombat(), false, features.startInVanillaMode(), features.autoEnterOnHit());
     }
 
-    /** Primitive flags keep the client input/tick path allocation-free. */
+    /** Combat actions may enter with an empty hand; basic attack entry still requires a weapon. */
     public Decision update(boolean enabled, boolean switchingAllowed, boolean weapon,
-                           boolean inCombat, boolean combatAttack, boolean incomingHit,
-                           boolean heldItemChanged, boolean autoEnterCombat, boolean autoExitOnItemSwitch,
+                           boolean inCombat, boolean combatAttack, boolean combatAction,
+                           boolean incomingHit, boolean autoEnterCombat, boolean autoEnterOnCombatAction,
                            boolean startInVanillaMode, boolean autoEnterOnHit) {
         if (!enabled || !switchingAllowed) {
             reset();
@@ -51,21 +48,13 @@ public final class ModeSession {
 
         boolean firstUpdate = !initialized;
         initialized = true;
-        if (!inCombat || heldItemChanged || !autoEnterOnHit) enteredOnHit = false;
-        // A real hit wins over startup/item-exit rules in this update. Retain the
-        // mode with the current tool/empty hand until timeout or another selection.
-        if (incomingHit && autoEnterOnHit) {
-            enteredOnHit = true;
+        // Inputs and real hits win over the initial-mode policy in the same update.
+        if ((incomingHit && autoEnterOnHit) || (combatAction && autoEnterOnCombatAction)
+                || (weapon && combatAttack && autoEnterCombat)) {
             return inCombat ? Decision.NONE : Decision.ENTER_COMBAT;
         }
-        if (!weapon) {
-            return inCombat && !enteredOnHit && (autoExitOnItemSwitch
-                    || (firstUpdate && startInVanillaMode)) ? Decision.ENTER_VANILLA : Decision.NONE;
-        }
-        if (combatAttack && autoEnterCombat) {
-            return inCombat ? Decision.NONE : Decision.ENTER_COMBAT;
-        }
-        // Even servers whose initialMode is combat start this interaction policy in vanilla.
+        // Item selection never changes mode synchronously. CombatIdleTimeout owns the
+        // configurable switch grace, including when ordinary inactivity exit is disabled.
         if (firstUpdate && inCombat && startInVanillaMode) {
             return Decision.ENTER_VANILLA;
         }

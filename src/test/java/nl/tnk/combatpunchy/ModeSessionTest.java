@@ -11,11 +11,11 @@ public final class ModeSessionTest {
         check(session.update(true, true, true, false, true), ENTER_COMBAT, "first attack enters combat");
         check(session.update(true, true, true, true, true), NONE, "successive attacks do not resend mode");
         check(session.update(true, true, true, true, false), NONE, "another weapon keeps combat");
-        check(session.update(true, true, false, true, false), ENTER_VANILLA, "selecting a tool exits immediately");
+        check(session.update(true, true, false, true, false), NONE, "selecting a tool waits for the configured switch grace");
         check(session.update(true, true, false, false, true), NONE, "tool attack stays vanilla");
         check(session.update(true, true, true, false, false), NONE, "re-equipping does not auto-enter");
         check(session.update(true, true, true, false, true), ENTER_COMBAT, "attack after re-equipping re-enters");
-        check(session.update(true, true, false, true, true), ENTER_VANILLA, "tool click cleans stale combat state");
+        check(session.update(true, true, false, true, true), NONE, "tool clicks do not forcibly change combat mode");
         session.reset();
         check(session.update(true, true, true, true, false), ENTER_VANILLA, "new session starts vanilla even if server starts combat");
         check(session.update(true, true, true, false, true), ENTER_COMBAT, "first attack after reconnect works");
@@ -23,11 +23,11 @@ public final class ModeSessionTest {
         check(session.update(false, true, false, true, true), NONE, "disabled addon leaves mode alone");
         session.reset();
         check(session.update(true, true, true, false, true), ENTER_COMBAT, "attack can initialize a new session");
-        check(session.update(true, true, false, true, false), ENTER_VANILLA, "empty hand exits");
+        check(session.update(true, true, false, true, false), NONE, "empty hand selection waits for grace");
         check(session.update(true, true, false, false, false), NONE, "idle tools cause no mode packet spam");
         var noEntry = new ModeSession.Features(false, true, true);
         check(session.update(true, true, true, false, true, noEntry), NONE, "attack activation can be disabled");
-        check(session.update(true, true, false, true, false, noEntry), ENTER_VANILLA, "disabling activation keeps item exit enabled");
+        check(session.update(true, true, false, true, false, noEntry), NONE, "item-switch exit is timed independently from attack entry");
         var noItemExit = new ModeSession.Features(true, false, true);
         check(session.update(true, true, false, true, false, noItemExit), NONE, "item exit can be disabled");
         check(session.update(true, true, false, true, true, noItemExit), NONE, "disabled item exit ignores utility attacks");
@@ -35,7 +35,7 @@ public final class ModeSessionTest {
         var noStartReset = new ModeSession.Features(true, true, false);
         session.reset();
         check(session.update(true, true, true, true, false, noStartReset), NONE, "startup vanilla reset can be disabled");
-        check(session.update(true, true, false, true, false, noStartReset), ENTER_VANILLA, "disabled startup reset keeps normal item exit");
+        check(session.update(true, true, false, true, false, noStartReset), NONE, "disabled startup reset preserves manual combat with a tool");
         var manual = new ModeSession.Features(false, false, false);
         session.reset();
         check(session.update(true, true, true, true, false, manual), NONE, "all mode features off preserves server initial combat");
@@ -55,14 +55,14 @@ public final class ModeSessionTest {
                 "holding the same non-weapon cannot immediately cancel hit entry");
         check(session.update(true, true, false, true, false, true, false, hitDefaults), NONE,
                 "repeat hits retain combat without resending mode changes");
-        check(session.update(true, true, false, true, false, false, true, hitDefaults), ENTER_VANILLA,
-                "selecting another non-weapon still exits combat");
+        check(session.update(true, true, false, true, false, false, true, hitDefaults), NONE,
+                "selecting another non-weapon cannot bypass timed grace");
         check(session.update(true, true, false, false, false, false, false, hitDefaults), NONE,
                 "a completed combat session cannot re-enter without another hit");
         check(session.update(true, true, true, false, false, true, false, hitDefaults), ENTER_COMBAT,
                 "hits also enter while a weapon is equipped");
-        check(session.update(true, true, false, true, false, false, true, hitDefaults), ENTER_VANILLA,
-                "weapon-to-tool switching retains the original exit behavior");
+        check(session.update(true, true, false, true, false, false, true, hitDefaults), NONE,
+                "weapon-to-tool switching waits for timed exit");
         session.reset();
         check(session.update(true, true, false, true, false, true, true, hitDefaults), NONE,
                 "a first-session hit wins over startup and item-exit rules");
@@ -70,8 +70,8 @@ public final class ModeSessionTest {
                 "a startup hit remains active with the original held item");
         check(session.update(true, true, false, false, false, false, false, hitDefaults), NONE,
                 "manual exit or timeout releases hit-triggered protection");
-        check(session.update(true, true, false, true, false, false, false, hitDefaults), ENTER_VANILLA,
-                "later manual combat cannot inherit protection from an earlier hit session");
+        check(session.update(true, true, false, true, false, false, false, hitDefaults), NONE,
+                "later manual combat is preserved until a timed or manual exit");
         var noHitEntry = new ModeSession.Features(true, true, true, false);
         session.reset();
         check(session.update(true, true, true, false, false, true, false, noHitEntry), NONE,
@@ -91,8 +91,8 @@ public final class ModeSessionTest {
         session.reset();
         check(session.update(true, true, false, false, false, true, false, hitDefaults), ENTER_COMBAT,
                 "a fresh hit can re-enter after a restriction");
-        check(session.update(true, true, false, true, false, false, false, noHitEntry), ENTER_VANILLA,
-                "disabling the hit feature releases non-weapon protection");
+        check(session.update(true, true, false, true, false, false, false, noHitEntry), NONE,
+                "disabling hit entry does not force an item-switch exit");
         checkHit(IncomingHit.isCombatHit(1, 1, 2, 2), true, "another entity hits the local player");
         checkHit(IncomingHit.isCombatHit(1, 1, 2, 3), true, "a projectile from another entity counts");
         checkHit(IncomingHit.isCombatHit(1, 1, -1, 3), true, "an ownerless projectile still counts");
@@ -102,17 +102,47 @@ public final class ModeSessionTest {
         checkHit(IncomingHit.isCombatHit(1, 1, -1, 1), false, "direct self damage is ignored");
         checkHit(IncomingHit.isCombatHit(0, 0, 2, -1), true, "entity ID zero is a valid local player");
         session.reset();
-        check(session.update(true, true, true, false, true, false, true, true, true, true, true),
+        check(session.update(true, true, true, false, true, false, false, true, false, true, true),
                 ENTER_COMBAT, "allocation-free first attack beats startup with an item change");
-        check(session.update(true, true, true, true, true, false, false, true, true, true, true),
+        check(session.update(true, true, true, true, true, false, false, true, false, true, true),
                 NONE, "allocation-free repeat does not resend the mode packet");
-        check(session.update(true, true, false, true, false, false, true, true, true, true, true),
-                ENTER_VANILLA, "allocation-free selection exit remains immediate");
+        check(session.update(true, true, false, true, false, false, false, true, false, true, true),
+                NONE, "allocation-free selection path waits for timed exit");
         session.reset();
-        check(session.update(true, false, true, false, true, false, false, true, true, true, true),
+        check(session.update(true, false, true, false, true, false, false, true, false, true, true),
                 NONE, "allocation-free entry respects server restrictions");
-        check(session.update(false, true, true, false, true, false, false, true, true, true, true),
+        check(session.update(false, true, true, false, true, false, false, true, false, true, true),
                 NONE, "allocation-free entry respects the master switch");
+        session.reset();
+        check(session.update(true, true, false, false, false, true, false, true, true, true, true), ENTER_COMBAT,
+                "a supported combat action enters with an empty hand");
+        check(session.update(true, true, false, true, false, true, false, true, true, true, true), NONE,
+                "repeated combat actions do not resend the mode change");
+        check(session.update(true, true, false, true, false, false, false, true, true, true, true), NONE,
+                "tool selection after action entry cannot force an immediate exit");
+        session.reset();
+        check(session.update(true, true, false, false, true, false, false, true, true, true, true), NONE,
+                "an ordinary unarmed attack is distinct from an eligible combat action");
+        check(session.update(true, true, true, false, false, true, false, true, false, true, true), NONE,
+                "combat-action entry has an independent disable switch");
+        check(session.update(true, true, false, false, false, true, false, false, true, true, true), ENTER_COMBAT,
+                "combat-action entry does not require basic weapon attack entry");
+        session.reset();
+        check(session.update(true, true, false, true, false, true, false, true, true, true, true), NONE,
+                "a real action wins over the initial vanilla-mode reset");
+        session.reset();
+        check(session.update(true, true, false, true, false, true, false, true, false, true, true), ENTER_VANILLA,
+                "disabled action entry does not bypass the requested initial-mode policy");
+        session.reset();
+        check(session.update(false, true, false, false, false, true, false, true, true, true, true), NONE,
+                "master disable blocks action entry");
+        check(session.update(true, false, false, false, false, true, false, true, true, true, true), NONE,
+                "server restrictions block action entry");
+        check(session.update(true, true, true, false, true, false, false, true, false, true, true), ENTER_COMBAT,
+                "disabling action entry preserves eligible basic attack entry");
+        session.reset();
+        check(session.update(true, true, true, false, true, true, false, true, true, true, true), ENTER_COMBAT,
+                "a single input with both intents produces one mode decision");
         System.out.println("PASS: " + checks + " transition checks");
     }
 

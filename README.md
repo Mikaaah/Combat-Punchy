@@ -9,7 +9,7 @@
 <p align="center"><img src="https://img.shields.io/badge/Minecraft-1.20.1-5b8731?style=flat-square" alt="Minecraft 1.20.1"> <img src="https://img.shields.io/badge/Forge-d77828?style=flat-square" alt="Forge"> <a href="https://mikaaah.github.io/TownsAndKingdoms/projects/"><img src="https://img.shields.io/badge/Towns_%26_Kingdoms-Modding_Hub-7f384a?style=flat-square" alt="Towns & Kingdoms Modding Hub"></a></p>
 
 
-**Current build: 1.3.5.** Client-side Epic Fight, Punchy and Punchy! Moves integration, with optional common weapon defaults.
+**Current build: 1.3.6.** Client-side Epic Fight, Punchy and Punchy! Moves integration, with optional common weapon defaults.
 
 ## Supported targets
 
@@ -22,7 +22,7 @@ Use the JAR matching your loader. Punchy and Moves remain optional; older versio
 
 ## Automatic combat
 
-Attack with an eligible registered Epic Fight melee weapon to enter battle mode on that input. Entity-attributed damage can also trigger combat. Selecting a non-weapon exits battle mode. The configurable inactivity timeout defaults to seven seconds (140 player ticks); attacks, combat actions, guarding and hits refresh it. Zero disables the timeout.
+Attack with an eligible registered Epic Fight melee weapon to enter battle mode on that input. Entity-attributed damage can also trigger combat. Dodge, guard, shield blocks and separately bound mobility or innate skills can also enter combat. Swapping off a melee weapon starts a fresh exit timer. The configurable inactivity timeout defaults to seven seconds (140 player ticks); attacks, combat actions, guarding and hits refresh it. Zero disables the timeout.
 
 The first attack predicts **visual ownership**, not damage. Epic Fight changes local mode and sends its native mode packet before processing the original attack. Combat Punchy never consumes/replays that click, queues another attack, or bypasses stamina, animation restrictions or server rules. If basic and innate attacks share a binding, Epic Fight's native tap/hold discrimination still applies. Holding attack does not gain automatic repeated attacks.
 

@@ -1,3 +1,10 @@
+# 1.3.6 — Dodge, guard and combat handoff
+
+- Enter Epic Fight combat from an equipped dodge, guard, separately bound mobility or weapon innate action. Starting a shield block also enters combat.
+- Swapping from a melee weapon to a tool, another non-weapon or empty hand starts a fresh seven-second grace period by default. Combat activity refreshes the timer.
+- Keep Epic Fight in control of Punchy! Moves locomotion, body animation and enabled camera integration throughout battle mode.
+- Let ordinary interaction take priority when Guard shares the Use button. Bind Guard separately to start guarding while aiming at a block or entity.
+
 # 1.3.5 — Weapon compatibility and combat mining
 
 - Respect registered Epic Fight melee movesets on Cataclysm weapons that inherit from pickaxes, including Infernal Forge, Void Forge and Brontes. Honor their sword tag with the native pickaxe moveset too; ordinary mining pickaxes stay excluded from automatic combat entry.
