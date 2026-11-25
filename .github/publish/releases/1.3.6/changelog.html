@@ -1,0 +1,105 @@
+<h2>1.3.6 — Dodge, guard and combat handoff</h2>
+<ul>
+<li>Enter Epic Fight combat from an equipped dodge, guard, separately bound mobility or weapon innate action. Starting a shield block also enters combat.</li>
+<li>Swapping from a melee weapon to a tool, another non-weapon or empty hand starts a fresh seven-second grace period by default. Combat activity refreshes the timer.</li>
+<li>Keep Epic Fight in control of Punchy! Moves locomotion, body animation and enabled camera integration throughout battle mode.</li>
+<li>Let ordinary interaction take priority when Guard shares the Use button. Bind Guard separately to start guarding while aiming at a block or entity.</li>
+</ul>
+<h2>1.3.5 — Weapon compatibility and combat mining</h2>
+<ul>
+<li>Respect registered Epic Fight melee movesets on Cataclysm weapons that inherit from pickaxes, including Infernal Forge, Void Forge and Brontes. Honor their sword tag with the native pickaxe moveset too; ordinary mining pickaxes stay excluded from automatic combat entry.</li>
+<li>Supply a native Epic Fight pickaxe/axe moveset for the three Cataclysm weapons only when no capability exists. Keep explicit empty, addon and user datapack assignments intact.</li>
+<li>Keep backported <code>minecraft:*_spear</code> weapons on Epic Fight&#x27;s native spear animations during combat instead of falling back to vanilla stab handling when aiming at blocks.</li>
+<li>Block block-breaking in combat mode except with axes and pickaxes; keep ordinary mining outside combat.</li>
+<li>Preserve combat attacks through blocks/grass instead of letting mining preference consume them.</li>
+<li>Add the enabled-by-default <code>combat_mining_axes_pickaxes_only</code> client setting.</li>
+<li>Retain Punchy! Moves 1.0.9 or newer with no maximum version.</li>
+</ul>
+<h2>1.3.4 — Fix Punchy! Moves FML requirements</h2>
+<ul>
+<li>Correct Forge metadata that rejected installed Punchy! Moves 1.0.9.</li>
+<li>Require Moves 1.0.9 or newer with no upper version bound on both loaders.</li>
+<li>Retain the exact 1.3.3 Java runtime classes; this is a dependency-metadata hotfix.</li>
+</ul>
+<h2>1.3.3 — Combat responsiveness and sheath ownership</h2>
+<ul>
+<li>Suppress sheathed offhand items in Epic Fight&#x27;s patched held-item renderer as well as vanilla and Punchy hands.</li>
+<li>Restore hand visibility immediately for combat, offhand use and delayed hand-swap transitions.</li>
+<li>Give the first eligible attack immediate client-side render ownership while forwarding its original native attack once.</li>
+<li>Cache local patch/classification lookups and render poses; clear session references on player/world replacement.</li>
+<li>Replace reflective optional API calls with typed Punchy/Moves bridges and explicit compatible minimum versions.</li>
+<li>Update tested Punchy pin to 3.2b; retain Moves 1.0.9 and the existing loader-specific Epic Fight versions.</li>
+<li>Replace NeoForge&#x27;s deprecated config-list overload with its supported editable-list API.</li>
+</ul>
+<p>Epic Fight&#x27;s native animation/stamina restrictions, server rules and shared attack/special-key long-press detection remain authoritative.</p>
+<h2>1.3.2 — Punchy! Moves 1.0.9 compatibility</h2>
+<ul>
+<li>Allow and verify Punchy! Moves 1.0.9 on both supported loaders.</li>
+<li>Preserve offhand stowing, equip animations, back placement and automatic combat switching from 1.3.1.</li>
+</ul>
+<h2>1.3.1 — Offhand stowing and equip animations</h2>
+<ul>
+<li>Hide the complete first-person offhand, including skin, sleeves, armor and overlays, while its weapon is stowed.</li>
+<li>Play the animation pack’s offhand hand-out and hand-in clips when stowing and drawing without moving inventory items.</li>
+<li>Wait for the lowering animation before moving the offhand item to the back; immediately release it for combat and active use.</li>
+<li>Keep existing combat entry, inactivity timeout and weapon placement settings.</li>
+</ul>
+<h2>1.3.0 — Action-based hands and back weapons</h2>
+<ul>
+<li>Refine default back weapons to 85% scale with a 6-degree inward handle tilt.</li>
+<li>Add global tilt/pitch/yaw and per-item size/rotation overrides for custom weapon models.</li>
+<li>Center shields upright on the back with independent shield size and rotation controls.</li>
+</ul>
+<ul>
+<li>Restore Punchy between combat actions while preserving Epic Fight attacks, guards and skills.</li>
+<li>Override only Punchy’s native Epic Fight ownership gate; keep its other integrations and armor fixes.</li>
+<li>Add local cosmetic back displays for eligible offhand and recently selected main-hand weapons, following Moves and Epic Fight torso animation.</li>
+<li>Bring the offhand item back during combat and active use; expose back offset/scale settings.</li>
+<li>Target Punchy 3.2a and Punchy! Moves 1.0.8 on both loaders.</li>
+<li>Respect Epic Fight weapon categories, excluding axes, mining tools and gloves/fists.</li>
+<li>Preserve automatic combat entry, item-switch exit and the configurable inactivity timeout.</li>
+</ul>
+<h2>Combat Punchy 1.2.1 — delivered hotfix</h2>
+<ul>
+<li>Added support for Punchy 3.2 and Punchy! Moves 1.0.8 on NeoForge 1.21.1 and Forge 1.20.1.</li>
+<li>Kept Epic Fight in control of first-person hands throughout battle mode.</li>
+<li>Retained automatic combat switching, hit-triggered entry, the seven-second timeout, facial attachment and saved animation preferences.</li>
+</ul>
+<p>The GitHub Java source snapshots remain at 1.2. These notes describe the separately supplied 1.2.1 builds.</p>
+<h2>Combat Punchy 1.2</h2>
+<ul>
+<li>Added support for Punchy! Moves 1.0.6, 1.0.6-hotfix and 1.0.7.</li>
+<li>Prevented Moves&#x27; new Spatial GUI camera handoff from restoring its shoulder-camera offset during Epic Fight combat.</li>
+<li>Preserved support for earlier Moves builds and Punchy 3.1b.</li>
+<li>Retained automatic combat switching, incoming-hit entry, timeout settings and facial attachment handling.</li>
+</ul>
+<h2>Combat Punchy 1.1</h2>
+<ul>
+<li>Added automatic combat entry when another entity or projectile hits you, including while holding a tool or using empty hands.</li>
+<li>Added <code>auto_enter_on_hit</code>, enabled by default and independent of attack-triggered entry.</li>
+<li>Kept hit-triggered combat active with the current held item until the inactivity timeout; selecting another non-weapon still exits combat.</li>
+<li>Added a dedicated Epic Fight attachment for Moves&#x27; facial layer, preventing the vanilla-head overlay from floating away from the combat head.</li>
+<li>Kept animated eyes, brows and facial effects on the same head transform as the player&#x27;s skin during combat.</li>
+<li>Added <code>moves_facial_bridge</code>, enabled by default, with automatic restoration of the vanilla head/hat pose after drawing faces.</li>
+<li>Added support for <strong>Punchy! Moves 1.0.4 and 1.0.5</strong>, alongside 1.0.3.</li>
+<li>Removed the exact Moves 1.0.3 version restriction that prevented newer supported releases from loading.</li>
+<li>Connected Epic Fight combat to Moves&#x27; animation-intent API so flight transitions yield their base pose during combat.</li>
+<li>Retained automatic combat switching, the <strong>7-second</strong> default timeout, and the existing feature settings.</li>
+</ul>
+<p>The facial-rendering correction is included from the rebuilt 1.1 onward. The original report is <a href="https://github.com/Mikaaah/Combat-Punchy/issues/1">closed</a>.</p>
+<h2>Combat Punchy 1.0</h2>
+<p>Initial public release.</p>
+<ul>
+<li>Added standalone compatibility between <strong>Epic Fight</strong>, <strong>Punchy</strong> and <strong>Punchy! Moves</strong>.</li>
+<li>Added automatic combat entry when attacking with a supported melee weapon.</li>
+<li>Added automatic return to vanilla when selecting a non-weapon item, tool or empty hand.</li>
+<li>Added a configurable combat inactivity timer, with a <strong>7-second default</strong>.</li>
+<li>Attacks, active combat skills, guarding and receiving hits refresh the combat timer.</li>
+<li>Added Punchy first-person animations between combat actions, with Epic Fight taking over for combat poses.</li>
+<li>Added automatic Moves body and camera handoffs during Epic Fight combat.</li>
+<li>Added support for registered <strong>Weapons of Miracles (WOM)</strong> melee weapons.</li>
+<li>Added weapon filtering to exclude mining tools, fishing rods, ranged weapons and shields from automatic melee activation.</li>
+<li>Preserved native sheathed-katana and Ochs stances, with smoother first-person transitions.</li>
+<li>Added individual feature toggles, a master switch, configurable timeout and transition timing, and optional combat entry while targeting blocks.</li>
+</ul>
+<p><strong>Historical 1.0 issue:</strong> Moves facial alignment was corrected in the rebuilt 1.1; the report is now closed.</p>
