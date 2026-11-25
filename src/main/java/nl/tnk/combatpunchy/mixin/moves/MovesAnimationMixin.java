@@ -18,7 +18,7 @@ public abstract class MovesAnimationMixin {
     private static boolean combatpunchy$nativeAnimationOwner(ExternalLocomotionControl control,
             boolean nativeActive, int tick, boolean explicit, boolean coveredBase, boolean specialAction,
             Operation<Boolean> original, @Local(argsOnly = true) AbstractClientPlayer player) {
-        if (RenderOwnership.epicBody(player)) {
+        if (RenderOwnership.epicMovesControl(player)) {
             // Use Moves' own native-animation handoff, including its input discard and pose reset.
             return original.call(control, true, tick, false, false, true);
         }

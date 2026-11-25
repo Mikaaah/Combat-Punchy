@@ -5,7 +5,9 @@ auto_enter_combat = true
 #Enter combat when another entity hits you, including projectile hits, with any held item.
 #The triggering hit has already been processed by the server.
 auto_enter_on_hit = true
-#Return to vanilla when selecting a tool, non-melee item or empty hand.
+#Enter combat from equipped combat actions or the start of a shield block.
+auto_enter_on_combat_action = true
+#Start a fresh timeout when swapping from a melee weapon to a non-weapon during combat.
 auto_exit_on_item_switch = true
 #Start each world/player session in vanilla, even if the server starts you in combat.
 start_in_vanilla_mode = true
@@ -16,9 +18,9 @@ auto_exit_on_timeout = true
 enter_while_targeting_block = false
 #Let Punchy render normal first-person actions; Epic Fight renders combat poses.
 punchy_first_person_bridge = true
-#Let Moves yield body animation, targeting and camera control to Epic Fight.
+#Give Epic Fight control of Moves locomotion and body animation throughout combat.
 moves_third_person_bridge = true
-#Suspend Moves camera, orbit and targeting while Epic Fight owns the player model.
+#Suspend Moves camera, orbit and targeting during Epic Fight combat.
 #Requires moves_third_person_bridge. Disable to keep Moves camera control during combat.
 moves_camera_bridge = true
 
@@ -31,7 +33,7 @@ preserve_native_stances = true
 # Default: 2
 # Range: 0 ~ 5
 first_person_release_ticks = 2
-#Return to vanilla after this many seconds without combat activity. Zero disables the timeout.
+#Return to vanilla after this many seconds without combat activity. Zero disables both inactivity and item-switch exit timers.
 #Attacks, active combat animations/skills, guarding and receiving hits refresh the timer.
 #Uses player ticks; pausing does not consume the timer.
 # Default: 7

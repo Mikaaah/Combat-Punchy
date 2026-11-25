@@ -97,8 +97,19 @@ public final class RenderOwnership {
         return patch != null && patch.overrideRender();
     }
 
+    /** Keep Moves' locomotion/input/body ownership with Epic Fight throughout battle mode.
+     * Native render ownership outside battle still wins, without changing facial attachment rules.
+     */
+    public static boolean epicMovesControl(AbstractClientPlayer player) {
+        if (!movesBridge() || player == null) return false;
+        AbstractClientPlayerPatch<?> patch = player == Minecraft.getInstance().player
+                ? CombatModeController.currentPatch()
+                : EpicFightCapabilities.getEntityPatch(player, AbstractClientPlayerPatch.class);
+        return patch != null && (patch.isEpicFightMode() || patch.overrideRender());
+    }
+
     public static boolean epicCamera() {
         Minecraft client = Minecraft.getInstance();
-        return CombatPunchyMod.MOVES_CAMERA_BRIDGE.get() && epicBody(client.player);
+        return CombatPunchyMod.MOVES_CAMERA_BRIDGE.get() && epicMovesControl(client.player);
     }
 }

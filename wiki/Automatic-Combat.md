@@ -10,11 +10,17 @@ Selecting an item alone does not start combat. Normal block mining/chopping stay
 
 ## Enter combat when hit
 
-Entity- or projectile-attributed damage can also trigger combat, including with a tool or empty hand. The current item may remain selected until timeout; choosing another non-weapon exits combat. `auto_enter_on_hit` controls this separately from attack entry. Switching happens after the server reports damage.
+Entity- or projectile-attributed damage can also trigger combat, including with a tool or empty hand. `auto_enter_on_hit` controls this separately from attack entry. Switching happens after the server reports damage.
+
+## Enter combat with a skill
+
+Press Epic Fight's Dodge or Guard binding with a supported skill equipped. Starting an actual shield block also works. A separately bound Mobility or Weapon Innate Skill action can enter combat directly.
+
+Standard movement and interaction bindings retain priority. If Guard shares the Use button, aim away from a block or entity and use a compatible weapon. A dedicated Guard binding also works while aiming at an interaction target.
 
 ## Return to normal movement
 
-Selecting a tool, a non-melee item or an empty hand returns you to vanilla mode by default. Switching between eligible melee weapons keeps combat mode active.
+Swapping from a melee weapon to a tool, non-melee item or empty hand starts a fresh seven-second grace period by default. Returning to a melee weapon clears the item-switch exit. Combat activity still refreshes the inactivity timer.
 
 Each new world/player session starts in vanilla mode by default. These entry, item-switch and startup behaviors have separate configuration switches.
 
@@ -24,7 +30,7 @@ The default timeout is **7 seconds**. Attacks, active combat animations/skills, 
 
 The timer follows player ticks, so pausing does not consume it. A new attack at the timeout boundary takes priority over expiry. Attack again after returning to vanilla mode to re-enter combat.
 
-Set `auto_exit_on_timeout = false` or `combat_timeout_seconds = 0` to disable inactivity exit.
+Set `auto_exit_on_timeout = false` to disable inactivity exit and `auto_exit_on_item_switch = false` to disable the separate item-switch exit. Setting `combat_timeout_seconds = 0` disables both timers.
 
 ## Server rules
 

@@ -1,6 +1,6 @@
 # Combat Punchy
 
-Combat Punchy switches you into Epic Fight combat when you attack with a supported melee weapon or take a hit from another entity. It can stow weapons on your back and hand off animations between Epic Fight, Punchy and Punchy! Moves.
+Combat Punchy switches you into Epic Fight combat when you attack with a supported melee weapon use dodge or guard, or take a hit from another entity. It can stow weapons on your back and hand off animations between Epic Fight, Punchy and Punchy! Moves.
 
 **Minecraft 1.21.1** · NeoForge 21.1.262 or later in the 21.1 series
 

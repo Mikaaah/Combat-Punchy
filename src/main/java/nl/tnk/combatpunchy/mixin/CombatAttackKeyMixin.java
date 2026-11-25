@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import yesman.epicfight.client.input.CombatKeyMapping;
 import yesman.epicfight.client.input.EpicFightKeyMappings;
 
-/** Keep normal key/context/modifier matching, without requiring combat before the first attack. */
+/** Keep normal key/context/modifier matching, while allowing eligible first combat inputs. */
 @Mixin(value = CombatKeyMapping.class, remap = false)
 public abstract class CombatAttackKeyMixin extends KeyMapping {
     private CombatAttackKeyMixin(String name, int key, String category) {
@@ -22,6 +22,9 @@ public abstract class CombatAttackKeyMixin extends KeyMapping {
     private void combatpunchy$acceptFirstWeaponAttack(InputConstants.Key key, CallbackInfoReturnable<Boolean> cir) {
         if ((Object) this == EpicFightKeyMappings.ATTACK && CombatModeController.acceptWeaponAttackInVanilla()) {
             cir.setReturnValue(super.isActiveAndMatches(key));
+        } else if (super.isActiveAndMatches(key)
+                && CombatModeController.acceptCombatActionInVanilla((KeyMapping) (Object) this)) {
+            cir.setReturnValue(true);
         }
     }
 }

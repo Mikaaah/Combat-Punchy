@@ -10,7 +10,8 @@ Settings are stored in `config/combatpunchy-client.toml`. They are client prefer
 | --- | --- | --- |
 | `enabled` | `true` | Master switch for automatic mode changes and compatibility handoffs |
 | `auto_enter_combat` | `true` | Attack with an eligible melee weapon to enter combat |
-| `auto_exit_on_item_switch` | `true` | Return to vanilla when selecting a non-melee item or empty hand |
+| `auto_enter_on_combat_action` | `true` | Enter combat from equipped Epic Fight actions or the start of a shield block |
+| `auto_exit_on_item_switch` | `true` | Start a fresh exit timer when swapping from a melee weapon to a non-weapon |
 | `start_in_vanilla_mode` | `true` | Start each world/player session in vanilla mode |
 | `auto_exit_on_timeout` | `true` | Return to vanilla after the configured inactivity interval |
 | `enter_while_targeting_block` | `false` | Also allow block-targeted attack inputs to start combat |
@@ -23,7 +24,7 @@ Settings are stored in `config/combatpunchy-client.toml`. They are client prefer
 
 | Setting | Default | Range | Meaning |
 | --- | --- | --- | --- |
-| `combat_timeout_seconds` | `7` | 0–300 seconds | Inactivity interval; 0 disables timeout exit |
+| `combat_timeout_seconds` | `7` | 0–300 seconds | Inactivity and item-switch interval. 0 disables both timers. |
 | `first_person_release_ticks` | `2` | 0–5 ticks | Short first-person renderer hold after a combat pose |
 
 Attacks, active combat animations/skills, guarding and receiving hits refresh the inactivity timer. It follows player ticks.

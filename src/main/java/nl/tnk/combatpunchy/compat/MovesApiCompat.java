@@ -12,7 +12,7 @@ public final class MovesApiCompat {
 
     private static final class Bridge {
         private static void register() {
-            AnimationIntent.register(player -> RenderOwnership.epicBody(player)
+            AnimationIntent.register(player -> RenderOwnership.epicMovesControl(player)
                     ? AnimationIntent.Kind.SPECIAL_ACTION : AnimationIntent.Kind.UNSPECIFIED);
         }
     }
