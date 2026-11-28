@@ -1,0 +1,23 @@
+{
+  "project_id": 1779010,
+  "version": "1.3.7",
+  "changelog_sha256": "eb4ce4f01e6b41bbd6c590b3cedf27274d03875071572a802e855ba8f1fe0990",
+  "relations": [
+    {
+      "slug": "epic-fight-mod",
+      "type": "requiredDependency"
+    }
+  ],
+  "artifacts": [
+    {
+      "filename": "combat-punchy-1.3.7-neoforge-1.21.1.jar",
+      "sha256": "3a94aabaea0ac184d1de52654b8e7eb8d9860943d6dd796d909ac9c04218dfe5",
+      "labels": [
+        "1.21.1",
+        "NeoForge",
+        "Java 21",
+        "Client"
+      ]
+    }
+  ]
+}
